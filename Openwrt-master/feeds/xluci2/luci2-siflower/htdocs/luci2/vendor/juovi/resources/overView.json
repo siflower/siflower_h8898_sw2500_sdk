@@ -1,0 +1,40 @@
+{
+    "networkInfo": {
+        "label":"Network Info",
+        "items":[
+            {
+                "label":"WAN IP address",
+                "value":"wan_ip"
+            },
+            {
+                "label":"LAN IP address",
+                "value":"lan_ip"
+            },
+            {
+                "label":"Manage Domains",
+                "value":"login_domain"
+            }
+        ]
+    },
+    "basicInfo": {
+        "label":"Basic Info",
+        "items":[
+            {
+                "label":"Model",
+                "value":"model_ver"
+            },
+            {
+                "label":"MAC address",
+                "value":"macaddr"
+            },
+            {
+                "label":"SN Code",
+                "value":"sn"
+            },
+            {
+                "label":"Uptime",
+                "value":"uptime"
+            }
+        ]
+    }
+}

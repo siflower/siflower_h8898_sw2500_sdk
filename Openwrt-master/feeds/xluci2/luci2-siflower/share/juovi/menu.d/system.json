@@ -1,0 +1,52 @@
+{
+	"system": {
+		"title": "System",
+		"index": 40
+	},
+	"system/syslog": {
+		"title": "System Log",
+		"acls": [ "status" ],
+		"view": "system/syslog",
+		"index": 10
+	},
+	"system/dmesg": {
+		"title": "Kernel Log",
+		"acls": [ "status" ],
+		"view": "system/dmesg",
+		"index": 20
+	},
+	"system/system": {
+		"title": "Date / Language",
+		"acls": [ "system" ],
+		"view": "system/system",
+		"index": 40
+	},
+	"system/users": {
+		"title": "Change the login password",
+		"acls": [ "users" ],
+		"view": "system/users",
+		"index": 50
+	},
+	"system/upgrade_juovi": {
+		"title": "Backup / Upgrade",
+		"acls": [ "backup", "upgrade", "ota" ],
+		"view": "system/upgrade_juovi",
+		"index": 60
+	},
+	"system/led": {
+		"title": "LED",
+		"acls": [ "leds" ],
+		"view": "system/led",
+		"index": 65
+	},
+	"system/reboot": {
+		"title": "Reboot",
+		"view": "system/reboot",
+		"index": 70
+	},
+	"system/logout": {
+		"title": "Logout",
+		"view": "system/logout",
+		"index": 80
+	}
+}

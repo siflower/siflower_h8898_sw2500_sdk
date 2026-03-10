@@ -1,0 +1,23 @@
+config GCC_VERSION_8
+	default y if GCC_USE_VERSION_8
+	bool
+
+config GCC_VERSION_10
+	default y if GCC_USE_VERSION_10
+	bool
+
+config GCC_VERSION_10_THEAD
+	default y if GCC_USE_VERSION_10_THEAD || !TOOLCHAINOPTS && TARGET_siflower
+	bool
+
+config GCC_VERSION_14_XUANTIE
+	default y if GCC_USE_VERSION_14_XUANTIE
+	bool
+
+config GCC_VERSION
+	string
+	default "8.4.0"		if GCC_VERSION_8
+	default "10.3.0"	if GCC_VERSION_10
+	default "10.4.0-thead2.10.2" if GCC_VERSION_10_THEAD
+	default "14.1.1-xuantie-3.0.1" if GCC_VERSION_14_XUANTIE
+	default "11.2.0"

@@ -1,0 +1,26 @@
+[
+    {
+        "value":"Uplink Diagnosis",
+        "type":"Internet"
+    },
+    {
+        "value":"DNS Diagnosis",
+        "type":"Internet"
+    },
+    {
+        "value":"HTTP Diagnosis",
+        "type":"Internet"
+    },
+    {
+        "value":"Key Diagnosis",
+        "type":"Basic"
+    },
+    {
+        "value":"LED Diagnosis",
+        "type":"Basic"
+    },
+    {
+        "value":"Wi-Fi Diagnosis",
+        "type":"Basic"
+    }
+]

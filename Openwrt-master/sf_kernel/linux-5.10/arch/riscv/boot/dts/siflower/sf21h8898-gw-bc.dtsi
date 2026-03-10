@@ -1,0 +1,605 @@
+/*
+ * Copyright 2022 SiFlower Corporation.
+ */
+
+#include "sf21h8898.dtsi"
+
+/ {
+	model = "siflower sf21h8898 gw-bc board";
+	compatible = "siflower,sf21h8898-gw-bc-nand", "siflower,sf21h8898";
+	aliases {
+		i2c0 = &i2c0;
+		i2c1 = &i2c1;
+		i2c2 = &mux_chan0;
+		i2c3 = &mux_chan1;
+		i2c4 = &mux_chan2;
+		i2c5 = &mux_chan3;
+		i2c6 = &mux_chan4;
+		i2c7 = &mux_chan5;
+		i2c8 = &mux_chan6;
+		i2c9 = &mux_chan7;
+	};
+
+	chosen {
+		stdout-path = "serial1:115200n8";
+	};
+
+	memory@20000000 {
+		device_type = "memory";
+		reg = <0x0 0x20000000 0x0 0x20000000>;
+	};
+
+	leds {
+		compatible = "gpio-leds";
+
+		led_status: led-status {
+			label = "status:blue";
+			gpios = <&gpio 1 GPIO_ACTIVE_LOW>;
+		};
+	};
+
+	gpio_keys {
+		compatible = "gpio-keys";
+		reset {
+			label = "reset";
+			linux,code = <KEY_RESTART>;
+			gpios = <&gpio 39 GPIO_ACTIVE_LOW>;
+			debounce-interval = <20>;
+		};
+	};
+
+	sfp_swp0: sfp-swp0 {
+		compatible = "sff,sfp";
+		i2c-bus = <&mux_chan0>;
+		los-gpios = <&pca9535_sfp 1 GPIO_ACTIVE_HIGH>;
+		mod-def0-gpios = <&pca9535_sfp 0 GPIO_ACTIVE_LOW>;
+	};
+
+	sfp_swp1: sfp-swp1 {
+		compatible = "sff,sfp";
+		i2c-bus = <&mux_chan1>;
+		los-gpios = <&pca9535_sfp 3 GPIO_ACTIVE_HIGH>;
+		mod-def0-gpios = <&pca9535_sfp 2 GPIO_ACTIVE_LOW>;
+	};
+
+	sfp_swp2: sfp-swp2 {
+		compatible = "sff,sfp";
+		i2c-bus = <&mux_chan2>;
+		los-gpios = <&pca9535_sfp 5 GPIO_ACTIVE_HIGH>;
+		mod-def0-gpios = <&pca9535_sfp 4 GPIO_ACTIVE_LOW>;
+	};
+
+	sfp_swp3: sfp-swp3 {
+		compatible = "sff,sfp";
+		i2c-bus = <&mux_chan3>;
+		los-gpios = <&pca9535_sfp 7 GPIO_ACTIVE_HIGH>;
+		mod-def0-gpios = <&pca9535_sfp 6 GPIO_ACTIVE_LOW>;
+	};
+
+	sfp_swp4: sfp-swp4 {
+		compatible = "sff,sfp";
+		i2c-bus = <&mux_chan4>;
+		los-gpios = <&pca9535_sfp 9 GPIO_ACTIVE_HIGH>;
+		mod-def0-gpios = <&pca9535_sfp 8 GPIO_ACTIVE_LOW>;
+	};
+
+	sfp_swp5: sfp-swp5 {
+		compatible = "sff,sfp";
+		i2c-bus = <&mux_chan5>;
+		los-gpios = <&pca9535_sfp 11 GPIO_ACTIVE_HIGH>;
+		mod-def0-gpios = <&pca9535_sfp 10 GPIO_ACTIVE_LOW>;
+	};
+
+	sfp_swp6: sfp-swp6 {
+		compatible = "sff,sfp";
+		i2c-bus = <&mux_chan6>;
+		los-gpios = <&pca9535_sfp 13 GPIO_ACTIVE_HIGH>;
+		mod-def0-gpios = <&pca9535_sfp 12 GPIO_ACTIVE_LOW>;
+	};
+
+	sfp_swp7: sfp-swp7 {
+		compatible = "sff,sfp";
+		i2c-bus = <&mux_chan7>;
+		los-gpios = <&pca9535_sfp 15 GPIO_ACTIVE_HIGH>;
+		mod-def0-gpios = <&pca9535_sfp 14 GPIO_ACTIVE_LOW>;
+	};
+};
+
+&pvt {
+	status = "okay";
+};
+
+&pcie0 {
+	reset-gpios = <&gpio 9 GPIO_ACTIVE_LOW>;
+	reset-ms = <100>;
+	num-lanes = <1>;
+	lane-mode = <0>;
+	status = "disabled";
+};
+
+&watchdog {
+	status = "okay";
+};
+
+&uart1 {
+	status = "okay";
+};
+
+&spi0 {
+	status = "okay";
+};
+
+&iomux {
+	pca9535_int_gpio: pca9535-int-pins {
+		pinctrl-single,pins = <PHY_INT GPIO_MODE>;
+		// disable internal bias as it's externally (and weakly) pulled up
+		pinctrl-single,bias-pullup = <0 SW_PU 0 SW_PU>;
+		pinctrl-single,bias-pulldown = <0 SW_PD 0 SW_PD>;
+	};
+	pca9535_jtag_gpio: pca9535-jtag-pins {
+		pinctrl-single,pins = <JTAG_TDO GPIO_MODE>;
+		// disable internal bias as it's externally (and weakly) pulled up
+		pinctrl-single,bias-pullup = <0 SW_PU 0 SW_PU>;
+		pinctrl-single,bias-pulldown = <0 SW_PD 0 SW_PD>;
+	};
+
+};
+
+&i2c0 {
+	status = "okay";
+
+	pca9535_sfp:gpio@21 {
+		compatible = "nxp,pca9535";
+		reg = <0x21>;
+		gpio-controller;
+		#gpio-cells =<2>;
+
+		interrupt-controller;
+		interrupts-extended = <&gpio 8 IRQ_TYPE_LEVEL_LOW>;
+		#interrupt-cells = <2>;
+
+		pinctrl-names = "default";
+		pinctrl-0 = <&pca9535_jtag_gpio>;
+	};
+
+	i2c-mux@77 {
+		compatible = "nxp,pca9548";
+		reg = <0x77>;
+		#address-cells = <1>;
+		#size-cells = <0>;
+		i2c-mux-idle-disconnect;
+
+		mux_chan0: i2c@0 {
+			reg = <0>;
+			#address-cells = <1>;
+			#size-cells = <0>;
+		};
+
+		mux_chan1: i2c@1 {
+			reg = <1>;
+			#address-cells = <1>;
+			#size-cells = <0>;
+		};
+
+		mux_chan2: i2c@2 {
+			reg = <2>;
+			#address-cells = <1>;
+			#size-cells = <0>;
+		};
+
+		mux_chan3: i2c@3 {
+			reg = <3>;
+			#address-cells = <1>;
+			#size-cells = <0>;
+		};
+
+		mux_chan4: i2c@4 {
+			reg = <4>;
+			#address-cells = <1>;
+			#size-cells = <0>;
+		};
+
+		mux_chan5: i2c@5 {
+			reg = <5>;
+			#address-cells = <1>;
+			#size-cells = <0>;
+		};
+
+		mux_chan6: i2c@6 {
+			reg = <6>;
+			#address-cells = <1>;
+			#size-cells = <0>;
+		};
+
+		mux_chan7: i2c@7 {
+			reg = <7>;
+			#address-cells = <1>;
+			#size-cells = <0>;
+		};
+	};
+
+};
+
+&i2c1 {
+	status = "okay";
+
+	nxp_pca9535:gpio@20 {
+		compatible = "nxp,pca9535";
+		reg = <0x20>;
+		gpio-controller;
+		#gpio-cells =<2>;
+
+		interrupt-controller;
+		interrupts-extended = <&gpio 40 IRQ_TYPE_LEVEL_LOW>;
+		#interrupt-cells = <2>;
+
+		pinctrl-names = "default";
+		pinctrl-0 = <&pca9535_int_gpio>;
+	};
+
+	rtc: rtc@51 {
+		compatible = "analogtek,at8563", "nxp,pcf8563";
+		reg = <0x51>;
+		#clock-cells = <0>;
+		// PCA9535 doesn't support level interrupt.
+		// RTC alarm is useless for this board anyway.
+		// interrupts-extended = <&nxp_pca9535 14 IRQ_TYPE_LEVEL_LOW>;
+	};
+};
+
+
+&xgmac0 {
+	status = "okay";
+	phy-handle = <&ytphy0>;
+	nvmem-cells = <&mtd_mac_address>;
+	nvmem-cell-names = "mac-address";
+};
+
+&xgmac1 {
+	status = "okay";
+	phy-handle = <&ytphy1>;
+	nvmem-cells = <&mtd_mac_address>;
+	nvmem-cell-names = "mac-address";
+};
+
+&xgmac2 {
+	status = "okay";
+	phy-handle = <&ytphy2>;
+	nvmem-cells = <&mtd_mac_address>;
+	nvmem-cell-names = "mac-address";
+};
+
+&xgmac3 {
+	status = "okay";
+	phy-handle = <&ytphy3>;
+	nvmem-cells = <&mtd_mac_address>;
+	nvmem-cell-names = "mac-address";
+};
+
+&xgmac4 {
+	status = "okay";
+	nvmem-cells = <&mtd_mac_address>;
+	nvmem-cell-names = "mac-address";
+
+	fixed-link {
+		speed = <2500>;
+		full-duplex;
+		pause;
+		asym-pause;
+	};
+};
+
+&xgmac5 {
+	status = "okay";
+	tx-internal-delay-ps = <2401>;
+	rx-internal-delay-ps = <1372>;
+	phy-mode = "rgmii-txid";
+	phy-handle = <&sfphy5>;
+	nvmem-cells = <&mtd_mac_address>;
+	nvmem-cell-names = "mac-address";
+	mac-address-increment = <1>;
+};
+
+&mdio0 {
+	status = "okay";
+
+	reset-gpios = <&nxp_pca9535 4 GPIO_ACTIVE_LOW>;
+	reset-delay-us = <10000>;
+	reset-post-delay-us = <100000>;
+
+	switch@1d {
+		compatible = "motorcomm,yt9232";
+		reg = <0x1d>;
+
+		ports {
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			port@0 {
+				reg = <0x0>;
+				phy-handle = <&yt8618_0>;
+			};
+
+			port@1 {
+				reg = <0x1>;
+				phy-handle = <&yt8618_1>;
+			};
+
+			port@2 {
+				reg = <0x2>;
+				phy-handle = <&yt8618_2>;
+			};
+
+			port@3 {
+				reg = <0x3>;
+				phy-handle = <&yt8618_3>;
+			};
+
+			port@4 {
+				reg = <0x4>;
+				phy-handle = <&yt8618_4>;
+			};
+
+			port@5 {
+				reg = <0x5>;
+				phy-handle = <&yt8618_5>;
+			};
+
+			port@6 {
+				reg = <0x6>;
+				phy-handle = <&yt8618_6>;
+			};
+
+			port@7 {
+				reg = <0x7>;
+				phy-handle = <&yt8618_7>;
+			};
+
+			port@8 {
+				reg = <0x8>;
+			};
+
+			port@9 {
+				reg = <0x9>;
+			};
+
+			port@a {
+				reg = <0xa>;
+			};
+
+			port@b {
+				reg = <0xb>;
+			};
+
+			port@c {
+				reg = <0xc>;
+			};
+
+			port@d {
+				reg = <0xd>;
+			};
+
+			port@e {
+				reg = <0xe>;
+			};
+
+			port@f {
+				reg = <0xf>;
+			};
+
+			port@10 {
+				reg = <0x10>;
+				phy-handle = <&yt8614_3_0>;
+			};
+
+			port@11 {
+				reg = <0x11>;
+				phy-handle = <&yt8614_3_1>;
+			};
+
+			port@12 {
+				reg = <0x12>;
+				phy-handle = <&yt8614_3_2>;
+			};
+
+			port@13 {
+				reg = <0x13>;
+				phy-handle = <&yt8614_3_3>;
+			};
+
+			port@14 {
+				reg = <0x14>;
+				phy-handle = <&yt8614_4_0>;
+			};
+
+			port@15 {
+				reg = <0x15>;
+				phy-handle = <&yt8614_4_1>;
+			};
+
+			port@16 {
+				reg = <0x16>;
+				phy-handle = <&yt8614_4_2>;
+			};
+
+			port@17 {
+				reg = <0x17>;
+				phy-handle = <&yt8614_4_3>;
+			};
+
+			port@18 {
+				reg = <0x18>;
+				ethernet = <&xgmac4>;
+			};
+		};
+	};
+
+	yt8614_3_0: ethernet-phy@8 {
+		compatible = "ethernet-phy-ieee802.3-c22";
+		interrupts-extended = <&nxp_pca9535 11 IRQ_TYPE_EDGE_FALLING>;
+		reg = <0x8>;
+		reset-gpios = <&nxp_pca9535 10 GPIO_ACTIVE_LOW>;
+		reset-delay-us = <10000>;
+		reset-post-delay-us = <100000>;
+	};
+
+	yt8614_3_1: ethernet-phy@9 {
+		compatible = "ethernet-phy-ieee802.3-c22";
+		interrupts-extended = <&nxp_pca9535 11 IRQ_TYPE_EDGE_FALLING>;
+		reg = <0x9>;
+	};
+
+	yt8614_3_2: ethernet-phy@a {
+		compatible = "ethernet-phy-ieee802.3-c22";
+		interrupts-extended = <&nxp_pca9535 11 IRQ_TYPE_EDGE_FALLING>;
+		reg = <0xa>;
+	};
+
+	yt8614_3_3: ethernet-phy@b {
+		compatible = "ethernet-phy-ieee802.3-c22";
+		interrupts-extended = <&nxp_pca9535 11 IRQ_TYPE_EDGE_FALLING>;
+		reg = <0xb>;
+	};
+
+	yt8614_4_0: ethernet-phy@4 {
+		compatible = "ethernet-phy-ieee802.3-c22";
+		interrupts-extended = <&nxp_pca9535 13 IRQ_TYPE_EDGE_FALLING>;
+		reg = <0x4>;
+		reset-gpios = <&nxp_pca9535 12 GPIO_ACTIVE_LOW>;
+		reset-delay-us = <10000>;
+		reset-post-delay-us = <100000>;
+	};
+
+	yt8614_4_1: ethernet-phy@5 {
+		compatible = "ethernet-phy-ieee802.3-c22";
+		interrupts-extended = <&nxp_pca9535 13 IRQ_TYPE_EDGE_FALLING>;
+		reg = <0x5>;
+	};
+
+	yt8614_4_2: ethernet-phy@6 {
+		compatible = "ethernet-phy-ieee802.3-c22";
+		interrupts-extended = <&nxp_pca9535 13 IRQ_TYPE_EDGE_FALLING>;
+		reg = <0x6>;
+	};
+
+	yt8614_4_3: ethernet-phy@7 {
+		compatible = "ethernet-phy-ieee802.3-c22";
+		interrupts-extended = <&nxp_pca9535 13 IRQ_TYPE_EDGE_FALLING>;
+		reg = <0x7>;
+	};
+};
+
+&mdio1 {
+	status = "okay";
+
+	reset-gpios = <&nxp_pca9535 2 GPIO_ACTIVE_LOW>;
+	reset-delay-us = <10000>;
+	reset-post-delay-us = <100000>;
+
+	ytphy0: ethernet-phy@0 {
+		compatible = "ethernet-phy-ieee802.3-c22";
+		reg = <0x0>;
+	};
+
+	ytphy1: ethernet-phy@1 {
+		compatible = "ethernet-phy-ieee802.3-c22";
+		reg = <0x1>;
+	};
+
+	ytphy2: ethernet-phy@2 {
+		compatible = "ethernet-phy-ieee802.3-c22";
+		reg = <0x2>;
+	};
+
+	ytphy3: ethernet-phy@3 {
+		compatible = "ethernet-phy-ieee802.3-c22";
+		reg = <0x3>;
+	};
+
+	sfphy5: ethernet-phy@6 {
+		compatible = "ethernet-phy-idadb4.0412";
+		reg = <0x6>;
+		reset-gpios = <&nxp_pca9535 0 GPIO_ACTIVE_LOW>;
+		reset-assert-us = <10000>;
+		reset-deassert-us = <100000>;
+	};
+
+	yt8618_0:ethernet-phy@10 {
+		compatible = "ethernet-phy-ieee802.3-c22";
+		interrupts-extended = <&nxp_pca9535 7 IRQ_TYPE_EDGE_FALLING>;
+		reg = <0x10>;
+		reset-gpios = <&nxp_pca9535 6 GPIO_ACTIVE_LOW>;
+		reset-assert-us = <10000>;
+		reset-deassert-us = <100000>;
+	};
+
+	yt8618_1:ethernet-phy@11 {
+		compatible = "ethernet-phy-ieee802.3-c22";
+		interrupts-extended = <&nxp_pca9535 7 IRQ_TYPE_EDGE_FALLING>;
+		reg = <0x11>;
+	};
+
+	yt8618_2:ethernet-phy@12 {
+		compatible = "ethernet-phy-ieee802.3-c22";
+		interrupts-extended = <&nxp_pca9535 7 IRQ_TYPE_EDGE_FALLING>;
+		reg = <0x12>;
+	};
+
+	yt8618_3:ethernet-phy@13 {
+		compatible = "ethernet-phy-ieee802.3-c22";
+		interrupts-extended = <&nxp_pca9535 7 IRQ_TYPE_EDGE_FALLING>;
+		reg = <0x13>;
+	};
+
+	yt8618_4:ethernet-phy@14 {
+		compatible = "ethernet-phy-ieee802.3-c22";
+		interrupts-extended = <&nxp_pca9535 7 IRQ_TYPE_EDGE_FALLING>;
+		reg = <0x14>;
+	};
+
+	yt8618_5:ethernet-phy@15 {
+		compatible = "ethernet-phy-ieee802.3-c22";
+		interrupts-extended = <&nxp_pca9535 7 IRQ_TYPE_EDGE_FALLING>;
+		reg = <0x15>;
+	};
+
+	yt8618_6:ethernet-phy@16 {
+		compatible = "ethernet-phy-ieee802.3-c22";
+		interrupts-extended = <&nxp_pca9535 7 IRQ_TYPE_EDGE_FALLING>;
+		reg = <0x16>;
+	};
+
+	yt8618_7:ethernet-phy@17 {
+		compatible = "ethernet-phy-ieee802.3-c22";
+		interrupts-extended = <&nxp_pca9535 7 IRQ_TYPE_EDGE_FALLING>;
+		reg = <0x17>;
+	};
+};
+
+&dpns {
+	status = "okay";
+};
+
+&edma {
+	status = "okay";
+};
+
+&qsgmii_pcs {
+	status = "okay";
+};
+
+&sgmii_pcs {
+	status = "okay";
+};
+
+&crypto {
+	status = "okay";
+};
+
+&usb_phy {
+	status = "okay";
+};
+
+&usb {
+	status = "okay";
+};

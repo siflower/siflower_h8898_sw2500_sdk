@@ -1,0 +1,14 @@
+[
+    {
+        "value":"Uplink Diagnosis",
+        "type":"Internet"
+    },
+    {
+        "value":"DNS Diagnosis",
+        "type":"Internet"
+    },
+    {
+        "value":"Wi-Fi Diagnosis",
+        "type":"Basic"
+    }
+]

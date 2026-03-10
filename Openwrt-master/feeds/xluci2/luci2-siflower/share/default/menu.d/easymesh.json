@@ -1,0 +1,18 @@
+{
+	"easymesh": {
+		"title": "Easymesh",
+		"index": 60
+	},
+	"easymesh/basic": {
+		"title": "Basic Settings",
+		"acls": [ "superuser" ],
+		"view": "easymesh/basic",
+		"index": 10
+	},
+	"easymesh/topology": {
+		"title": "Topology diagram",
+		"acls": [ "superuser" ],
+		"view": "easymesh/topology",
+		"index": 20
+	}
+}

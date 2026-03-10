@@ -1,0 +1,91 @@
+--- a/drivers/net/ovpn/crypto.c
++++ b/drivers/net/ovpn/crypto.c
+@@ -17,6 +17,7 @@
+ #include "pktid.h"
+ #include "crypto_aead.h"
+ #include "crypto.h"
++#include "peer.h"
+ 
+ static void ovpn_ks_destroy_rcu(struct rcu_head *head)
+ {
+@@ -79,9 +80,10 @@ bool ovpn_crypto_kill_key(struct ovpn_cr
+ /* Reset the ovpn_crypto_state object in a way that is atomic
+  * to RCU readers.
+  */
+-int ovpn_crypto_state_reset(struct ovpn_crypto_state *cs,
++int ovpn_crypto_state_reset(struct ovpn_peer *peer,
+ 			    const struct ovpn_peer_key_reset *pkr)
+ {
++	struct ovpn_crypto_state *cs = &peer->crypto;
+ 	struct ovpn_crypto_key_slot *old = NULL, *new;
+ 	u8 idx;
+ 
+@@ -89,7 +91,7 @@ int ovpn_crypto_state_reset(struct ovpn_
+ 	    pkr->slot != OVPN_KEY_SLOT_SECONDARY)
+ 		return -EINVAL;
+ 
+-	new = ovpn_aead_crypto_key_slot_new(&pkr->key);
++	new = ovpn_aead_crypto_key_slot_new(peer, &pkr->key);
+ 	if (IS_ERR(new))
+ 		return PTR_ERR(new);
+ 
+--- a/drivers/net/ovpn/crypto.h
++++ b/drivers/net/ovpn/crypto.h
+@@ -126,7 +126,7 @@ static inline void ovpn_crypto_key_slot_
+ 	kref_put(&ks->refcount, ovpn_crypto_key_slot_release);
+ }
+ 
+-int ovpn_crypto_state_reset(struct ovpn_crypto_state *cs,
++int ovpn_crypto_state_reset(struct ovpn_peer *peer,
+ 			    const struct ovpn_peer_key_reset *pkr);
+ 
+ void ovpn_crypto_key_slot_delete(struct ovpn_crypto_state *cs,
+--- a/drivers/net/ovpn/crypto_aead.c
++++ b/drivers/net/ovpn/crypto_aead.c
+@@ -347,9 +347,10 @@ void ovpn_aead_crypto_key_slot_destroy(s
+ }
+ 
+ struct ovpn_crypto_key_slot *
+-ovpn_aead_crypto_key_slot_new(const struct ovpn_key_config *kc)
++ovpn_aead_crypto_key_slot_new(struct ovpn_peer *peer, const struct ovpn_key_config *kc)
+ {
+ 	struct ovpn_crypto_key_slot *ks = NULL;
++	struct ovpn_socket *sock;
+ 	const char *alg_name;
+ 	int ret;
+ 
+@@ -357,6 +358,12 @@ ovpn_aead_crypto_key_slot_new(const stru
+ 	switch (kc->cipher_alg) {
+ 	case OVPN_CIPHER_ALG_AES_GCM:
+ 		alg_name = ALG_NAME_AES;
++		rcu_read_lock();
++		sock = rcu_dereference(peer->sock);
++		/* use software fallback for TCP, see https://github.com/OpenVPN/ovpn-net-next/issues/17 */
++		if (sock && sock->sk->sk_protocol == IPPROTO_TCP)
++			alg_name = "gcm_base(ctr(aes-generic),ghash-riscv64-clmul)";
++		rcu_read_unlock();
+ 		break;
+ 	case OVPN_CIPHER_ALG_CHACHA20_POLY1305:
+ 		alg_name = ALG_NAME_CHACHAPOLY;
+--- a/drivers/net/ovpn/crypto_aead.h
++++ b/drivers/net/ovpn/crypto_aead.h
+@@ -21,7 +21,7 @@ int ovpn_aead_decrypt(struct ovpn_peer *
+ 		      struct sk_buff *skb);
+ 
+ struct ovpn_crypto_key_slot *
+-ovpn_aead_crypto_key_slot_new(const struct ovpn_key_config *kc);
++ovpn_aead_crypto_key_slot_new(struct ovpn_peer *peer, const struct ovpn_key_config *kc);
+ void ovpn_aead_crypto_key_slot_destroy(struct ovpn_crypto_key_slot *ks);
+ 
+ enum ovpn_cipher_alg ovpn_aead_crypto_alg(struct ovpn_crypto_key_slot *ks);
+--- a/drivers/net/ovpn/netlink.c
++++ b/drivers/net/ovpn/netlink.c
+@@ -1064,7 +1064,7 @@ int ovpn_nl_key_new_doit(struct sk_buff
+ 		return -ENOENT;
+ 	}
+ 
+-	ret = ovpn_crypto_state_reset(&peer->crypto, &pkr);
++	ret = ovpn_crypto_state_reset(peer, &pkr);
+ 	if (ret < 0) {
+ 		NL_SET_ERR_MSG_FMT_MOD(info->extack,
+ 				       "cannot install new key for peer %u",

@@ -1,0 +1,19 @@
+{
+    "basicInfo": {
+        "label":"Basic Info",
+        "items":[
+            {
+                "label":"Model",
+                "value":"hw_ver"
+            },
+            {
+                "label":"Firmware Version",
+                "value":"software_ver"
+            },
+            {
+                "label":"Kernel Version",
+                "value":"kernel"
+            }
+        ]
+    }
+}

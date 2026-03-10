@@ -1,0 +1,26 @@
+{
+    "corporateName_zh_cn":"AC1200 Gigabit Router",
+    "corporateName_en":"AC1200 Gigabit Router",
+    "corporateName_de":"AC1200 Gigabit Router",
+    "corporateName_es":"AC1200 Gigabit Router",
+    "corporateName_fr":"AC1200 Gigabit Router",
+    "corporateName_it":"AC1200 Gigabit Router",
+    "footerInfo_zh_cn":"品牌网址：www.juovipower.com 支持：service@juovipower.com",
+    "footerInfo_en":"Brand website：www.juovipower.com  Support：service@juovipower.com",
+    "footerInfo_de":"Marke website:www.juovipower.com Support:service@juovipower.com",
+    "footerInfo_es":"Marca website:www.juovipower.com Support:service@juovipower.com",
+    "footerInfo_fr":"Marque website:www.juovipower.com Support:service@juovipower.com",
+    "footerInfo_it":"Marca website:www.juovipower.com Support:service@juovipower.com",
+    "logo":"logo.png",
+    "ico_logo":"ico.png",
+    "maintitle_zh_cn":"欢迎使用AC1200路由",
+    "maintitle_en":"Welcome to AC1200 Gigabit Router",
+    "maintitle_de":"Willkommen bei AC1200 Gigabit Router",
+    "maintitle_es":"Bienvenido al enrutamiento ac1200 gigabit",
+    "maintitle_fr":"Bienvenue sur le routage Gigabit ac1200",
+    "maintitle_it":"Benvenuti al router Gigabit AC1200",
+    "color":{
+        "primaryColor":"#FA6F43",
+        "secondaryColor":["#f68132","#fc644f"]
+    }
+}

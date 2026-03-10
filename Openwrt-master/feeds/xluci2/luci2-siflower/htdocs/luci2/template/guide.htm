@@ -1,0 +1,145 @@
+<style>
+	html, body {
+		background-color: #ececec;
+	}
+
+	.content_width{
+		position: relative;
+	}
+
+	.main_content {
+		display: flex;
+		justify-content: center;
+		margin: 50px 0;
+	}
+
+	.footer{
+		background-color: transparent;
+	}
+
+	.page_title{
+		text-align: center;
+		font-size: 23px;
+		font-weight: bold;
+		margin: 30px 0;
+	}
+
+	.thirdTitleContent{
+		border-bottom: unset;
+	}
+
+	.guidepage{
+		display: none;
+		background: white;
+		border-radius: 3px;
+    	box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.1);
+	}
+
+	.page_active{
+		display: block;
+	}
+
+	.step span{
+		padding-left: 15px;
+		cursor: pointer;
+	}
+
+	.step span:hover{
+		color: #555;
+	}
+
+	.clickbtn{
+		border: 1px solid #ccc;
+		border-radius: 5px;
+		text-align: inherit;
+		outline: none;
+		cursor: pointer;
+		background:none;
+		margin-left: 10px;
+		padding: 10px 20px;
+	}
+
+	.clickbtn:hover {
+		background-color: var(--primary-color);
+		border: 1px solid var(--primary-color);
+		color: #fff;
+	}
+
+	.list-group{
+		display: flex;
+		justify-content: center;
+	}
+	.common_button_long{
+		background-color:transparent;
+		width: unset;
+		height: unset;
+		font-size: 14px;
+		border: none;
+		position: absolute;
+		right: 94px;
+		bottom: 30px;
+		line-height: normal;
+	}
+
+	.common_button_long:hover{
+		background-color:transparent;
+		color: #555;
+		border: none;
+	}
+
+	.backclick{
+		position: absolute;
+		right: 165px;
+		bottom: 30px;
+	}
+
+	.nextclick{
+		position: absolute;
+		right: 46px;
+		bottom: 30px;
+	}
+</style>
+
+<div class="wrapper ">
+	<div class="header" style="background-color: white;">
+		<div class="logo">
+			<img src="" alt="">
+			<div class="loginname"></div>
+		</div>
+	</div>
+	<div class="main_content">
+		<div id="page_time" class="guidepage content_width">
+			<div class="page_title"><%:Set time zone%></div>
+			<div id="time_set" style="margin: 10% auto auto;"></div>
+			<div class="step">
+				<span class="nextclick" data-id="page_wan"><%:Skip%></span>
+			</div>
+		</div>
+		<div id="page_wan" class="guidepage content_width">
+			<div class="page_title"><%:Choose internet access method%></div>
+			<div id="wan_set" style="margin: 10% auto auto;"></div>
+			<div class="step">
+				<span class="backclick" data-id="page_time"><%:Back%></span>
+				<span class="nextclick" data-id="page_wireless"><%:Skip%></span>
+			</div>
+		</div>
+		<div id="page_wireless" class="guidepage content_width">
+			<div class="page_title"><%:Set up wireless%></div>
+			<div id="wireless_set" style="margin: 10% auto auto;"></div>
+			<div class="step">
+				<span class="backclick" data-id="page_wan"><%:Back%></span>
+				<span class="nextclick" data-id="page_password"><%:Skip%></span>
+			</div>
+		</div>
+		<div id="page_password" class="guidepage content_width">
+			<div class="page_title"><%:Set password%></div>
+			<div id="password_set" style="margin: 10% auto auto;"></div>
+			<div class="step">
+				<span class="backclick" data-id="page_wireless" style="right: 119px;"><%:Back%></span>
+			</div>
+		</div>
+	</div>
+	<div class="footer flex_center">
+		<div></div>
+	</div>
+</div>

@@ -1,0 +1,14 @@
+{
+    "corporateName_zh_cn":"HSGQ Router",
+    "corporateName_en":"HSGQ Router",
+    "footerInfo_zh_cn":"HSGQ Router",
+    "footerInfo_en":"HSGQ Router",
+    "logo":"logo.png",
+    "ico_logo":"favicon.ico",
+    "maintitle_zh_cn":"欢迎使用 HSGQ 路由器",
+    "maintitle_en":"Welcome to the HSGQ router",
+    "color":{
+        "primaryColor":"#a0bcdb",
+        "secondaryColor":"#409eff"
+    }
+}

@@ -1,0 +1,26 @@
+Source-Makefile: feeds/packages/net/naiveproxy/Makefile
+
+Package: naiveproxy
+Submenu: Web Servers/Proxies
+Version: 133.0.6943.49-1
+Depends: +libc +USE_GLIBC:librt +USE_GLIBC:libpthread @(aarch64||arm||i386||mipsel||riscv64||x86_64) +libatomic
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: net
+Category: Network
+Repository: base
+Title: Make a fortune quietly
+Maintainer: sbwml <admin@cooluc.com>
+Source: naiveproxy-v133.0.6943.49-1-openwrt-.tar.xz
+License: BSD 3-Clause
+LicenseFiles: LICENSE
+Type: ipkg
+Description:   NaïveProxy uses Chrome's network stack to camouflage traffic with strong
+  censorship resistance and low detectability. Reusing Chrome's stack also
+  ensures best practices in performance and security.
+git@github.com:klzgrad/naiveproxy.git
+sbwml <admin@cooluc.com>
+@@
+
+
