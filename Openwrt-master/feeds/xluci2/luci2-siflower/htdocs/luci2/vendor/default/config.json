@@ -1,0 +1,14 @@
+{
+    "corporateName_zh_cn":"AX3000路由",
+    "corporateName_en":"AX3000 Router",
+    "footerInfo_zh_cn":"AX3000路由",
+    "footerInfo_en":"AX3000 Router",
+    "logo":"",
+    "ico_logo":"",
+    "maintitle_zh_cn":"欢迎使用AX3000路由",
+    "maintitle_en":"Welcome to AX3000 Router",
+    "color":{
+        "primaryColor":"#fb4444",
+        "secondaryColor":"#667589"
+    }
+}

@@ -1,0 +1,21 @@
+
+config BINUTILS_VERSION_2_37
+	default y if !TOOLCHAINOPTS && !TARGET_siflower
+	bool
+
+config BINUTILS_VERSION_2_38
+	bool
+
+config BINUTILS_VERSION_2_35_THEAD2.10.2
+	default y if !TOOLCHAINOPTS && TARGET_siflower
+	bool
+
+config BINUTILS_VERSION_2_42_XUANTIE_3_0_1
+	bool
+
+config BINUTILS_VERSION
+	string
+	default "2.35-thead2.10.2"	if BINUTILS_VERSION_2_35_THEAD2.10.2
+	default "2.37"			if BINUTILS_VERSION_2_37
+	default "2.38"			if BINUTILS_VERSION_2_38
+	default "2.42-xuantie-3.0.1"	if BINUTILS_VERSION_2_42_XUANTIE_3_0_1

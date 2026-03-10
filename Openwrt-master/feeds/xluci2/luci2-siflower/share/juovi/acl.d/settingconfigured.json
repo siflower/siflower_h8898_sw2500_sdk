@@ -1,0 +1,57 @@
+{
+	"unauthenticated": {
+		"description": "Functions allowed for unauthenticated requests",
+		"read": {
+			"ubus": {
+				"uci": [
+					"*"
+				],
+				"session": [
+					"*"
+				],
+				"system":[
+					"*"
+				],
+				"luci2.ui": [
+					"*"
+				],
+				"luci2.system": [
+					"*"
+				],
+				"network.interface.wan": [
+					"status"
+				],
+				"network.interface.lan":[
+					"status"
+				],
+				"web.network": [
+					"getstatus"
+				],
+				"web.system": [
+					"get_factory_info"
+				]
+			},
+			"uci": [ "*" ]
+		},
+		"write": {
+			"ubus": {
+				"uci": [
+					"*"
+				],
+				"session": [
+					"*"
+				],
+				"luci2.ui": [
+					"*"
+				],
+				"luci2.system": [
+					"*"
+				],
+				"web.advance":[
+					"cmd"
+				]
+			},
+			"uci": [ "*" ]
+		}
+	}
+}

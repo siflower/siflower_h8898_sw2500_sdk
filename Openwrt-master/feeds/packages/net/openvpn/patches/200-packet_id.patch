@@ -1,0 +1,18 @@
+--- a/src/openvpn/packet_id.c
++++ b/src/openvpn/packet_id.c
+@@ -673,6 +673,8 @@ packet_id_debug_print(int msglevel,
+     gc_free(&gc);
+ }
+ 
++#endif /* ifdef ENABLE_DEBUG */
++
+ uint16_t
+ packet_id_read_epoch(struct packet_id_net *pin, struct buffer *buf)
+ {
+@@ -711,6 +713,3 @@ packet_id_write_epoch(struct packet_id_s
+ 
+     return buf_write(buf, &net_id, sizeof(net_id));
+ }
+-
+-
+-#endif /* ifdef ENABLE_DEBUG */

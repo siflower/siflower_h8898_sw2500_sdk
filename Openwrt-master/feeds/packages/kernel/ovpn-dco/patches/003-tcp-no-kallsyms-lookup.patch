@@ -1,0 +1,20 @@
+--- a/drivers/net/ovpn/tcp.c
++++ b/drivers/net/ovpn/tcp.c
+@@ -633,7 +633,7 @@ void __init ovpn_tcp_init(void)
+ #if IS_ENABLED(CONFIG_IPV6) && LINUX_VERSION_CODE < KERNEL_VERSION(5, 8, 0) && RHEL_RELEASE_CODE < RHEL_RELEASE_VERSION(9, 0)
+ 	struct proto *tcpv6_prot_p, tcpv6_prot;
+ #endif
+-#if IS_ENABLED(CONFIG_IPV6) && LINUX_VERSION_CODE < KERNEL_VERSION(6, 16, 0)
++#if 0
+ 	struct proto_ops *inet6_stream_ops_p, inet6_stream_ops;
+ #endif
+ #if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 5, 0) || \
+@@ -657,7 +657,7 @@ void __init ovpn_tcp_init(void)
+ 	}
+ 	tcpv6_prot = *tcpv6_prot_p;
+ #endif
+-#if LINUX_VERSION_CODE < KERNEL_VERSION(6, 16, 0)
++#if 0
+ 	inet6_stream_ops_p = (struct proto_ops *)kallsyms_lookup_name("inet6_stream_ops");
+ 	if (!inet6_stream_ops_p) {
+ 		pr_err("inet6_stream_ops symbol not found\n");

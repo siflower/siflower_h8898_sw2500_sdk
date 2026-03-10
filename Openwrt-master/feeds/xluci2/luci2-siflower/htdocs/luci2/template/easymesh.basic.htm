@@ -1,0 +1,64 @@
+<div class="thirdTitleContent">
+	<h2><%:Easymesh Basic Settings%></h2>
+	<p class="description"><%:After clicking on the Easymesh option box, select controller or agent in the device role bar.%></p>
+    <p class="description"><%:Fronthaul AP : An access point (AP) of a Multi-AP device that provides Wi-Fi connectivity to client stations (STAs) and/or backhaul STAs.%></p>
+    <p class="description"><%:Backhaul Link : A Wi-Fi or wired logical Ethernet link between two Multi-AP devices in a Multi-AP network.%></p>
+    <p class="description"><%:Backhaul Form : The form for the agent to connect to the controller(wired or wireless).%></p>
+</div>
+<div class="subject">
+    <div id="settings" style="margin: 28px 7.5%;width: 85%;">
+        <div class="row" id="enable_easymesh">
+            <div><%:Enable EasyMesh%></div>
+			<div class="switch_off" style="width: 45px; height: 28px;" id="enable_easymesh_switch"></div>
+        </div>
+        <div class="row" id="fronthaul_ssid">
+            <div><%:Fronthaul Ssid%></div>
+            <div><input id="fssid_input"></div>
+        </div>
+        <div class="row" id="fronthaul_key">
+            <div><%:Fronthaul Key%></div>
+            <div><input id="fkey_input"></div>
+        </div>
+        <div class="row" id="encryption">
+            <div><%:Encryption%></div>
+            <div>
+                <select id="encryption_select">
+                <option><%:none%></option>
+                <option><%:psk2+ccmp%></option>
+                </select>
+            </div>
+        </div>
+        <div class="row" id="device_role">
+            <div><%:Device Role%></div>
+            <div>
+                <select id="device_role_select">
+                <option><%:controller%></option>
+                <option><%:agent%></option>
+                </select>
+            </div>
+        </div>
+        <div class="row" id="backhaul_ssid">
+            <div><%:Backhaul Ssid%></div>
+            <div><input id="bssid_input"></div>
+        </div>
+        <div class="row" id="backhaul_key">
+            <div><%:Backhaul Key%></div>
+            <div><input id="bkey_input"></div>
+        </div>
+        <div class="row" id="backhaul_form">
+            <div><%:Backhaul Form%></div>
+            <div>
+                <select id="bform_select">
+                <option><%:wired%></option>
+                <option><%:wireless-24%></option>
+                <option><%:wireless-5%></option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div id="btn" style="float: left;display: block;padding: 60px 85px;">
+        <div id="wps" class="common_button_long" style="float: left;display: block;margin-right: 35px;"><%:WPS%></div>
+        <div id="load" class="common_button_long" style="float: left;display: block;"><%:Load%></div>
+    </div>
+</div>
+

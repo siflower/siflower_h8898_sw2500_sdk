@@ -1,0 +1,81 @@
+--- a/drivers/net/ovpn/io.c
++++ b/drivers/net/ovpn/io.c
+@@ -10,7 +10,6 @@
+ #include <crypto/aead.h>
+ #include <linux/netdevice.h>
+ #include <linux/skbuff.h>
+-#include <net/gro_cells.h>
+ #include <net/gso.h>
+ #include <net/ip.h>
+ 
+@@ -90,7 +89,7 @@ static void ovpn_netdev_write(struct ovp
+ 
+ 	/* cause packet to be "received" by the interface */
+ 	pkt_len = skb->len;
+-	ret = gro_cells_receive(&peer->ovpn->gro_cells, skb);
++	ret = netif_rx(skb);
+ 	if (likely(ret == NET_RX_SUCCESS)) {
+ 		/* update RX stats with the size of decrypted packet */
+ 		ovpn_peer_stats_increment_rx(&peer->vpn_stats, pkt_len);
+--- a/drivers/net/ovpn/main.c
++++ b/drivers/net/ovpn/main.c
+@@ -12,7 +12,6 @@
+ #include <linux/module.h>
+ #include <linux/netdevice.h>
+ #include <linux/inetdevice.h>
+-#include <net/gro_cells.h>
+ #include <net/ip.h>
+ #include <net/rtnetlink.h>
+ #include <uapi/linux/if_arp.h>
+@@ -74,14 +73,10 @@ static int ovpn_mp_alloc(struct ovpn_pri
+ static int ovpn_net_init(struct net_device *dev)
+ {
+ 	struct ovpn_priv *ovpn = netdev_priv(dev);
+-	int err = gro_cells_init(&ovpn->gro_cells, dev);
+-
+-	if (err < 0)
+-		return err;
++	int err;
+ 
+ 	err = ovpn_mp_alloc(ovpn);
+ 	if (err < 0) {
+-		gro_cells_destroy(&ovpn->gro_cells);
+ 		return err;
+ 	}
+ 
+@@ -96,9 +91,6 @@ static int ovpn_net_init(struct net_devi
+ 
+ static void ovpn_net_uninit(struct net_device *dev)
+ {
+-	struct ovpn_priv *ovpn = netdev_priv(dev);
+-
+-	gro_cells_destroy(&ovpn->gro_cells);
+ #if LINUX_VERSION_CODE < KERNEL_VERSION(6, 9, 0)
+ 	free_percpu(dev->tstats);
+ #endif
+--- a/drivers/net/ovpn/ovpnpriv.h
++++ b/drivers/net/ovpn/ovpnpriv.h
+@@ -11,7 +11,6 @@
+ #define _NET_OVPN_OVPNSTRUCT_H_
+ 
+ #include <linux/workqueue.h>
+-#include <net/gro_cells.h>
+ #include <uapi/linux/if_link.h>
+ #include <uapi/linux/ovpn.h>
+ 
+@@ -39,7 +38,6 @@ struct ovpn_peer_collection {
+  * @lock: protect this object
+  * @peers: data structures holding multi-peer references
+  * @peer: in P2P mode, this is the only remote peer
+- * @gro_cells: pointer to the Generic Receive Offload cell
+  * @keepalive_work: struct used to schedule keepalive periodic job
+  */
+ struct ovpn_priv {
+@@ -48,7 +46,6 @@ struct ovpn_priv {
+ 	spinlock_t lock; /* protect writing to the ovpn_priv object */
+ 	struct ovpn_peer_collection *peers;
+ 	struct ovpn_peer __rcu *peer;
+-	struct gro_cells gro_cells;
+ 	struct delayed_work keepalive_work;
+ };
+ 

@@ -1,0 +1,23 @@
+Source-Makefile: feeds/packages/net/chinadns-ng/Makefile
+
+Package: chinadns-ng
+Version: 2023.10.28-1
+Depends: +libc +USE_GLIBC:librt +USE_GLIBC:libpthread +ipset
+Conflicts: 
+Menu-Depends: 
+Provides: 
+Section: net
+Category: Network
+Repository: base
+Title: ChinaDNS Next Generation, refactoring with epoll and ipset
+Maintainer: pexcn <pexcn97@gmail.com>
+Source: chinadns-ng-2023.10.28-66426e2da2c9e34d70f25a5adf5cb3f588556f41.tar.gz
+License: GPL-3.0
+LicenseFiles: LICENSE
+Type: ipkg
+Description: ChinaDNS Next Generation, refactoring with epoll and ipset.
+https://github.com/zfl9/chinadns-ng
+pexcn <pexcn97@gmail.com>
+@@
+
+

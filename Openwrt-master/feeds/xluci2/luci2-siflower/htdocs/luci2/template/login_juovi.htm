@@ -1,0 +1,46 @@
+<div class="wrapper">
+	<div class="header flex_between">
+		<div class="logo">
+			<img src="" alt="">
+			<div></div>
+		</div>
+		<div class="login_lang">
+			<div>
+				<span class="login_langinfo"></span>
+				<span>&#8744;</span>
+			</div>
+			<ul></ul>
+		</div>
+	</div>
+	<div class="main_content flex_center customlogincolor">
+		<div class="banner flex_center">
+			<div class="loginBox" style="height: 580px;">
+				<div class="login_header flex_center" style="height: 37%;">
+					<div class="indicator"></div>
+					<div class="login_header_til"><%:Welcome%></div>
+				</div>
+				<div class="login_content">
+					<div class="login_content_til"><%:JUOVI Router%></div>
+					<img src="../luci2/res/network.png" alt="" style="margin-top: 10px;">
+					<div class="login_leadapp InputComponent">
+						<input id="userpassword_ctrl" class="inputArea" autocomplete="off" maxlength="20" placeholder="<%:Enter the router password%>" type="password">
+						<div id="loginbtn" class="enter"></div>
+						<div class="login_info">
+							<div id="login_error" style="display: none;">
+								<div>
+									<div class="error_info"></div>
+									<span style="color: red;"><%:Wrong password!%></span>
+								</div>
+							</div>
+							<div id="forgetpwd_page_link" style="cursor: pointer;"><%:Forgot password?%></div>
+						</div>
+						<div class="forget_info" id="forgetpwd_page_tips" style="display: none;"><%:If you forget your password, please long press the reset button to restore the factory settings%></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="footer flex_center">
+		<div></div>
+	</div>
+</div>

@@ -1,0 +1,27 @@
+{
+    "basicInfo": {
+        "label":"Basic Info",
+        "items":[
+            {
+                "label":"Model",
+                "value":"hw_ver"
+            },
+            {
+                "label":"MAC address",
+                "value":"macaddr"
+            },
+            {
+                "label":"SN Code",
+                "value":"sn"
+            },
+            {
+                "label":"Firmware Version",
+                "value":"software_ver"
+            },
+            {
+                "label":"Kernel Version",
+                "value":"kernel"
+            }
+        ]
+    }
+}
