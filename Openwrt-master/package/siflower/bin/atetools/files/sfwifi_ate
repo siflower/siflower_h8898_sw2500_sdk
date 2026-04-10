@@ -1,0 +1,261 @@
+#!/bin/sh
+# Copyright (C) 2006 OpenWrt.org
+
+. /lib/sfwifi.sh
+. /usr/share/libubox/jshn.sh
+
+usage() {
+	cat <<EOF
+Usage: $0 [reset|remove|reload|stress] [lb/hb/all] [fmac]
+stress = sfwifi stress test.
+reset wifi firmware.
+EOF
+	exit 1
+}
+
+call_wifi_cmd(){
+	#get device from band
+	input_band=$2
+	local cfgfile=
+	device=""
+	DEVICES=
+	config_cb() {
+		local type="$1"
+		local section="$2"
+
+		# section start
+		case "$type" in
+			wifi-device)
+				append DEVICES "$section"
+				;;
+		esac
+	}
+	config_load "${cfgfile:-wireless}"
+	for device1 in $DEVICES;
+	do
+		config_get band1 "$device1" band
+		[ lb = "$input_band" ] && [ 2.4G = "$band1" ] && {
+			device=$device1
+			break
+		}
+		[ hb = "$input_band" ] && [ 5G = "$band1" ] && {
+			device=$device1
+			break
+		}
+		echo "band=$band1 device=$device1" > /dev/ttyS0
+	done
+	echo "device=$device" > /dev/ttyS0
+	/sbin/wifi $1 $device
+}
+
+check_wifi_config(){
+    local radio="$1"
+    local encryption=""
+    local ifname=""
+    local network=""
+    [ ! -z $radio ] && {
+        encryption=$(uci get wireless.default_$radio.encryption)
+        ifname=$(uci get wireless.default_$radio.ifname)
+        network=$(uci get wireless.default_$radio.network)
+    }
+
+    if [ -z $radio ] || [ -z $encryption ] || [ -z $ifname ] || [ -z $network ]; then
+        echo "reset config: radio=$radio, encryption=$encryption, ifname=$ifname, network=$network" > /dev/ttyAMA0
+        rm -f /etc/config/wireless
+    fi
+}
+
+firmware_remove(){
+	#stop wifi first
+	/sbin/wifi down
+	sleep 1
+    #unregister fullmac if have
+    unload_fmac
+	rm /tmp/run/hostapd-phy*.conf
+	rm /tmp/run/wifi-phy*.pid
+}
+
+detect_wifi(){
+	#detect wifi
+	/sbin/wifi detect > /tmp/wireless.tmp
+    [ -s /tmp/wireless.tmp ] && {
+		cat /tmp/wireless.tmp >> /etc/config/wireless
+	}
+	rm -f /tmp/wireless.tmp
+}
+
+band_reload_fmac(){
+	local band="$1"
+	local noiqc="$2"
+	local lb_radio=""
+	local hb_radio=""
+	local lb_disabled=""
+	local hb_disabled=""
+	local cfgfile=
+	DEVICES=
+
+	#reset PCIe
+	echo 1 > /sys/devices/platform/soc/0.pcie/relink
+
+	config_cb() {
+		local type="$1"
+		local section="$2"
+
+		# section start
+		case "$type" in
+			wifi-device)
+				append DEVICES "$section"
+				;;
+		esac
+	}
+	config_load "${cfgfile:-wireless}"
+	for device1 in $DEVICES;
+	do
+		config_get band1 "$device1" band
+		[ 2.4G = "$band1" ] && {
+			lb_radio=$device1
+		}
+		[ 5G = "$band1" ] && {
+			hb_radio=$device1
+		}
+	done
+
+	[ ! -z "$lb_radio" ] && {
+		lb_disabled=$(uci get wireless.$lb_radio.disabled)
+	}
+	[ ! -z "$hb_radio" ] && {
+		hb_disabled=$(uci get wireless.$hb_radio.disabled)
+	}
+
+	[ lb = "$band" ] && {
+		if [ "$lb_disabled" = "1" ]; then
+			uci set wireless.$lb_radio.disabled=0
+			uci commit wireless
+		fi
+		insmod_fmac lb $noiqc
+		if [ "$hb_disabled" = "0" ]; then
+			uci set wireless.$hb_radio.disabled=1
+			uci commit wireless
+		fi
+		check_wifi_config  $lb_radio
+	}
+	[ hb = "$band" ] && {
+		if [ "$hb_disabled" = "1" ]; then
+			uci set wireless.$hb_radio.disabled=0
+			uci commit wireless
+		fi
+		insmod_fmac hb $noiqc
+		if [ "$lb_disabled" = "0" ]; then
+			uci set wireless.$lb_radio.disabled=1
+			uci commit wireless
+		fi
+		check_wifi_config  $hb_radio
+	}
+
+	if [ -z "$band" ] || [ "$band" = "all" ]; then
+		insmod_fmac all $noiqc
+		uci set wireless.$lb_radio.disabled=0
+		uci set wireless.$hb_radio.disabled=0
+		uci commit wireless
+		check_wifi_config  $lb_radio
+		check_wifi_config  $hb_radio
+	fi
+
+	[ ! -f /etc/config/wireless ] && {
+	    #detect_wifi  Wifi detect is deprecated. Use wifi config instead
+	    touch /etc/config/wireless
+	}
+	#bring up wifi
+	#call_wifi_cmd up $band
+
+	# RM#16596 use network shell to restart netifd to avoid 24G close
+#	/etc/init.d/network restart
+}
+
+firmware_reload(){
+    if [ fmac = "$2" ]; then
+        band_reload_fmac $1 $3
+	elif [ fmac = "$1" ]; then
+		band_reload_fmac
+    else
+	    band_reload_fmac $1
+    fi
+}
+
+firmware_reset(){
+	firmware_remove
+	firmware_reload $1 $2 $3
+}
+
+band_remove_fmac(){
+	local band="$1"
+	call_wifi_cmd down $band
+	sleep 1
+	[ lb = "$band" ] && {
+        unload_fmac
+	}
+	[ hb = "$band" ] && {
+        unload_fmac
+	}
+	[ all = "$band" ] && {
+		unload_fmac
+	}
+	[ -z "$band" ] && {
+		unload_fmac
+	}
+}
+
+sfwifi_stress_test(){
+    echo "======sfwifi stess test start=====================" > /dev/console
+    eval "touch /tmp/sfwifi.log"
+    /etc/init.d/syncservice stop
+    cycle_idx=0
+    while true
+    do
+        echo "====cycle is $cycle_idx====" > /dev/console
+        let "cycle_idx++"
+        firmware_reset $1
+        sleep 15
+        count=`ifconfig |awk '/(HWaddr)/{print $1}' | grep "wlan" -c`
+        time_t=0
+        until [ $count -eq 2 ]
+        do
+            let "time_t ++"
+            sleep 5
+            count=`ifconfig |awk '/(HWaddr)/{print $1}' | grep "wlan" -c`
+            echo "====cycle is $cycle_idx==wlan turn on failed check $time_t times====" > /dev/console
+            if [ $time_t -gt 30 ];then
+                echo "====cycle is $cycle_idx==wlan turn on failed check $time_t times====" >> /tmp/sfwifi.log
+                eval "dmesg >> /tmp/sfwifi.log"
+                echo "====logread====" >> /tmp/sfwifi.log
+                eval "logread >> /tmp/sfwifi.log"
+                exit -1
+            fi
+        done
+    done
+}
+
+case "$1" in
+	reset) firmware_reset $2 $3 $4;;
+	remove) firmware_remove;;
+	reload) firmware_reload $2 $3;;
+	reload_band)
+        if [ $3 = "fmac"]; then
+            band_reload_fmac $2
+        else
+            band_reload_fmac $2
+        fi
+        ;;
+	remove_band)
+        if [ $3 = "fmac" ]; then
+            band_remove_fmac $2
+        else
+            band_remove_fmac $2
+        fi
+        ;;
+    test) call_wifi_cmd $2 $3;;
+    stress)
+        sfwifi_stress_test $2;;
+	--help|help) usage;;
+	*) firmware_reset;;
+esac

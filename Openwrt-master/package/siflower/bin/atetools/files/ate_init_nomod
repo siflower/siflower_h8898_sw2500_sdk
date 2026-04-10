@@ -1,0 +1,104 @@
+#!/bin/sh
+
+list_phy_interfaces() {
+
+        local phy="$1"
+
+        if [ -d "/sys/class/ieee80211/${phy}/device/net" ]; then
+                ls "/sys/class/ieee80211/${phy}/device/net" 2>/dev/null;
+        else
+                ls "/sys/class/ieee80211/${phy}/device" 2>/dev/null | grep net: | sed -e 's,net:,,g'
+        fi
+}
+
+get_phy_list() {
+        ls "/sys/class/ieee80211/" 2>/dev/null;
+}
+
+mac80211_interface_cleanup() {
+        for phy in $(get_phy_list); do
+                echo "set----phy=$phy"
+                for wdev in $(list_phy_interfaces "$phy"); do
+                        ip link set dev "$wdev" down 2>/dev/null
+                        iw dev "$wdev" del
+                done
+                iw phy "$phy" info | grep -q '2412 MHz' && {
+                        #set 2.4G to wlan1
+                        iw phy $phy interface add wlan1 type managed
+                }
+                iw phy "$phy" info | grep -q '5180 MHz' && {
+                        #set 5G to wlan0
+                        iw phy $phy interface add wlan0 type managed
+                }
+        done
+}
+
+mac80211_interface_setup() {
+        for phy in $(get_phy_list); do
+                iw phy "$phy" info | grep -q '2412 MHz' && {
+					#set 2.4G to wlan1
+					if ! iw dev | grep -q "Interface wlan1"; then
+						iw phy $phy interface add wlan1 type managed
+					else
+						echo "wlan1 already OK!"
+					fi
+                }
+                iw phy "$phy" info | grep -q '5180 MHz' && {
+                    #set 5G to wlan0
+					if ! iw dev | grep -q "Interface wlan0"; then
+						iw phy $phy interface add wlan0 type managed
+					else
+						echo "wlan0 already OK!"
+					fi
+                }
+        done
+}
+
+wifi down
+mac80211_interface_cleanup
+mac80211_interface_setup
+
+echo "------start ate setting---------"
+
+if [ "$1" == "hb" ]; then
+
+        ifconfig wlan0 up
+        ate_cmd wlan0 set ATE = ATESTART
+
+elif [ "$1" == "hb1" ]; then
+
+        ifconfig wlan0 up
+        ate_cmd wlan0 fastconfig -a 1
+        ate_cmd wlan0 set ATE = ATESTART
+
+elif [ "$1" == "hb2" ]; then
+
+        ifconfig wlan0 up
+        ate_cmd wlan0 fastconfig -a 2
+        ate_cmd wlan0 set ATE = ATESTART
+
+elif [ "$1" == "lb" ]; then
+
+        ifconfig wlan1 up
+        ate_cmd wlan1 set ATE = ATESTART
+
+elif [ "$1" == "lb1" ]; then
+
+        ifconfig wlan1 up
+        ate_cmd wlan1 set ATE = ATESTART
+        ate_cmd wlan1 fastconfig -a 1
+
+elif [ "$1" == "lb2" ]; then
+
+        ifconfig wlan1 up
+        ate_cmd wlan1 set ATE = ATESTART
+        ate_cmd wlan1 fastconfig -a 2
+
+else
+        ifconfig wlan0 up
+        ifconfig wlan1 up
+        ate_cmd wlan0 set ATE = ATESTART
+        ate_cmd wlan1 set ATE = ATESTART
+
+fi
+echo "--------ate setting end---------"

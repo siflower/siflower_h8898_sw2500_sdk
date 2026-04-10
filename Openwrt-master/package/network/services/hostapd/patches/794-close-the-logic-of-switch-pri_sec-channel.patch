@@ -1,0 +1,19 @@
+--- a/src/ap/hw_features.c
++++ b/src/ap/hw_features.c
+@@ -283,6 +283,7 @@ static int ieee80211n_check_40mhz_5g(str
+ 
+ 	res = check_40mhz_5g(scan_res, pri_chan, sec_chan);
+ 
++/* follow the settings strictly, so do not allowed switch PRI/SEC channels.
+ 	if (res == 2) {
+ 		if (iface->conf->no_pri_sec_switch) {
+ 			wpa_printf(MSG_DEBUG,
+@@ -291,7 +292,7 @@ static int ieee80211n_check_40mhz_5g(str
+ 			ieee80211n_switch_pri_sec(iface);
+ 		}
+ 	}
+-
++*/
+ 	return !!res;
+ }
+ 

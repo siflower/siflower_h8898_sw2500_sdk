@@ -1,0 +1,56 @@
+#!/bin/sh
+# Copyright (C) 2006 OpenWrt.org
+
+# TODO: judge tx or rx state
+if [ $1 == "noiqc" ] || [ $2 == "noiqc" ]; then
+	sfwifi_ate reset fmac noiqc
+else
+	sfwifi_ate reset fmac
+fi
+
+echo "wait wlan up..." > /dev/console
+timer=60
+while [ $timer -gt 0 ]; do
+	timer=$(($timer - 1))
+	[ -e /sys/class/net/wlan0 ] && {
+		echo "wlan0 came up"
+		break;
+	}
+	[ -e /sys/class/net/wlan1 ] && {
+		echo "wlan1 came up"
+		break;
+	}
+	sleep 1
+done
+echo "wlan came up" > /dev/console
+
+if [ $1 == "hb" ]; then
+	ifconfig wlan0 up
+	ate_cmd wlan0 set ATE = ATESTART
+elif [ $1 == "hb1" ]; then
+	ifconfig wlan0 up
+	ate_cmd wlan0 fastconfig -a 1
+	ate_cmd wlan0 set ATE = ATESTART
+elif [ $1 == "hb2" ]; then
+	ifconfig wlan0 up
+	ate_cmd wlan0 fastconfig -a 2
+	ate_cmd wlan0 set ATE = ATESTART
+elif [ $1 == "lb" ]; then
+	ifconfig wlan1 up
+	ate_cmd wlan1 set ATE = ATESTART
+elif [ $1 == "lb1" ]; then
+	ifconfig wlan1 up
+	ate_cmd wlan1 set ATE = ATESTART
+	ate_cmd wlan1 fastconfig -a 1
+elif [ $1 == "lb2" ]; then
+	ifconfig wlan1 up
+	ate_cmd wlan1 set ATE = ATESTART
+	ate_cmd wlan1 fastconfig -a 2
+else
+	ifconfig wlan0 up
+	ifconfig wlan1 up
+	ate_cmd wlan0 set ATE = ATESTART
+	ate_cmd wlan1 set ATE = ATESTART
+fi
+
+ate_cmd

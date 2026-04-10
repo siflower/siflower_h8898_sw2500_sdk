@@ -1,0 +1,40 @@
+--- a/net/wireless/reg.c
++++ b/net/wireless/reg.c
+@@ -2455,6 +2455,17 @@ static void reg_check_channels(void)
+ 			 msecs_to_jiffies(REG_ENFORCE_GRACE_MS));
+ }
+ 
++static void reg_set_limit_power(struct wiphy *wiphy)
++{
++	struct wireless_dev *wdev;
++	struct cfg80211_registered_device *rdev = wiphy_to_rdev(wiphy);
++	struct ieee80211_regdomain *regd = NULL;
++
++	regd = rcu_dereference(cfg80211_regdomain);
++
++	rdev->ops->set_regulation_power(wiphy, regd);
++}
++
+ static void wiphy_update_regulatory(struct wiphy *wiphy,
+ 				    enum nl80211_reg_initiator initiator)
+ {
+@@ -2483,6 +2494,7 @@ static void wiphy_update_regulatory(stru
+ 	reg_process_beacons(wiphy);
+ 	reg_process_ht_flags(wiphy);
+ 	reg_call_notifier(wiphy, lr);
++	reg_set_limit_power(wiphy);
+ }
+ 
+ static void update_all_wiphy_regulatory(enum nl80211_reg_initiator initiator)
+--- a/include/net/cfg80211.h
++++ b/include/net/cfg80211.h
+@@ -4211,6 +4211,8 @@ struct cfg80211_ops {
+ 				int *dbm);
+ 	int	(*set_antenna_gain)(struct wiphy *wiphy, int dbi);
+ 
++	int	(*set_regulation_power)(struct wiphy *wiphy, struct ieee80211_regdomain *regd);
++
+ 	void	(*rfkill_poll)(struct wiphy *wiphy);
+ 
+ #ifdef CPTCFG_NL80211_TESTMODE
+

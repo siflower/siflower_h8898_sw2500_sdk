@@ -1,0 +1,60 @@
+Index: hostapd-2022-01-16-cff80b4f/wpa_supplicant/ctrl_iface.c
+===================================================================
+--- hostapd-2022-01-16-cff80b4f.orig/wpa_supplicant/ctrl_iface.c
++++ hostapd-2022-01-16-cff80b4f/wpa_supplicant/ctrl_iface.c
+@@ -2499,29 +2499,35 @@ static int wpa_supplicant_ctrl_iface_sta
+ 		if (os_snprintf_error(end - pos, ret))
+ 			return pos - buf;
+ 		pos += ret;
+-		ret = os_snprintf(pos, end - pos, "wps_disabled=%d\n", wpa_s->current_ssid->wps_disabled);
+-		if (os_snprintf_error(end - pos, ret))
+-			return pos - buf;
+-		pos += ret;
+-		if (wpa_s->current_ssid->passphrase) {
+-			ret = os_snprintf(pos, end - pos, "passphrase=%s\n", wpa_s->current_ssid->passphrase);
+-			if (os_snprintf_error(end - pos, ret))
+-				return pos - buf;
+-			pos += ret;
+-			ret = os_snprintf(pos, end - pos, "passphrase_len=%d\n", strlen(wpa_s->current_ssid->passphrase));
+-			if (os_snprintf_error(end - pos, ret))
+-				return pos - buf;
+-			pos += ret;
+-		}
+-		if (wpa_s->current_ssid->sae_password) {
+-			ret = os_snprintf(pos, end - pos, "passphrase=%s\n", wpa_s->current_ssid->sae_password);
+-			if (os_snprintf_error(end - pos, ret))
+-				return pos - buf;
+-			pos += ret;
+-			ret = os_snprintf(pos, end - pos, "passphrase_len=%d\n", strlen(wpa_s->current_ssid->sae_password));
++
++		if (wpa_s->current_ssid) {
++			ret = os_snprintf(pos, end - pos, "wps_disabled=%d\n", wpa_s->current_ssid->wps_disabled);
+ 			if (os_snprintf_error(end - pos, ret))
+ 				return pos - buf;
+ 			pos += ret;
++			if (wpa_s->current_ssid->passphrase) {
++				ret = os_snprintf(pos, end - pos, "passphrase=%s\n", wpa_s->current_ssid->passphrase);
++				if (os_snprintf_error(end - pos, ret))
++					return pos - buf;
++				pos += ret;
++				ret = os_snprintf(pos, end - pos, "passphrase_len=%d\n", strlen(wpa_s->current_ssid->passphrase));
++				if (os_snprintf_error(end - pos, ret))
++					return pos - buf;
++				pos += ret;
++			}
++			if (wpa_s->current_ssid->sae_password) {
++				ret = os_snprintf(pos, end - pos, "passphrase=%s\n", wpa_s->current_ssid->sae_password);
++				if (os_snprintf_error(end - pos, ret))
++					return pos - buf;
++				pos += ret;
++				ret = os_snprintf(pos, end - pos, "passphrase_len=%d\n", strlen(wpa_s->current_ssid->sae_password));
++				if (os_snprintf_error(end - pos, ret))
++					return pos - buf;
++				pos += ret;
++			}
++		} else {
++			wpa_printf(MSG_ERROR,
++			   "CTRL_IFACE: current ssid NULL");
+ 		}
+ 	}
+ #endif /* CONFIG_WPS */

@@ -74,4 +74,7 @@
 	mtd_refpower: refpower@ba {
 		reg = <0xba 0x2>;
 	};
+	mtd_calipower: calipower@bc {
+		reg = <0xbc 0x2>;
+	};
 };

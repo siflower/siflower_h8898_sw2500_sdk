@@ -37,6 +37,16 @@ define Device/siflower-one-nand
 endef
 TARGET_DEVICES += siflower-one-nand
 
+define Device/siflower-one-nand-wifi
+	$(call Device/NAND)
+	DEVICE_VENDOR := Siflower
+	DEVICE_MODEL := One (Booting from NAND & wifi)
+	DEVICE_DTS := sf21h8898-siflower-one-nand-wifi
+	DEVICE_PACKAGES := kmod-usb-dwc2 kmod-phy-sf21a6826-usb kmod-rtc-pcf8563 kmod-i2c-designware-platform
+	SUPPORTED_DEVICES := siflower,one-nand-wifi
+endef
+TARGET_DEVICES += siflower-one-nand-wifi
+
 define Device/siflower-one-nor
 	$(call Device/NOR_FIT)
 	DEVICE_VENDOR := Siflower
@@ -46,6 +56,16 @@ define Device/siflower-one-nor
 	SUPPORTED_DEVICES := siflower,one-nor
 endef
 TARGET_DEVICES += siflower-one-nor
+
+define Device/siflower-one-nor-wifi
+	$(call Device/NOR_FIT)
+	DEVICE_VENDOR := Siflower
+	DEVICE_MODEL := One (Booting from NOR & wifi)
+	DEVICE_DTS := sf21h8898-siflower-one-nor-wifi
+	DEVICE_PACKAGES := kmod-usb-dwc2 kmod-phy-sf21a6826-usb kmod-rtc-pcf8563 kmod-i2c-designware-platform
+	SUPPORTED_DEVICES := siflower,one-nor-wifi
+endef
+TARGET_DEVICES += siflower-one-nor-wifi
 
 define Device/siflower-bpi-nor
 	$(call Device/NOR_FIT)
