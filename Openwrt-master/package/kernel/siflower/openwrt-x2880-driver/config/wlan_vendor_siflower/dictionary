@@ -1,0 +1,737 @@
+27   lmac/ip/lmac/src/mm/mm_task.c                 465    TRACE_KERNEL(MSG_API, "heart beat num %ld %ld", TR_32(param->num >> 32), TR_32(param->num))
+73   lmac/modules/ke/src/ke_msg.c                  83     TRACE_KERNEL(MSG_API, "Dispatching %kM from %kT to %kT", msg->id, msg->src_id, msg->dest_id)
+76   lmac/modules/ke/src/ke_task.c                 164    TRACE_KERNEL(STATE, "set %kS", id, state_id)
+76   lmac/modules/ke/src/ke_task.c                 280    TRACE_KERNEL(MSG_LOCAL, "Dispatching %kM from %kT to %kT", msg->id, msg->src_id, msg->dest_id)
+76   lmac/modules/ke/src/ke_task.c                 290    TRACE_KERNEL(ERR, "No handler found for %kM from %kT to %kT", msg->id, msg->src_id, msg->dest_id)
+9    lmac/ip/lmac/src/rwnx/rwnx.c                  290    TRACE_LMAC(DOZE, "MACHW enters DOZE mode")
+9    lmac/ip/lmac/src/rwnx/rwnx.c                  327    TRACE_LMAC(DOZE, "MACHW exits DOZE mode")
+15   lmac/ip/lmac/src/tx/txl/txl_cntrl.c           1152   TRACE_LMAC(TX, "{VIF-%d} Trigger Frame idx=%d", txdesc->host.vif_idx, TX_PHYCTRL_GET(TRIG_IDX, tx_desc_thd(txdesc)->frmx.phyctrlinfo2))
+15   lmac/ip/lmac/src/tx/txl/txl_cntrl.c           1157   TRACE_LMAC(TX, "[AC %d]{VIF-%d} to STA-%d %fc SN=%d len=%d", ac, txdesc->host.vif_idx, txdesc->host.sta_idx, mac_hdr->fctl, txdesc->umac.sn, tx_desc_thd(txdesc)->mpdu.frmlen)
+15   lmac/ip/lmac/src/tx/txl/txl_cntrl.c           1164   TRACE_LMAC(TX, "[AC %d]{VIF-%d} to STA-%d Null Data Packet", ac, txdesc->host.vif_idx, txdesc->host.sta_idx)
+17   lmac/ip/lmac/src/tx/txl/txl_agg.c             851    TRACE_LMAC(TX, "[AC %d]{VIF-%d} to STA-%d AMPDU (#%2d, %6lu bytes) SN=%d", ac, txdesc->host.vif_idx, txdesc->host.sta_idx, ampdu_size, TR_32(agg_desc->hw->a_thd.frmx.frmlen), txdesc->umac.sn)
+17   lmac/ip/lmac/src/tx/txl/txl_agg.c             2572   TRACE_LMAC(TX, "[AC %d] {VIF-%d} to STA-%d SN=%d (A-MPDU to singleton) len=%d", ac, txdesc->host.vif_idx, txdesc->host.sta_idx, txdesc->umac.sn, thd->mpdu.frmlen)
+17   lmac/ip/lmac/src/tx/txl/txl_agg.c             2595   TRACE_LMAC(TX, "[AC %d] {VIF-%d} to STA-%d SN=%d (A-MPDU to singleton) len=%d", ac, txdesc->host.vif_idx, txdesc->host.sta_idx, txdesc->umac.sn, thd->mpdu.frmlen)
+18   lmac/ip/lmac/src/tx/txl/txl_mu.c              550    TRACE_LMAC(TX, "[AC %d]{VIF-%d} to STA-%d AMPDU (#%d, %d bytes) SN=%d, " "in MU PPDU as user %d", mu_desc->ac, txdesc->host.vif_idx, txdesc->host.sta_idx, ampdu_size, TR_32(agg_desc->hw->a_thd.frmx.frmlen), txdesc->umac.sn, i)
+19   lmac/ip/lmac/src/rx/rxl/rxl_cntrl.c           771    TRACE_LMAC(RX_ALL, "from unknown STA: SN=%d %fc", ((struct mac_hdr *)frame)->seq >> MAC_SEQCTRL_NUM_OFT, framectrl)
+19   lmac/ip/lmac/src/rx/rxl/rxl_cntrl.c           798    TRACE_LMAC(RX_ALL, "from invalid STA-%d: SN=%d %fc", sta_idx, ((struct mac_hdr *)frame)->seq >> MAC_SEQCTRL_NUM_OFT, framectrl)
+19   lmac/ip/lmac/src/rx/rxl/rxl_cntrl.c           846    TRACE_LMAC(RX, "{VIF-%d} from STA-%d: SN=%d %fc len=%d", sta->inst_nbr, sta_idx, ((struct mac_hdr *)frame)->seq >> MAC_SEQCTRL_NUM_OFT, framectrl, rhd->frmlen)
+21   lmac/ip/lmac/src/tx/txl/txl_he.c              567    TRACE_LMAC(TX_TB, "[AC-%d] restart EDCA", ac)
+21   lmac/ip/lmac/src/tx/txl/txl_he.c              616    TRACE_LMAC(TX_TB, "[AC-%d] disable EDCA AIFSN=0", ac)
+21   lmac/ip/lmac/src/tx/txl/txl_he.c              1021   TRACE_LMAC(TX_TB, "send NDP")
+21   lmac/ip/lmac/src/tx/txl/txl_he.c              1052   TRACE_LMAC(TX_TB, "send Qos NULL")
+21   lmac/ip/lmac/src/tx/txl/txl_he.c              1156   TRACE_LMAC(TX_TB, "Send singleton BSRP")
+21   lmac/ip/lmac/src/tx/txl/txl_he.c              1165   TRACE_LMAC(TX_TB, "Send A-MPDU BSRP")
+21   lmac/ip/lmac/src/tx/txl/txl_he.c              1182   TRACE_LMAC(TX_TB, "Send empty BSRP")
+21   lmac/ip/lmac/src/tx/txl/txl_he.c              1237   TRACE_LMAC(TX_TB, "[AC-%d] AMPDU for HE TB programmed: (#%2d, %6lu bytes) SN=%d", he_tb->ac, txl_cfm_tag_get(agg_desc->txdesc_last)->ampdu_size, TR_32(agg_desc->hw->a_thd.frmx.frmlen), agg_desc->txdesc_first->umac.sn)
+21   lmac/ip/lmac/src/tx/txl/txl_he.c              1549   TRACE_LMAC(TX_TB, "Send PS-Poll")
+21   lmac/ip/lmac/src/tx/txl/txl_he.c              2065   TRACE_LMAC(TX_TB, "{VIF-%d} HE trigger frame: ul_len=%ld bytes bw=%d rate=%rc pref_ac=%d " "(cancel=%d)", sta->inst_nbr, TR_32(he_tb->max_len), 20 * (1 << he_tb->ul_bw), TR_32(rc_tx_get_he_tb_rate_config(sta_idx)), he_tb->pref_ac, txl_he_env.status & HE_TB_CANCEL_NEXT_BIT)
+21   lmac/ip/lmac/src/tx/txl/txl_he.c              2184   TRACE_LMAC(TX_TB, "[AC-%d] cancel A-MPDU", access_category)
+30   lmac/ip/lmac/src/chan/chan.c                  3499   TRACE_LMAC(TPC, "{CTXT-%d} updated channel context tx_power: %ddBm", ctxt->idx, ctxt->channel.tx_power)
+33   lmac/ip/lmac/src/td/td.c                      123    TRACE_LMAC(TD, "{STA-%d} Update traffic status old_status=%d new_status=%d", sta_idx, tds_env->status, new_status)
+33   lmac/ip/lmac/src/td/td.c                      151    TRACE_LMAC(TD_DBG, "{VIF-%d} End of TD periodic timer active channel=%d packet count tx=%ld packet count rx=%ld", td_env->vif_index, td_env->has_active_chan, TR_32(td_env->pck_cnt_tx), TR_32(td_env->pck_cnt_rx))
+33   lmac/ip/lmac/src/td/td.c                      221    TRACE_LMAC(TD, "{VIF-%d} End of TD periodic timer change status old_status=%d new_status=%d", td_env->vif_index, td_env->status, new_status)
+33   lmac/ip/lmac/src/td/td.c                      273    TRACE_LMAC(TD, "initialization")
+33   lmac/ip/lmac/src/td/td.c                      295    TRACE_LMAC(TD, "{VIF-%d} reset", vif_index)
+33   lmac/ip/lmac/src/td/td.c                      324    TRACE_LMAC(TD, "{STA-%d} sta reset", sta_idx)
+33   lmac/ip/lmac/src/td/td.c                      344    TRACE_LMAC(TD, "{VIF-%d} start", vif_index)
+33   lmac/ip/lmac/src/td/td.c                      364    TRACE_LMAC(TD_DBG, "{VIF-%d}{STA-%d} Packet received/transmitted (rx=%d)", vif_index, sta_idx, rx)
+33   lmac/ip/lmac/src/td/td.c                      419    TRACE_LMAC(TD_DBG, "{VIF-%d} Packet received/transmitted (rx=%d) in Power save mode", vif_index, rx)
+38   lmac/ip/lmac/src/hal/hal_machw.c              253    TRACE_LMAC(ERR, "Firmware compiled for MACHW v%d, but MACHW v%d is running", NX_MAC_VER, mac_ver)
+42   lmac/ip/lmac/src/rc/rc.c                      2513   TRACE_LMAC(RC, "{STA-%d} Retry Chain after config update: [%rc][%rc][%rc][%rc]", sta_idx, TR_32(rc_ss->rate_stats[rc_ss->retry_step_idx[0]].rate_config), TR_32(rc_ss->rate_stats[rc_ss->retry_step_idx[1]].rate_config), TR_32(rc_ss->rate_stats[rc_ss->retry_step_idx[2]].rate_config), TR_32(rc_ss->rate_stats[rc_ss->retry_step_idx[3]].rate_config))
+42   lmac/ip/lmac/src/rc/rc.c                      2718   TRACE_LMAC(RC, "{STA-%d} Retry Chain after stats update: [%rc][%rc][%rc][%rc]", sta_idx, TR_32(rc_ss->rate_stats[rc_ss->retry_step_idx[0]].rate_config), TR_32(rc_ss->rate_stats[rc_ss->retry_step_idx[1]].rate_config), TR_32(rc_ss->rate_stats[rc_ss->retry_step_idx[2]].rate_config), TR_32(rc_ss->rate_stats[rc_ss->retry_step_idx[3]].rate_config))
+42   lmac/ip/lmac/src/rc/rc.c                      2736   TRACE_LMAC(RC_TRIAL, "{STA-%d} Set Trial rate: %rc", sta_idx, TR_32(rc_ss->rate_stats[rc_ss->trial_idx].rate_config))
+42   lmac/ip/lmac/src/rc/rc.c                      2945   TRACE_LMAC(STA, "{STA-%d} HE: %dMHz RX_MCS[1ss:%d/2ss:%d] " "TX_MCS[1ss:%d/2ss:%d] LDPC[%d] " "DCM[mcs%d, %dMHz, %dss] HE-ER 106T[%d]", sta->sta_idx, (20 << rc_ss_tx->bw_max), mcs_m[VHT_MCS_NSS_IDX_GET(MCS_MAP, 0, he_cap->mcs_supp.rx_mcs_80)], mcs_m[VHT_MCS_NSS_IDX_GET(MCS_MAP, 1, he_cap->mcs_supp.rx_mcs_80)], mcs_m[VHT_MCS_NSS_IDX_GET(MCS_MAP, 0, he_cap->mcs_supp.tx_mcs_80)], mcs_m[VHT_MCS_NSS_IDX_GET(MCS_MAP, 1, he_cap->mcs_supp.tx_mcs_80)], HE_CAPA_PHY_GET(he_cap, LDPC), rc_ss_tx->dcm_mcs_max - 1, (20 << rc_ss_tx->dcm_bw_max), rc_ss_tx->dcm_nss_max  + 1, rc_ss_tx->he_er.support_ru106)
+42   lmac/ip/lmac/src/rc/rc.c                      2994   TRACE_LMAC(STA, "{STA-%d} VHT: %dMHz RX_MCS[1ss:%d/2ss:%d] " "TX_MCS[1ss:%d/2ss:%d] LDPC[%d] SGI[%d]", sta->sta_idx, (20 << rc_ss_tx->bw_max), mcs_m[VHT_MCS_NSS_IDX_GET(MCS_MAP, 0, vht_cap->rx_mcs_map)], mcs_m[VHT_MCS_NSS_IDX_GET(MCS_MAP, 1, vht_cap->rx_mcs_map)], mcs_m[VHT_MCS_NSS_IDX_GET(MCS_MAP, 0, vht_cap->tx_mcs_map)], mcs_m[VHT_MCS_NSS_IDX_GET(MCS_MAP, 1, vht_cap->tx_mcs_map)], VHT_CAPA_GET(vht_cap, LDPC), rc_ss_tx->short_gi)
+42   lmac/ip/lmac/src/rc/rc.c                      3030   TRACE_LMAC(STA, "{STA-%d} HT: %dMHz NSS[%d] LDPC[%d] SGI[%d]", sta->sta_idx, (20 << rc_ss_tx->bw_max), rc_ss_tx->nss.up_to_80 + 1, HT_CAPA_GET(ht_cap, LDPC), rc_ss_tx->short_gi)
+42   lmac/ip/lmac/src/rc/rc.c                      3049   TRACE_LMAC(STA, "{STA-%d} LEGACY-A: ", sta->sta_idx)
+42   lmac/ip/lmac/src/rc/rc.c                      3053   TRACE_LMAC(STA, "{STA-%d} LEGACY-%c: LONG_PREAMBLE[%d]", sta->sta_idx, (rc_ss_tx->r_idx_max <= HW_RATE_11MBPS) ? 'B' : 'G', long_preamble)
+42   lmac/ip/lmac/src/rc/rc.c                      3130   TRACE_LMAC(RC, "{STA-%d} Retry Chain at init: [%rc][%rc][%rc][%rc]", sta->sta_idx, TR_32(rc_ss_tx->rate_stats[rc_ss_tx->retry_step_idx[0]].rate_config), TR_32(rc_ss_tx->rate_stats[rc_ss_tx->retry_step_idx[1]].rate_config), TR_32(rc_ss_tx->rate_stats[rc_ss_tx->retry_step_idx[2]].rate_config), TR_32(rc_ss_tx->rate_stats[rc_ss_tx->retry_step_idx[3]].rate_config))
+43   lmac/ip/lmac/src/tpc/tpc.c                    373    TRACE_LMAC(TPC, "{VIF-%d} set TX power to %ddBm (regulatory=%ddBm, local_constraint=%ddBm, user=%ddBm)", vif->index, vif->tx_power, vif->bss_info.chan.tx_power, vif->bss_info.power_constraint, vif->user_tx_power)
+62   lmac/ip/umac/src/bam/bam_task.c               76     TRACE_LMAC(BA, "{BAM-%d} no response from STA, drop agreement", bam_idx)
+62   lmac/ip/umac/src/bam/bam_task.c               135    TRACE_LMAC(BA, "{BAM-%d} TX agreement with {STA-%d} successfully created" " [size=%d]", bam_idx, param->sta_idx, bam_env[bam_idx].buffer_size)
+62   lmac/ip/umac/src/bam/bam_task.c               150    TRACE_LMAC(BA, "{BAM-%d} failed to create TX agreement with {STA-%d}" " (status=%d)", bam_idx, param->sta_idx, param->status)
+62   lmac/ip/umac/src/bam/bam_task.c               188    TRACE_LMAC(BA, "{BAM-%d} RX agreement with {STA-%d} successfully created", bam_idx, param->sta_idx)
+62   lmac/ip/umac/src/bam/bam_task.c               206    TRACE_LMAC(BA, "{BAM-%d} failed to create RX agreement with {STA-%d}" " (status=%d)", bam_idx, param->sta_idx, param->status)
+62   lmac/ip/umac/src/bam/bam_task.c               455    TRACE_LMAC(BA, "{BAM-%d} Start RX agreement with {STA-%d}: tid=%d ssn=%d size=%d", bam_idx, sta_idx, tid, bam->ssn, bam->buffer_size)
+62   lmac/ip/umac/src/bam/bam_task.c               516    TRACE_LMAC(BA, "{BAM-%d} STA refused the TX agreement", bam_idx)
+62   lmac/ip/umac/src/bam/bam_task.c               588    TRACE_LMAC(BA, "{BAM-%d} Delete agreement after receiving DELBA", bam_idx)
+63   lmac/ip/umac/src/bam/bam.c                    83     TRACE_LMAC(BA, "Refuse RX agreement with {STA-%d} : PS %d, HT %d", sta_idx, sta->ps_state == PS_MODE_ON, STA_CAPA(sta, HT))
+63   lmac/ip/umac/src/bam/bam.c                    99     TRACE_LMAC(BA, "Refuse RX agreement with {STA-%d}, no more BAM", sta_idx)
+63   lmac/ip/umac/src/bam/bam.c                    105    TRACE_LMAC(BA, "Delete active {BAM-%d} to create new RX aggreement", bam_idx)
+63   lmac/ip/umac/src/bam/bam.c                    640    TRACE_LMAC(BA, "{BAM-%d} Start TX agreement with {STA-%d}: tid=%d ssn=%d", bam_idx, sta_idx, tid, ssn)
+63   lmac/ip/umac/src/bam/bam.c                    916    TRACE_LMAC(BA, "{BAM-%d} agreement deleted", bam_idx)
+63   lmac/ip/umac/src/bam/bam.c                    1101   TRACE_LMAC(BA, "{BAM-%d} delete agreement with {STA-%d}", bam_idx, sta_idx)
+68   lmac/ip/umac/src/hsu/hsu.c                    377    TRACE_LMAC(ERR, "Temporary buffer for SHA computation not big enough (need %d)", length)
+68   lmac/ip/umac/src/hsu/hsu.c                    482    TRACE_LMAC(ERR, "Temporary buffer for HMAC computation not big enough (need %d)", length)
+93   lmac/modules/macif/src/macif_ipc.c            249    TRACE_RUA(MAP, "macif_he_mu_ind idx=%d vif_index=%d cnt_sta=%d", he_mu_map_array->idx, he_mu_map_array->vif_index, he_mu_map_array->cnt_sta)
+94   lmac/modules/rua/src/rua.c                    358    TRACE_RUA(MAP, "Output of RUA Inner stalocid=%d, rua_env.hash[fs_idx][i].valid=%d" " rua_env.hash[fs_idx][i].c=%d hung_out->n_alloc=%d", i, rua_env.hash[fs_idx][i].valid, rua_env.hash[fs_idx][i].c, hung_out->n_alloc)
+94   lmac/modules/rua/src/rua.c                    481    TRACE_RUA(MAP, "Output of RUA Inner dir=%d sta_idx=%d tidmap=%d" " capacity=%d fs_bw=%d ruSize=%d ru_alloc=%d sf_idx=%d" " alloc_idx=%d sta_pos=%d" " rua_env.out[dir].hung_out[fs_idx].n_sta=%d mu_mimo=%d", direction, sta_alloc[sta_pos + 1].sta_idx, sta_alloc[sta_pos + 1].tidmap, sta_alloc[sta_pos + 1].capacity, rua_env.fs_dyn.desc[fs_idx].bw, ru_size, hung_out->mac_ci[i].ru_alloc, hung_out->sf, alloc_idx, sta_pos + 1, hung_out->n_sta, curr_sta->mu_mimo)
+94   lmac/modules/rua/src/rua.c                    506    TRACE_RUA(MAP, "Output of RUA Inner dir=%d sta_idx=%d tidmap=%d" " capacity=%d fs_bw=%d ruSize=%d ru_alloc=%d sf_idx=%d" " alloc_idx=%d sta_pos=%d" " rua_env.out[dir].hung_out[fs_idx].n_sta=%d mu_mimo=%d", direction, sta_alloc[sta_pos].sta_idx, sta_alloc[sta_pos].tidmap, sta_alloc[sta_pos].capacity, rua_env.fs_dyn.desc[fs_idx].bw, ru_size, hung_out->mac_ci[i].ru_alloc, hung_out->sf, alloc_idx, sta_pos, hung_out->n_sta, curr_sta->mu_mimo)
+94   lmac/modules/rua/src/rua.c                    830    TRACE_RUA(HUNG_INNER_LVL0, "Hung Inner minR[r]=%d %d %d %d", minR[0], minR[1], minR[2], minR[3])
+94   lmac/modules/rua/src/rua.c                    851    TRACE_RUA(HUNG_INNER_LVL0, "Hung Inner minC[c]=%d %d %d %d", minC[0], minC[1], minC[2], minC[3])
+94   lmac/modules/rua/src/rua.c                    874    TRACE_RUA(HUNG_INNER_LVL0, "Hung Inner X[0][0]=%d Xbool[0][0]=%d X[0][1]=%d Xbool[0][1]=%d X[1][0]=%d" " Xbool[1][0]=%d X[1][1]=%d Xbool[1][1]=%d", X[0][0], Xbool[0][0], X[0][1], Xbool[0][1], X[1][0], Xbool[1][0], X[1][1], Xbool[1][1])
+94   lmac/modules/rua/src/rua.c                    901    TRACE_RUA(HUNG_INNER_LVL0, "Hung Inner sta_cnt=%d r=%d hash[r].c=%d hash.v=%d", sta_cnt, r, hash_tmp->c, hash_tmp->valid)
+94   lmac/modules/rua/src/rua.c                    924    TRACE_RUA(HUNG_INNER_LVL1, "Hung Inner sta_cnt=%d hash_loc[0].c=%d %d %d %d .v=%d %d %d %d", sta_cnt, hash_loc[0].c, hash_loc[1].c, hash_loc[2].c, hash_loc[3].c, hash_loc[0].valid, hash_loc[1].valid, hash_loc[2].valid, hash_loc[3].valid)
+94   lmac/modules/rua/src/rua.c                    959    TRACE_RUA(HUNG_INNER_LVL0, "Hung Inner end step4 hash[r].c=%d %d %d %d hash[r].valid=%d %d %d %d", hash[0].c, hash[1].c, hash[2].c, hash[3].c, hash[0].valid, hash[1].valid, hash[2].valid, hash[3].valid)
+94   lmac/modules/rua/src/rua.c                    972    TRACE_RUA(HUNG_INNER_LVL0, "rua_check_all_hash_valid_1=%d sta_cnt=%d n_sta=%d n_alloc=%d" " loop_all_hash_valid=%d", rua_check_all_hash_valid(hash_loc, n_sta, n_alloc), sta_cnt, n_sta, n_alloc, loop_all_hash_valid)
+94   lmac/modules/rua/src/rua.c                    993    TRACE_RUA(HUNG_INNER_LVL0, "coverColumnTild=%d %d %d %d c_alpha=%x, row_col_array_idx=%d", coverColumnTild[0], coverColumnTild[1], coverColumnTild[2], coverColumnTild[3], (uint32_t)(uint64_t)c_alpha, row_col_array_idx)
+94   lmac/modules/rua/src/rua.c                    1021   TRACE_RUA(HUNG_INNER_LVL0, "Hung Inner row_col_array_idx=%d row_col.rc.r=%d" " row_col.rc.c=%d ", row_col_array_idx, row_col_array[row_col_array_idx].rc.r, row_col_array[row_col_array_idx].rc.c)
+94   lmac/modules/rua/src/rua.c                    1037   TRACE_RUA(HUNG_INNER_LVL1, "Hung Inner list_cnt=%d coverColumnTild[0]=%d %d %d %d minBar[0][0]=%d" " [0][1]=%d [0][2]=%d [0][3]=%d %d %d %d %d %d %d %d %d %d %d %d %d ", rua_row_col_cnt(), coverColumnTild[0], coverColumnTild[1], coverColumnTild[2], coverColumnTild[3], minBar[0][0], minBar[0][1], minBar[0][2], minBar[0][3], minBar[1][0], minBar[1][1], minBar[1][2], minBar[1][3], minBar[2][0], minBar[2][1], minBar[2][2], minBar[2][3], minBar[3][0], minBar[3][1], minBar[3][2], minBar[3][3])
+94   lmac/modules/rua/src/rua.c                    1055   TRACE_RUA(HUNG_INNER_LVL0, "Hung Inner step5 list_cnt=%d coverRowTild[0]=%d %d %d %d" " coverColumnTild[0]=%d %d %d %d loop=%d", list_cnt, coverRowTild[0], coverRowTild[1], coverRowTild[2], coverRowTild[3], coverColumnTild[0], coverColumnTild[1], coverColumnTild[2], coverColumnTild[3], loop)
+94   lmac/modules/rua/src/rua.c                    1085   TRACE_RUA(HUNG_INNER_LVL0, "Hung Inner uZr=%d uZc=%d competingPoint.c=%d" " competingPoint.valid=%d list_cnt=%d star[r].c=%d %d %d %d" " .valid=%d %d %d %d", uZr, uZc, competingPoint.c, competingPoint.valid, list_cnt, star[0].c, star[1].c, star[2].c, star[3].c, star[0].valid, star[1].valid, star[2].valid, star[3].valid)
+94   lmac/modules/rua/src/rua.c                    1102   TRACE_RUA(HUNG_INNER_LVL0, "Hung Inner competingPoint.valid==RUA_INVALID list_cnt=%d", list_cnt)
+94   lmac/modules/rua/src/rua.c                    1128   TRACE_RUA(HUNG_INNER_LVL0, "Hung Inner p_row_col->rc.r=%d uZr=%d row_col_array_idx=%d" " l=%d", p_row_col->rc.r, uZr, row_col_array_idx, l)
+94   lmac/modules/rua/src/rua.c                    1150   TRACE_RUA(HUNG_INNER_LVL0, "Hung Inner rua_row_col_push_back list_cnt=%d" " coverRowTild[0]=%d %d %d %d coverColumnTild[0]=%d %d %d %d", list_cnt, coverRowTild[0], coverRowTild[1], coverRowTild[2], coverRowTild[3], coverColumnTild[0], coverColumnTild[1], coverColumnTild[2], coverColumnTild[3])
+94   lmac/modules/rua/src/rua.c                    1180   TRACE_RUA(HUNG_INNER_LVL0, "Hung Inner zBool==1 r=%d c=%d z[r][c]=%d", r, competingPoint.c, z[r][competingPoint.c])
+94   lmac/modules/rua/src/rua.c                    1192   TRACE_RUA(HUNG_INNER_LVL0, "Hung Inner zBool[r][competingPoint.c]=%d %d %d %d list_cnt=%d", zBool[0][competingPoint.c], zBool[1][competingPoint.c], zBool[2][competingPoint.c], zBool[3][competingPoint.c], list_cnt)
+94   lmac/modules/rua/src/rua.c                    1226   TRACE_RUA(HUNG_INNER_LVL0, "Hung Inner minI1=%d r=%d c=%d minR[r]=%d" " minC[c]=%d M[r][c]=%d", minI1, r, c, minR[r], minC[c], M[r][c])
+94   lmac/modules/rua/src/rua.c                    1256   TRACE_RUA(HUNG_INNER_LVL0, "Hung Inner M=min row_col_array_idx=%d" " r=%d c=%d ", row_col_array_idx, r, c)
+94   lmac/modules/rua/src/rua.c                    1289   TRACE_RUA(HUNG_INNER_LVL0, "Hung Inner coverRowTild[0]=%d %d %d %d coverColumnTild[0]=%d" " %d %d %d list_cnt=%d minI1=%d hash_loc[0].c=%d %d %d %d" " minC[0]=%d %d %d %d minR[0]=%d %d %d %d ", coverRowTild[0], coverRowTild[1], coverRowTild[2], coverRowTild[3], coverColumnTild[0], coverColumnTild[1], coverColumnTild[2], coverColumnTild[3], list_cnt, minI1, hash_loc[0].c, hash_loc[1].c, hash_loc[2].c, hash_loc[3].c, minC[0], minC[1], minC[2], minC[3], minR[0], minR[1], minR[2], minR[3])
+94   lmac/modules/rua/src/rua.c                    1302   TRACE_RUA(HUNG_INNER_LVL0, "break while (1) from step = 5")
+94   lmac/modules/rua/src/rua.c                    1312   TRACE_RUA(HUNG_INNER_LVL0, "Hung Inner step7 uZr=%d uZc=%d hash_loc[r].c=%d %d %d %d", uZr, uZc, hash_loc[0].c, hash_loc[1].c, hash_loc[2].c, hash_loc[3].c)
+94   lmac/modules/rua/src/rua.c                    1334   TRACE_RUA(HUNG_INNER_LVL0, "Hung Inner step7 uZr_conflict=%d uZr=%d uZc=%d n_sta=%d n_alloc=%d" " hash_loc[r].c=%d %d %d %d", uZr_conflict, uZr, uZc, n_sta, n_alloc, hash_loc[0].c, hash_loc[1].c, hash_loc[2].c, hash_loc[3].c)
+94   lmac/modules/rua/src/rua.c                    1351   TRACE_RUA(HUNG_INNER_LVL1, "Hung Inner step7 loop_all_hash_valid=%d uZr_conflict_flag=%d" " hash_loc[0].c=%d %d %d %d", loop_all_hash_valid, uZr_conflict_flag, hash_loc[0].c, hash_loc[1].c, hash_loc[2].c, hash_loc[3].c)
+94   lmac/modules/rua/src/rua.c                    1359   TRACE_RUA(HUNG_INNER_LVL1, "Hung Inner list_cnt=%d rua_check_all_hash_valid_2=%d hash_loc[0].c=%d" " %d %d %d", list_cnt, rua_check_all_hash_valid(hash_loc, n_sta, n_alloc), hash_loc[0].c, hash_loc[1].c, hash_loc[2].c, hash_loc[3].c)
+94   lmac/modules/rua/src/rua.c                    1402   TRACE_RUA(HUNG_INNER_LVL1, "Hung Inner end step7 hash_loc[r].c=%d %d %d %d hash_loc[r].v=%d %d %d" " %d hash[r].c=%d %d %d %d hash[r].v=%d %d %d %d star[r].c=%d %d %d %d", hash_loc[0].c, hash_loc[1].c, hash_loc[2].c, hash_loc[3].c, hash_loc[0].valid, hash_loc[1].valid, hash_loc[2].valid, hash_loc[3].valid, hash[0].c, hash[1].c, hash[2].c, hash[3].c, hash[0].valid, hash[1].valid, hash[2].valid, hash[3].valid, star[0].c, star[1].c, star[2].c, star[3].c)
+94   lmac/modules/rua/src/rua.c                    1476   TRACE_RUA(CHECK_BUFF, "i=%d sta_idx=%d MAC=%pM nss %d data_avail=%ld ps=%d", i, sta_info->sta_idx, TR_MAC(sta_info->mac_addr.array), nss, TR_32(data_avail), sta_info->ps_state)
+94   lmac/modules/rua/src/rua.c                    1512   TRACE_RUA(CHECK_BUFF, "rua_build_vht_sta_array data_avail=%ld i=%d sta_idx=%d" " vif_bw=%d bw=%d mcs=%d capacity=%d sta_cnt=%d sta_parsed=%d" " sta_array=%p", TR_32(data_avail), i, sta_info->sta_idx, vif_bw, sta_in_bw, mcs, mac_vht_bits_per_symbol[sta_in_bw][mcs], sta_cnt, sta_parsed, TR_PTR(sta_array))
+94   lmac/modules/rua/src/rua.c                    1642   TRACE_RUA(CHECK_BUFF, "i=%d sta_idx=%d MAC=%pM data_avail=%ld ps=%d", i, sta_info->sta_idx, TR_MAC(sta_info->mac_addr.array), TR_32(data_avail), sta_info->ps_state)
+94   lmac/modules/rua/src/rua.c                    1672   TRACE_RUA(CHECK_BUFF, "rua_build_he_sta_array data_avail=%ld i=%d sta_idx=%d" " tidmap=%d vif_bw=%d bw=%d minBw=%d bw_checked=%d j=%d" " sta_cnt=%d sta_parsed=%d sta_array=%p", TR_32(data_avail), i, sta_info->sta_idx, sta[j].tidmap, vif_bw, sta_in_bw, minBw, bw_checked, j, sta_cnt, sta_parsed, TR_PTR(sta_array))
+94   lmac/modules/rua/src/rua.c                    1731   TRACE_RUA(CHECK_BUFF, "rua_build_he_sta_array i=%d sta_idx0=%d sta_idx1=%d minBw=%d" " bw_checked=%d bif_bw=%d j=%d sta_cnt=%d sta_parsed=%d" " sta_info_tab[i].valid=%d sta_array=%x", i, sta_array[i + 0].sta_idx, sta_array[i + 1].sta_idx, minBw, bw_checked, vif_bw, j, sta_cnt, sta_parsed, sta_info->valid, (uint32_t)(uint64_t)sta_array)
+94   lmac/modules/rua/src/rua.c                    1899   TRACE_RUA(CHECK_BUFF, "rua_distribute_sta_to_stream cnt_sta=%d rc_ss->nss=%d" " cap_FULL=%d cap_PARTIAL=%d", cnt_sta, rc_ss->nss, HE_CAPA_PHY_GET(he_cap, FULL_BW_UL_MU_MIMO), HE_CAPA_PHY_GET(he_cap, PARTIAL_BW_UL_MU_MIMO))
+94   lmac/modules/rua/src/rua.c                    1920   TRACE_RUA(CHECK_BUFF, "rua_distribute_sta_to_stream j=%d", j)
+94   lmac/modules/rua/src/rua.c                    1962   TRACE_RUA(HUNG_INNER_LVL1, "rua_distribute_sta_to_stream num_fs=%d num_alloc_mumimo=%d cnt_group=%d" " j=%d sta_idx0V0=%d mu_mimo0V0=%d sta_idx1V0=%d mu_mimo1V0=%d" " sta_idx0V1=%d mu_mimo0V1=%d sta_idx1V1=%d mu_mimo1V1=%d", num_fs, out->num_alloc_mu_mimo, k, j, rua_env.sta_array[0][0].sta_idx, rua_env.sta_array[0][0].mu_mimo, rua_env.sta_array[0][1].sta_idx, rua_env.sta_array[0][1].mu_mimo, rua_env.sta_array[1][0].sta_idx, rua_env.sta_array[1][0].mu_mimo, rua_env.sta_array[1][1].sta_idx, rua_env.sta_array[1][1].mu_mimo)
+94   lmac/modules/rua/src/rua.c                    1994   TRACE_RUA(HUNG_INNER_LVL1, "i_mimo=%d j=%d sta_idx=%d mu_mimo[%d]=%d", i_mimo, j, sta_tmp[i_mimo].sta_idx, direction, sta_tmp[i_mimo].mu_mimo)
+94   lmac/modules/rua/src/rua.c                    2029   TRACE_RUA(HUNG_INNER_LVL1, "Grouped STAs: STA=%d in Vect0 grouped with STA %d at idx %d in" " Vect1 mu_mimo[%d]=%d cnt_group=%d", sta_tmp[i].sta_idx, rua_env.sta_array[1][sta_tmp[i].grouped_idx].sta_idx, sta_tmp[i].grouped_idx, direction, sta_tmp[i].mu_mimo, out->cnt_group)
+94   lmac/modules/rua/src/rua.c                    2076   TRACE_RUA(HUNG_INNER_LVL1, "rua_distribute_sta_to_1_fs bw_dyn=%d cnt_sta=%d cnt_group0=%d" " fs_dyn.cnt[direction]=%d", rua_env.bw_dyn, rua_env.cnt_sta, desc[0].cnt_group, rua_env.fs_dyn.cnt[direction])
+94   lmac/modules/rua/src/rua.c                    2130   TRACE_RUA(HUNG_INNER_LVL1, "rua_distribute_sta_to_2_fs bw_dyn=%d cnt_sta=%d" " cnt_group0=%d cnt_group1=%d fs_dyn.cnt[direction]=%d", rua_env.bw_dyn, rua_env.cnt_sta, desc[0].cnt_group, desc[1].cnt_group, rua_env.fs_dyn.cnt[direction])
+94   lmac/modules/rua/src/rua.c                    2219   TRACE_RUA(CHECK_BUFF, "rua_distribute_sta_to_3_fs bw_dyn=%d cnt_sta=%d" " cnt_group0=%d cnt_group1=%d cnt_group2=%d" " fs_dyn.cnt[direction]=%d", rua_env.bw_dyn, rua_env.cnt_sta, desc[0].cnt_group, desc[1].cnt_group, desc[2].cnt_group, rua_env.fs_dyn.cnt[direction])
+94   lmac/modules/rua/src/rua.c                    2280   TRACE_RUA(CHECK_BUFF, "rua_distribute_sta_to_4_fs bw_dyn=%d cnt_sta=%d" " cnt_group0=%d cnt_group1=%d cnt_group2=%d cnt_group3=%d" " fs_dyn.cnt[direction]=%d", rua_env.bw_dyn, rua_env.cnt_sta, desc[0].cnt_group, desc[1].cnt_group, desc[2].cnt_group, desc[3].cnt_group, rua_env.fs_dyn.cnt[direction])
+94   lmac/modules/rua/src/rua.c                    2517   TRACE_RUA(HUNG_INNER_LVL1, "rua_fill_fs_idx n_subfields=%d 1stSfIdx=%d", desc->n_subfield, desc->first_subfield_idx)
+94   lmac/modules/rua/src/rua.c                    2551   TRACE_RUA(HUNG_INNER_LVL1, "rua_distribute_sta_to_fs bw_dyn=%d cnt_sta=%d cnt_group0=%d" " n_subfields=%d 1stSfIdx=%d", rua_env.bw_dyn, rua_env.cnt_sta, desc[0].cnt_group, desc[0].n_subfield, desc[0].first_subfield_idx)
+94   lmac/modules/rua/src/rua.c                    2687   TRACE_RUA(STAT, "rua_dl_mcs_read sta_idx=%d mcs[0].mcs[0]=%d", sta->sta_idx, mcs[0].mcs[0])
+94   lmac/modules/rua/src/rua.c                    2712   TRACE_RUA(STAT, "Update HE-TB MCS for STA-%d", sta->sta_idx)
+94   lmac/modules/rua/src/rua.c                    2721   TRACE_RUA(STAT, "mcs[%d].mcs[%d]=%d", j, k, mcs[j].mcs[k])
+94   lmac/modules/rua/src/rua.c                    2791   TRACE_RUA(HUNG_INNER_LVL1, "sta_idx=%d, alloc_idx=%d, mac_b_rc=%d, " " N_DSC=%d c_alpha=%d data_avail=%ld", sta_info->sta_idx, alloc_idx, mac_b_rc[mcs], N_DSC[plan->n_dsc_idx[alloc_idx]], alpha, TR_32(data_avail))
+94   lmac/modules/rua/src/rua.c                    2921   TRACE_RUA(HUNG_INNER_LVL1, "rua_hungarian_inner fs_idx=%d n_subfield=%d first_subfield_idx=%d" " n_alloc=%d 1stSbfIdx=%d", fs_idx, n_subfield, first_subfield_idx, fs->plan[first_subfield_idx].n_alloc, fs_dyn_desc->first_subfield_idx)
+94   lmac/modules/rua/src/rua.c                    2952   TRACE_RUA(HUNG_INNER_LVL1, "----- Called Hung Inner sf=%d rua_env.cnt_sta=%d" " rua_env.fs_dyn.desc[%d].cnt_group=%d n_alloc=%d n_subf=%d" " 1stSfIdx=%d", i, rua_env.cnt_sta, fs_idx, fs_dyn_desc->cnt_group, n_alloc, n_subfield, first_subfield_idx)
+94   lmac/modules/rua/src/rua.c                    2967   TRACE_RUA(HUNG_INNER_LVL1, "hash[fs_idx][r].c=%d throughPut_alpha[i]=%d" " rua_env.c_alpha[fs_idx][i][r][hash[fs_idx][r].c]=%d", hash[fs_idx][r].c, throughPut_alpha[i], rua_env.c_alpha[fs_idx][i][r][hash[fs_idx][r].c])
+94   lmac/modules/rua/src/rua.c                    3071   TRACE_RUA(HUNG_INNER_LVL1, "Update y0 or z0 mu_mimo=%d hash[fs_idx][r].c=%d" " sf_bitfield=%d", hung_out->mac_ci[r].mu_mimo, hash[fs_idx][r].c, fs->plan[hung_out->sf].sf_bitfield)
+94   lmac/modules/rua/src/rua.c                    3103   TRACE_RUA(HUNG_INNER_LVL1, "Hung Inner r=%d sta_idx[r]=%d mcs=%d alloc=%d ruSize=%d" " rua=%d", r, hung_out->mac_ci[r].sta_idx, hung_out->mac_ci[r].mcs, hash[fs_idx][r].c, ruSize, *ru_alloc)
+94   lmac/modules/rua/src/rua.c                    3113   TRACE_RUA(HUNG_INNER_LVL1, "Hung Inner TP[i]=%d i=%d tp=%d tp_real=%d fs_idx=%d sf=%d sf_bf=%d" " rua_env.hung_out[fs_idx].n_sta=%d hung_out[fs_idx].n_alloc=%d" " bms=%d h[fs_idx][0].c=%d .v=%d %d %d %d %d %d %d", throughPut_alpha[i], i, hung_out->tp, hung_out->tp_real, fs_idx, hung_out->sf, sf_bf, hung_out->n_sta, hung_out->n_alloc, fs_dyn_desc->subChannelUserBitmapShift, hash[fs_idx][0].c, hash[fs_idx][0].valid, hash[fs_idx][1].c, hash[fs_idx][1].valid, hash[fs_idx][2].c, hash[fs_idx][2].valid, hash[fs_idx][3].c, hash[fs_idx][3].valid)
+94   lmac/modules/rua/src/rua.c                    3140   TRACE_RUA(HUNG_INNER_LVL1, "Hung Inner rua_env.tp=%d fs_idx=%d hung_out.sf=%d hung_out.n_sta=%d sf_bf=%d" " sf_bitfield=%d rua_env.h[fs_idx][0].c=%d .v=%d .tp=%d - %d %d %d - %d %d " " %d - %d %d %d", hung_out->tp, fs_idx, hung_out->sf, hung_out->n_sta, sf_bf, TR_32(hung_out->sf_bitfield), rua_env.hash[fs_idx][0].c, rua_env.hash[fs_idx][0].valid, hung_out->bit_tp_real[0], rua_env.hash[fs_idx][1].c, rua_env.hash[fs_idx][1].valid, hung_out->bit_tp_real[1], rua_env.hash[fs_idx][2].c, rua_env.hash[fs_idx][2].valid, hung_out->bit_tp_real[2], rua_env.hash[fs_idx][3].c, rua_env.hash[fs_idx][3].valid, hung_out->bit_tp_real[3])
+94   lmac/modules/rua/src/rua.c                    3310   TRACE_RUA(MAP, "credit_part=%d capacity_total=%d sta_idx=%d tidmap=%d" " ru_alloc=%d dl_mu_mimo=%d capacity=%d psdu_len_max=%ld", dl_map[i].credit, capacity_total, dl_map[i].sta_idx, dl_map[i].tidmap, dl_map[i].ru_alloc, dl_map[i].mu_mimo, sta_alloc_dl_array[i].capacity, TR_32(dl_map[i].psdu_len_max))
+94   lmac/modules/rua/src/rua.c                    3349   TRACE_RUA(MAP, "credit_part=%d capacity_total=%d sta_idx=%d tidmap=%d" " ru_alloc=%d dl_mu_mimo=%d capacity=%d psdu_len_max=%ld", dl_map[cnt_sta - 1].credit, capacity_total, dl_map[cnt_sta - 1].sta_idx, dl_map[cnt_sta - 1].tidmap, dl_map[cnt_sta - 1].ru_alloc, dl_map[cnt_sta - 1].mu_mimo, sta_alloc_dl_array[cnt_sta - 1].capacity, TR_32(dl_map[cnt_sta - 1].psdu_len_max))
+94   lmac/modules/rua/src/rua.c                    3410   TRACE_RUA(CHECK_BUFF, "i_sta_curr=%d fs_type_idx=%d fs_idx=%d cnt_group=%d ppdurateinfo 0=%x" " 1=%x 2=%x 3=%x sta_loc->sta_idx=%d MAC=%pM sta_idx=%d valid=%d capa=%d" " mcs=%d", i_sta_curr, fs_type_idx, fs_idx, rua_env.fs_dyn.desc[fs_idx].cnt_group, hal_desc_pt_ppdu_rate_get(pt, 0), hal_desc_pt_ppdu_rate_get(pt, 1), hal_desc_pt_ppdu_rate_get(pt, 2), hal_desc_pt_ppdu_rate_get(pt, 3), sta_loc->sta_idx, TR_MAC(sta->mac_addr.array), sta->sta_idx, sta->valid, sta->capa_flags, mcs[0].mcs[0])
+94   lmac/modules/rua/src/rua.c                    3432   TRACE_RUA(TX, "Utility Matrix Start")
+94   lmac/modules/rua/src/rua.c                    3435   TRACE_RUA(TX, "Utility Matrix Stop")
+94   lmac/modules/rua/src/rua.c                    3438   TRACE_RUA(TX, "Hungarian Start")
+94   lmac/modules/rua/src/rua.c                    3440   TRACE_RUA(TX, "Hungarian Stop")
+94   lmac/modules/rua/src/rua.c                    3442   TRACE_RUA(HUNG_INNER_LVL1, "hung_out n_sta=%d sta_idx=%d rua=%d tp=%d - sta_idx=%d rua=%d tp=%d -" " sta_idx=%d rua=%d tp=%d - sta_idx=%d rua=%d tp=%d", hung_out->n_sta, hung_out->mac_ci[0].sta_idx, hung_out->mac_ci[0].ru_alloc, hung_out->bit_tp_real[0], hung_out->mac_ci[1].sta_idx, hung_out->mac_ci[1].ru_alloc, hung_out->bit_tp_real[1], hung_out->mac_ci[2].sta_idx, hung_out->mac_ci[2].ru_alloc, hung_out->bit_tp_real[2], hung_out->mac_ci[3].sta_idx, hung_out->mac_ci[3].ru_alloc, hung_out->bit_tp_real[3])
+94   lmac/modules/rua/src/rua.c                    3501   TRACE_RUA(MAP, "sta_alloc_array dir=%d fs_dyn.cnt=%d n_sta=%d %d %d %d sta_idx=%d" " ru_alloc=%d cap=%d mu_mimo=%d %d %d %d %d %d %d %d %d %d %d %d %d", direction, rua_env.fs_dyn.cnt[direction], hung_out[0].n_sta, (rua_env.fs_dyn.cnt[direction] > 1) ? hung_out[1].n_sta : 0, (rua_env.fs_dyn.cnt[direction] > 2) ? hung_out[2].n_sta : 0, (rua_env.fs_dyn.cnt[direction] > 3) ? hung_out[3].n_sta : 0, sta_alloc_array[0].sta_idx, sta_alloc_array[0].ru_alloc, sta_alloc_array[0].capacity, sta_alloc_array[0].mu_mimo, sta_alloc_array[1].sta_idx, sta_alloc_array[1].ru_alloc, sta_alloc_array[1].capacity, sta_alloc_array[1].mu_mimo, sta_alloc_array[2].sta_idx, sta_alloc_array[2].ru_alloc, sta_alloc_array[2].capacity, sta_alloc_array[2].mu_mimo, sta_alloc_array[3].sta_idx, sta_alloc_array[3].ru_alloc, sta_alloc_array[3].capacity, sta_alloc_array[3].mu_mimo)
+94   lmac/modules/rua/src/rua.c                    3839   TRACE_RUA(MAP, "fs_idx %d sf_bitfield %lx shift %d bw %d", fs_idx, TR_32((uint32_t)sf_bitfield), desc->subChannelUserBitmapShift,  desc->bw)
+94   lmac/modules/rua/src/rua.c                    3851   TRACE_RUA(MAP, "CM HE_MU PT sta_idx=%d phycntrlinfo1=%lx phycntrlinfo2=%lx" " puphycntrlinfo=%lx ldpcSta=%d pumaccntrlinfo=%lx ratecntrlinfo=%lx" " protratecntrlinfo=%lx cmuphycntrlinfo1=%lx cmuphycntrlinfo2=%lx" " cmuphycntrlinfo3=%lx h_out->mac_ci->mu_mimo=%d", h_out->mac_ci[0].sta_idx, TR_32(mu->phycntrlinfo1), TR_32(mu->phycntrlinfo2), TR_32(mu->puphycntrlinfo), HE_CAPA_PHY_GET(&sta->info.he_cap, LDPC), TR_32(mu->pumaccntrlinfo), TR_32(mu->ratecntrlinfo), TR_32(mu->protratecntrlinfo), TR_32(mu->cmuphycntrlinfo1), TR_32(mu->cmuphycntrlinfo2), TR_32(mu->cmuphycntrlinfo3), h_out->mac_ci->mu_mimo)
+94   lmac/modules/rua/src/rua.c                    3871   TRACE_RUA(MAP, "CM HE_MU PT sta_idx=%d phycntrlinfo1=%lx phycntrlinfo2=%lx" " puphycntrlinfo=%lx ldpcSta=%d pumaccntrlinfo=%lx ratecntrlinfo=%lx" " protratecntrlinfo=%lx cmuphycntrlinfo1=%lx", sta_alloc[0].sta_idx, TR_32(mu->phycntrlinfo1), TR_32(mu->phycntrlinfo2), TR_32(mu->puphycntrlinfo), VHT_CAPA_GET(&sta->info.vht_cap, LDPC), TR_32(mu->pumaccntrlinfo), TR_32(mu->ratecntrlinfo), TR_32(mu->protratecntrlinfo), TR_32(mu->cmuphycntrlinfo1))
+94   lmac/modules/rua/src/rua.c                    3908   TRACE_RUA(MAP, "USR HE_MU PT i=1 grouped_idx=%d sta_idx[grouped_idx]=%d" " capacity=%d ru_size=%d mcs=%d pu->puphycntrlinfo=%lx" " pu->pumaccntrlinfo=%lx", sta_alloc[0].grouped_idx, rua_env.sta_array[1][sta_alloc[0].grouped_idx].sta_idx, sta_alloc[1].capacity, mac_ru_alloc_to_ru_size(mac_ci->ru_alloc), mcs, TR_32(pu->puphycntrlinfo), TR_32(pu->pumaccntrlinfo))
+94   lmac/modules/rua/src/rua.c                    3997   TRACE_RUA(MAP, "USR HE_MU PT sta_idx=%d i=%d j=%d k=%d out->num_sta=%d" " n_loop=%d puphycntrlinfo=%lx pumaccntrlinfo=%lx", sta_idx, i, j, k, out->num_sta, n_loop, TR_32(pu->puphycntrlinfo), TR_32(pu->pumaccntrlinfo))
+94   lmac/modules/rua/src/rua.c                    4060   TRACE_RUA(MAP, "rua_build_dl_map sta_idx=%d tidmap=%d ru_alloc=%d" " dl_mu_mimo=%d", dl_map[i].sta_idx, dl_map[i].tidmap, dl_map[i].ru_alloc, dl_map[i].mu_mimo)
+94   lmac/modules/rua/src/rua.c                    4167   TRACE_RUA(HUNG_INNER_LVL1, "sta_idx=%d ru_alloc=%d ru_alloc_split[0]=%d", sta_idx, ru_alloc, ru_alloc_split[0])
+94   lmac/modules/rua/src/rua.c                    4184   TRACE_RUA(HUNG_INNER_LVL1, "sta_idx=%d ru_alloc=%d ru_alloc_split[1]=%d", tmp->sta_idx, ru_alloc, ru_alloc_split[1])
+94   lmac/modules/rua/src/rua.c                    4190   TRACE_RUA(MAP, "rua_dl_mu_mimo_to_su_convert STA %d ru_alloc=%d, mcs=%d" " capacity=%d STA %d ru_alloc=%d mcs=%d capacity=%d", sta_idx, ru_alloc_split[0], hung_out->mac_ci[i].mcs, tmp->capacity, grouped_sta_idx, ru_alloc_split[1], mcs, rua_env.sta_array[1][grouped_sta_idx].capacity)
+94   lmac/modules/rua/src/rua.c                    4248   TRACE_RUA(HUNG_INNER_LVL1, "rua_build_vht_alloc_array")
+94   lmac/modules/rua/src/rua.c                    4341   TRACE_RUA(MAP, "direction=%d rua_env.map_idx=%d" " txl_mu_ppdu_cnt(!rua_env.map_idx)=%d", rua_env.direction, rua_env.map_idx, txl_mu_ppdu_cnt(!rua_env.map_idx))
+94   lmac/modules/rua/src/rua.c                    4442   TRACE_RUA(HUNG_INNER_LVL1, "*no_he_sta=%d status=%d format=%d", *no_he_sta, status, rua_env.map_type)
+94   lmac/modules/rua/src/rua.c                    4515   TRACE_RUA(HUNG_INNER_LVL1, "RUA build fs interrupted")
+94   lmac/modules/rua/src/rua.c                    4537   TRACE_RUA(HUNG_INNER_LVL1, "RUA fs proc interrupted")
+94   lmac/modules/rua/src/rua.c                    4606   TRACE_RUA(STAT, "statistics | %d | %d | %d  |  %d    |    %d    |    %d    |    %d", i, hung_out[0].n_sta, rua_env.out[RUA_DL].sta_alloc_array[i].sta_idx, rua_env.sta_stat[RUA_DL][0][i].sta[0].mcs[0], mac_b_rc[rua_env.sta_stat[RUA_DL][0][i]. sta[hung_out[0].sf].mcs[rua_env.hash[0][i].c]] * mac_n_dsc_real[fs->plan[hung_out[0].sf].n_dsc_idx[ rua_env.hash[0][i].c]], hung_out[0].tp, hung_out[0].tp_real)
+94   lmac/modules/rua/src/rua.c                    4646   TRACE_RUA(MAP, "Trace Map index %d: cnt_sta=%d", rua_env.map_idx, he_mu_map_array[rua_env.map_idx].cnt_sta)
+94   lmac/modules/rua/src/rua.c                    4652   TRACE_RUA(MAP, "sta_idx=%d, tidmap=%d, ru_alloc=%d, dl_mu_mimo=%d," " credit=%d psdu_len_max=%ld", he_mu_map_array[rua_env.map_idx].sta_alloc[i].sta_idx, he_mu_map_array[rua_env.map_idx].sta_alloc[i].tidmap, he_mu_map_array[rua_env.map_idx].sta_alloc[i].ru_alloc, he_mu_map_array[rua_env.map_idx].sta_alloc[i].mu_mimo, he_mu_map_array[rua_env.map_idx].sta_alloc[i].credit, TR_32(he_mu_map_array[rua_env.map_idx].sta_alloc[i].psdu_len_max))
+94   lmac/modules/rua/src/rua.c                    4669   TRACE_RUA(MAP, "rua_dl_map_send nb_he_mu_reports=%d update Map idx %d", bfr_env.nb_he_mu_reports, rua_env.map_idx)
+23   lmac/ip/lmac/src/rx/rxl/rxl_tb.c              625    TRACE_HE_TB(LVL0, "nheltf=%d heltftype=%d gitype=%d bandwidth=%d stbc=%d userindexmax=%d" " ul_length=%d a=%d nsym=%d bsscolor=%d txopduration=%ld" " txopduration[6-0]=%d", c_nheltf, c_heltftype, c_gitype, c_bandwidth, (uint8_t)ppdu_info->stbc, c_userindexmax, c_llength, RXL_TB_PRE_FEC_PADDING_FACTOR, c_nsym, c_bsscolor, TR_32(txopduration), c_txopduration)
+23   lmac/ip/lmac/src/rx/rxl/rxl_tb.c              642    TRACE_HE_TB(LVL0, "Common Config Regs: \n" "Config : %08lx\n" "RX Mode: %08lx\n" "TX Mode: %08lx\n" "DCESTIMCTRL: %08lx\n" "RXTDCTRL0: %08lx\n" "LDPCDECCTRL: %08lx\n", TR_32(mdm_mdmconf_get()), TR_32(mdm_rxmode_get()), TR_32(mdm_txmode_get()), TR_32(mdm_dcestimctrl_get()), TR_32(mdm_rxtdctrl0_get()), TR_32(mdm_ldpcdecctrl_get()))
+23   lmac/ip/lmac/src/rx/rxl/rxl_tb.c              657    TRACE_HE_TB(LVL0, "Common TB Parameters for TrigIdx %d:\n" "               COMMON_FIELD_0: %08lx\n" "               COMMON_FIELD_1: %08lx\n" "               COMMON_FIELD_2: %08lx\n\n", trig_idx, TR_32(mdm_he_tb_common_field_0__get(trig_idx)), TR_32(mdm_he_tb_common_field_1__get(trig_idx)), TR_32(mdm_he_tb_common_field_2__get(trig_idx)))
+23   lmac/ip/lmac/src/rx/rxl/rxl_tb.c              1208   TRACE_HE_TB(LVL0, "USR rulen=%d cr=%d mcs=%d u_mu=%d u_startingsts=%d" " nbpsc=%d nss=%d ldpc=%d crn=%d crd=%d ncbps=%d ndbps=%d npld=%ld" " cbpsshort=%d nsdshort=%d navbits=%ld ncw=%d lldpc=%ld nshrt=%ld" " nshrtq=%d shrtr=%d npunc=%ld npuncq=%d" " npuncr=%d nrep=%ld nrepq=%d nrepr=%d" " lldpc_b=%d ru_alloc=%d ruindex=%d u_ndbpsshort=%d" " u_ndbps_last_init=%d psdu_len=%ld", u_rulen, u_cr, u_mcs, tb_sta->mu_mimo, ppdu_info->user[user_idx].sts, u_nbpsc * 2, // div by 2 is to save one bit in register bitfields tb_sta->nss, ppdu_info->user[user_idx].ldpc, mac_crn[u_mcs], mac_crd[u_mcs], u_ncbps, ndbps, TR_32(u_fieldlength), u_ncbpsshort, u_nsdshort, TR_32(navbits), u_ncw, TR_32(lldpc), TR_32(nshrt), u_nshrtq, u_nshrtr, TR_32(npunc), u_npuncq, u_npuncr, TR_32(nrep), u_nrepq, u_nrepr, u_lldpc, tb_sta->ru_alloc, u_ruindex, u_ndbpsshort, u_ndbps_last_init, TR_32(u_length))
+23   lmac/ip/lmac/src/rx/rxl/rxl_tb.c              1250   TRACE_HE_TB(LVL0, "User TB Parameters for TrigIdx %d, User %d:\n" "               USER_PARAMS0: %08lx\n" "               USER_PARAMS1: %08lx\n" "               USER_PARAMS2: %08lx\n" "               USER_PARAMS3: %08lx\n" "               USER_PARAMS4: %08lx\n" "               USER_PARAMS5: %08lx\n" "               USER_PARAMS6: %08lx\n" "               USER_PARAMS7: %08lx\n" "               USER_PARAMS8: %08lx\n\n", trig_idx, user_idx, TR_32(mdm_user_params0_get(trig_idx, user_idx)), TR_32(mdm_user_params1_get(trig_idx, user_idx)), TR_32(mdm_user_params2_get(trig_idx, user_idx)), TR_32(mdm_user_params3_get(trig_idx, user_idx)), TR_32(mdm_user_params4_get(trig_idx, user_idx)), TR_32(mdm_user_params5_get(trig_idx, user_idx)), TR_32(mdm_user_params6_get(trig_idx, user_idx)), TR_32(mdm_user_params7_get(trig_idx, user_idx)), TR_32(mdm_user_params8_get(trig_idx, user_idx)))
+23   lmac/ip/lmac/src/rx/rxl/rxl_tb.c              1299   TRACE_HE_TB(TRIG, "trig_idx=%d ulmulength=%d cnt_sta=%d ulmuexpectedack=%d", trig_idx, ulmulength, ulmunuser, ulmuexpectedack)
+23   lmac/ip/lmac/src/rx/rxl/rxl_tb.c              1335   TRACE_HE_TB(ERR, "[Trigger-%d] Send Trigger frame failed", trig_idx)
+23   lmac/ip/lmac/src/rx/rxl/rxl_tb.c              1341   TRACE_HE_TB(TRIG, "[Trigger-%d] Send Trigger frame", trig_idx)
+23   lmac/ip/lmac/src/rx/rxl/rxl_tb.c              1371   TRACE_HE_TB(TRIG, "[Trigger-%d] Trigger frame confirmed." " Status trigger_at_cfm=%d, trigger_frame_cnt=%d, ul_map_update=%d," " sched_mode=%d", trig_idx, tb_params->status.trigger_at_cfm, tb_params->trigger_frame_cnt, tb_params->status.ul_map_update, tb_params->status.trigger_sched_mode)
+23   lmac/ip/lmac/src/rx/rxl/rxl_tb.c              1467   TRACE_HE_TB(TRIG, "[Trigger-%d] Timer event, active=%d ongoing=%d", trig_idx, tb_params->status.trigger_active, tb_params->status.trigger_ongoing)
+23   lmac/ip/lmac/src/rx/rxl/rxl_tb.c              1697   TRACE_HE_TB(MAP, "[Trigger-%d] Apply New Map: " "bw=%d, gi_ltf=%d, fec=%d", tb_params->trig_idx, tb_params->ul_bw, tb_params->gi_ltf, rxl_tb_env.ul_ctrl.ldpc_allowed)
+23   lmac/ip/lmac/src/rx/rxl/rxl_tb.c              1704   TRACE_HE_TB(MAP, "[%d] STA-%d mcs=%d, ru_size=%d, ru_alloc=%d", i, tb_sta_params->sta_idx, tb_sta_params->mcs, tb_sta_params->ru_size, tb_sta_params->ru_alloc)
+23   lmac/ip/lmac/src/rx/rxl/rxl_tb.c              1727   TRACE_HE_TB(RC, "{STA-%d} UL Operating Mode update: enable=%d, bw=%d, n_sts=%d", sta_idx, enable, bw, n_sts)
+23   lmac/ip/lmac/src/rx/rxl/rxl_tb.c              1871   TRACE_HE_TB(UL_DUR, "[Trigger-%d] UL duration forced to %dus", trig_idx, rxl_tb_env.ul_ctrl.ul_duration_max)
+23   lmac/ip/lmac/src/rx/rxl/rxl_tb.c              1890   TRACE_HE_TB(UL_DUR, "[Trigger-%d] UL duration from psdu len based compute is %dus", trig_idx, ul_duration)
+23   lmac/ip/lmac/src/rx/rxl/rxl_tb.c              2042   TRACE_HE_TB(LVL1, "trig_idx=%d tb_params->status.trigger_sched_mode=%d," " tb_params->tf_period=%d tb_params->gi_ltf=%d tb_params->pref_ac=%d," trig_idx, tb_params->status.trigger_sched_mode, tb_params->tf_period, tb_params->gi_ltf, tb_params->pref_ac)
+23   lmac/ip/lmac/src/rx/rxl/rxl_tb.c              2109   TRACE_HE_TB(LVL0, "i=%d sta->aid=%d tb_sta->mu_mimo=%d ppdu_info.user[i].sts=%d" " target rx pw=%ld", i, sta->aid, tb_sta->mu_mimo, ppdu_info->user[i].sts, TR_32(user_info->ul_target_receive_power))
+23   lmac/ip/lmac/src/rx/rxl/rxl_tb.c              2322   TRACE_HE_TB(LVL0, "CM stbc=%d n_he_ltf=%d gi_ltf=%d b_pe_disambiguity=%d extra=%d" " a=%d ul_length_l_sig=%d n_sym=%d n_sym_disamb=%d t_pe=%d ul_bw=%d" " n_sym_approx=%d n_sym_min=%d n_sym_max=%d rxl_tb_env.n_sym=%d" " ul_length=%d t_sym=%d he_gi=%d check=%d tx_time=%ld" " t_he_preamble=%d idx=%d tot=%d n_sts[0]=%d c0=%lx c1=%lx", ppdu_info->stbc, n_he_ltf, tb_params->gi_ltf, b_pe_disambiguity, 1, RXL_TB_PRE_FEC_PADDING_FACTOR, ul_length_l_sig, n_sym, n_sym_disamb, t_pe, tb_params->ul_bw, n_sym_min, n_sym_max, ppdu_info->n_sym, ul_length, t_sym, HE_GI(tb_params->gi_ltf), check, TR_32(tx_time), t_he_preamble, idx, idx + RXL_TB_TX_POWER_OFFSET - 3 * tb_params->ul_bw, sta_info_tab[tb_params->sta[0].sta_idx].ul_info.ul_sts_max, TR_32(buf->common[0]), TR_32(buf->common[1]))
+42   lmac/ip/lmac/src/rc/rc.c                      2573   TRACE_HE_TB(RC, "STA-%d decrease MCS to %d (prob: %d/%d)" " and limit it until %t", sta_idx, mcs_tb, rc_ss->success, rc_ss->attempts, TR_32(rc_ss->mcs_limit_timeout))
+42   lmac/ip/lmac/src/rc/rc.c                      2580   TRACE_HE_TB(RC, "STA-%d decrease MCS to %d (prob: %d/%d)", sta_idx, mcs_tb, rc_ss->success, rc_ss->attempts)
+42   lmac/ip/lmac/src/rc/rc.c                      2589   TRACE_HE_TB(RC, "MCS limit still active")
+42   lmac/ip/lmac/src/rc/rc.c                      2594   TRACE_HE_TB(RC, "STA-%d inrease MCS to %d (prob: %d/%d)", sta_idx, mcs_tb, rc_ss->success, rc_ss->attempts)
+42   lmac/ip/lmac/src/rc/rc.c                      2599   TRACE_HE_TB(RC, "STA-%d keep MCS to %d (prob: %d/%d)", sta_idx, mcs_tb, rc_ss->success, rc_ss->attempts)
+94   lmac/modules/rua/src/rua.c                    3544   TRACE_HE_TB(LVL1, "UL map updated vif_index=%d cnt_sta=%d", rua_env.vif_index, rua_env.tb->cnt_sta)
+94   lmac/modules/rua/src/rua.c                    4408   TRACE_HE_TB(LVL0, "rx bytes=%ld, %ld, %ld", TR_32(sta_info_tab[0].ul_info.received #if NX_DMARX + ipc_emb_ul_received_get(sta_info_tab[0].sta_idx) #endif ), TR_32(sta_info_tab[1].ul_info.received #if NX_DMARX + ipc_emb_ul_received_get(sta_info_tab[1].sta_idx) #endif ), TR_32(sta_info_tab[2].ul_info.received #if NX_DMARX + ipc_emb_ul_received_get(sta_info_tab[2].sta_idx) #endif ))
+19   lmac/ip/lmac/src/rx/rxl/rxl_cntrl.c           1308   TRACE_BFMER(REPORT, "rxl_internal_dma_int_handler")
+27   lmac/ip/lmac/src/mm/mm_task.c                 4004   TRACE_BFMER(SCHED, "mm_bfmer_enable_req_handler bfr_is_enabled()=%d param->mu_bfmee=%d" " sta.valid=%d", bfr_is_enabled(), param->mu_bfmee, sta_info_tab[param->sta_idx].valid)
+28   lmac/ip/lmac/src/mm/mm.c                      2011   TRACE_BFMER(REPORT, "mm_update_buffer_control can_use_bfm=%d format_mod=%d nss=%d" " nc=%d ntx=%d", can_use_bfm, format_mod, nss, nc, ntx)
+42   lmac/ip/lmac/src/rc/rc.c                      3574   TRACE_BFMER(REPORT, "rc_tx_trial_check_bfm_stbc_htc can_use_bfm=%d format_mod=%d nss=%d" " nc=%d ntx=%d", can_use_bfm, format_mod, nss, nc, ntx)
+44   lmac/ip/lmac/src/bfr/bfr.c                    509    TRACE_BFMER(REPORT, "bw_or_ru_size=%d nc=%d ns=%d na=%d b_phy=%d b_psy=%d length=%d mu_mimo=%d" " nsp=%d", bw_or_ru_size, nc, ns, na, b_phy, b_psy, length, mu_mimo, bfr_nsp[bw_or_ru_size])
+44   lmac/ip/lmac/src/bfr/bfr.c                    567    TRACE_BFMER(REPORT, "bfr_get_vht_procedure_duration 2 : length=%d BFR_BRP_DURATION=%d" " bfr_get_vht_report_duration=%d duration=%d ", length, BFR_BRP_DURATION, bfr_get_vht_report_duration(length), duration)
+44   lmac/ip/lmac/src/bfr/bfr.c                    634    TRACE_BFMER(PROC, "durid=%d n_sym_tf=%d trigger_frame_dur=%d" " ul_duration=%d trigger_based_dur=%d t_he_preamble=%d", (BFR_SIFS_DURATION + BFR_HE_NDP_DURATION + BFR_SIFS_DURATION + trigger_frame_dur + BFR_SIFS_DURATION + trigger_based_dur + 32), n_sym_tf, trigger_frame_dur, ul_duration, trigger_based_dur, (RXL_RL_SIG + RXL_HE_SIG_A + RXL_HE_STF_T + 1 * RXL_HE_LTF_4X + RXL_GI4_DATA) / 10)
+44   lmac/ip/lmac/src/bfr/bfr.c                    665    TRACE_BFMER(SCHED, "bfr_group_update_cfm rua_env.n_group_id_mgmt_frame=%d", bfr_env.n_group_id_mgmt_frame)
+44   lmac/ip/lmac/src/bfr/bfr.c                    811    TRACE_BFMER(SCHED, "bfr_group_update_action_frame_send groupID=%d", rua_he_map_index_get() + 1)
+44   lmac/ip/lmac/src/bfr/bfr.c                    830    TRACE_BFMER(SCHED, "bfr_group_update_action_frame, STA in a group of the prev" " map: sta_idx=%d group_id=%d user_pos=%d", map->sta_alloc[i_sta].sta_idx, prev_map_index + 1, i_sta)
+44   lmac/ip/lmac/src/bfr/bfr.c                    896    TRACE_BFMER(REPORT, "bfr_end_calibration_for_sta %d updated=%d bfr->status=%lx" " host_report_idx=%d isBFR_STA_MU=%d", bfr->sta_idx, updated, TR_32(bfr->status), bfr->host_report_idx, #if NX_HE_MU_AP BFR_IS_STATUS_BIT_SET(bfr->status, BFR_STA_MU) #endif )
+44   lmac/ip/lmac/src/bfr/bfr.c                    922    TRACE_BFMER(SCHED, "bfr_end_calibration_for_sta bfr=%p", TR_PTR(bfr))
+44   lmac/ip/lmac/src/bfr/bfr.c                    955    TRACE_BFMER(REPORT, "bfr_end_calibration_for_sta he_mu=%d Reports not received : %d", BFR_IS_STATUS_BIT_SET(bfr->status, BFR_STA_MU), bfr_env.nb_he_mu_reports)
+44   lmac/ip/lmac/src/bfr/bfr.c                    1020   TRACE_BFMER(SCHED, "bfr_tx_frame_cfm_full_bw DONE_HW or REACH_RETRY_LIMIT" " status=%lx", TR_32(status))
+44   lmac/ip/lmac/src/bfr/bfr.c                    1049   TRACE_BFMER(SCHED, "bfr_tx_frame_cfm_partial_bw")
+44   lmac/ip/lmac/src/bfr/bfr.c                    1072   TRACE_BFMER(SCHED, "bfr_dma_upload_cfm sta_idx=%d nb_segments=%d", bfr->sta_idx, bfr->nb_segments)
+44   lmac/ip/lmac/src/bfr/bfr.c                    1271   TRACE_BFMER(REPORT, "nb_used_nodes - bfr_increase_nb_frames : nb_used_nodes=%d nb_frames=%d" " node->sta_idx", bfr_env.nb_used_nodes, node->nb_frames, node->sta_idx)
+44   lmac/ip/lmac/src/bfr/bfr.c                    1295   TRACE_BFMER(SCHED, "bfr_remove_node sta_idx=%d bfr->node[0]=%p node=%p node->type=%d" " node->smm_index=%d", node->sta_idx, TR_PTR(bfr->node[0]), TR_PTR(node), node->type, node->smm_index)
+44   lmac/ip/lmac/src/bfr/bfr.c                    1532   TRACE_BFMER(REPORT, "nnode->start_addr=%lx nnode->length=%d", TR_32(nnode->start_addr), nnode->length)
+44   lmac/ip/lmac/src/bfr/bfr.c                    1588   TRACE_BFMER(REPORT, "bfr_get_smm_index a_bfr=%p smm_index=%d *smm_ptr=%lx" " *adj_smm_ptr=%lx index_val=%lx BFR_MEM_REP_NB_MAX=%d", TR_PTR(a_bfr), smm_index, TR_32(*smm_ptr), TR_32(*adj_smm_ptr), TR_32(index_val), BFR_MEM_REP_NB_MAX)
+44   lmac/ip/lmac/src/bfr/bfr.c                    1607   TRACE_BFMER(REPORT, "bfr_get_smm_index a_bfr=%p smm_index=%d *smm_ptr=%lx" " *adj_smm_ptr=%lx index_val=%lx BFR_MEM_REP_NB_MAX=%d", TR_PTR(a_bfr), smm_index, TR_32(*smm_ptr), TR_32(*adj_smm_ptr), TR_32(index_val), BFR_MEM_REP_NB_MAX)
+44   lmac/ip/lmac/src/bfr/bfr.c                    1682   TRACE_BFMER(SCHED, "bfr_calib_tmr_exp_cb next=%t", TR_32(hal_machw_time() + bfr_env.calib_tmr_dur))
+44   lmac/ip/lmac/src/bfr/bfr.c                    1712   TRACE_BFMER(SCHED, "bfr_timeout_tmr_exp_cb, RUA Map sent to the driver cnt_sta=%d" " nb_he_mu_reports=%d", tb_params->cnt_sta, bfr_env.nb_he_mu_reports)
+44   lmac/ip/lmac/src/bfr/bfr.c                    1739   TRACE_BFMER(SCHED, "bfr_timeout_tmr_exp_cb sta_idx=%d cal=%d", sta_idx, BFR_IS_STATUS_BIT_SET(bfr->status, BFR_STA_CALIBRATE))
+44   lmac/ip/lmac/src/bfr/bfr.c                    1744   TRACE_BFMER(REPORT, "bfr_timeout_tmr_exp_cb reset valid bit")
+44   lmac/ip/lmac/src/bfr/bfr.c                    1764   TRACE_BFMER(SCHED, "bfr_timeout_tmr_exp_cb sta_idx=%d cal=%d", sta_idx, BFR_IS_STATUS_BIT_SET(bfr->status, BFR_STA_CALIBRATE))
+44   lmac/ip/lmac/src/bfr/bfr.c                    1769   TRACE_BFMER(REPORT, "bfr_timeout_tmr_exp_cb reset valid bit bfr=%p", TR_PTR(bfr))
+44   lmac/ip/lmac/src/bfr/bfr.c                    1837   TRACE_BFMER(SCHED, "bfr_prep_vht_ndpa cal=%d mu_capable=%d in_map=%d vif->type=%d" " next_bfr=%p", BFR_IS_STATUS_BIT_SET(bfr->status, BFR_STA_CALIBRATE), BFR_IS_STATUS_BIT_SET(bfr->status, BFR_STA_MU_CAPABLE), sta_mgmt_is_in_partial_bw_calib(bfr->sta_idx), vif->type, TR_PTR(bfr->hdr.next))
+44   lmac/ip/lmac/src/bfr/bfr.c                    1890   TRACE_BFMER(SCHED, "bfr_prep_vht_ndpa cal=%d", BFR_IS_STATUS_BIT_SET(next_bfr->status, BFR_STA_CALIBRATE))
+44   lmac/ip/lmac/src/bfr/bfr.c                    2071   TRACE_BFMER(REPORT, "bfr_prep_he_ndpa *nb_devs=%d fb_type=%d sta_idx=%d" " tb_params->sta[*nb_devs].psdu_len=%d" " map->sta_alloc[*nb_devs].ru_alloc=%d primary20MHz index=%d" " ru_size=%d ru_start=%d ru_end=%d", *nb_devs, fb_type, map->sta_alloc[*nb_devs].sta_idx, tb_params->sta[*nb_devs].psdu_len, map->sta_alloc[*nb_devs].ru_alloc, mac_primary_index_get(&vif->chan_ctxt->channel), ru_size, ru_start, ru_end)
+44   lmac/ip/lmac/src/bfr/bfr.c                    2108   TRACE_BFMER(PROC, "bfr_prep_he_ndpa sta_he_info=%lx next_bfr=%p" " *nb_devs=%d sizeOfstaHeInfo=%d", TR_32(next_bfr->sta_he_info), TR_PTR(next_bfr), *nb_devs, sizeof(next_bfr->sta_he_info))
+44   lmac/ip/lmac/src/bfr/bfr.c                    2141   TRACE_BFMER(REPORT, "bfr->sta_he_info=%lx", TR_32(bfr->sta_he_info))
+44   lmac/ip/lmac/src/bfr/bfr.c                    2219   TRACE_BFMER(REPORT, "bfr_prep_he_ndpa vif_idx=%d sta_idx=%d token=%d sta_he_info=%lx" " addr=%lx durid=%d", next_bfr->vif_idx, next_bfr->sta_idx, bfr_env.token, TR_32(next_bfr->sta_he_info), TR_32(CPU2HW(mac_hdr) + BFR_NDPA_STA_INFO_OFFSET + (i * BFR_HE_NDPA_STA_INFO_LEN)), mac_hdr->durid)
+44   lmac/ip/lmac/src/bfr/bfr.c                    2558   TRACE_BFMER(REPORT, "mimo_ctrl=%lx frame=%p ru_start=%d ru_end=%d payload_offset=%d upload_len=%d" " firstSeg=%d host_addr=%lx sta_idx=%d report_idx=%d", TR_32(mimo_ctrl), TR_PTR(frame), (mimo_ctrl & 0x007F0000) >> 16, (mimo_ctrl & 0x3F800000) >> 23, payload_offset, upload_len, BFR_MIMO_GET_VALUE(mimo_ctrl, FIRST_SEGM), TR_32(host_addr), bfr->sta_idx, report_idx)
+44   lmac/ip/lmac/src/bfr/bfr.c                    2621   TRACE_BFMER(REPORT, "bfr_download_report sta_node=%p report_idx=%d", TR_PTR(sta_node), report_idx)
+44   lmac/ip/lmac/src/bfr/bfr.c                    2682   TRACE_BFMER(REPORT, " sta_idx=%d dma_desc_bfr->src=%lx dma_desc_bfr->dest=%lx," " node->start_addr=%lx dma_desc_bfr->length=%d bfr_env.nb_used_nodes=%d", bfr->sta_idx, TR_32(dma_desc_bfr->src), TR_32(dma_desc_bfr->dest), TR_32(node->start_addr), dma_desc_bfr->length, bfr_env.nb_used_nodes)
+44   lmac/ip/lmac/src/bfr/bfr.c                    2730   TRACE_BFMER(REPORT, " bfr_copy_report mimo_ctrl=%lx received chnl bw=%d " " bfr_env.calib_bw=%d bfr_env.node_idx=%d", TR_32(mimo_ctrl), BFR_MIMO_GET_VALUE(mimo_ctrl, CHAN_WIDTH), bfr_env.calib_bw, bfr_env.node_idx)
+44   lmac/ip/lmac/src/bfr/bfr.c                    2789   TRACE_BFMER(REPORT, " bfr_copy_report rua_he_map_index_get()=%d sta_idx=%d" " smm_index=%d frame=%p mimo_ctrl=%lx bfr_env.start_addr=%d" " node->start_addr=%lx dest=%lx, length=%d" " @node=%p type=%d node->length=%d bfr_env.nb_used_nodes=%d", rua_he_map_index_get(), bfr->sta_idx, node->smm_index, TR_PTR(frame), TR_32(mimo_ctrl), bfr_env.bfr_start_addr, TR_32(node->start_addr), TR_32(BFR_MEM_BASE_ADDR + node->start_addr), length, TR_PTR(node), node->type, node->length, bfr_env.nb_used_nodes)
+44   lmac/ip/lmac/src/bfr/bfr.c                    2866   TRACE_BFMER(SCHED, "bfee_sta_list content=%p bfr->sta_idx=%d is_in_partial_bw_calib=%d", TR_PTR(bfr), bfr->sta_idx, #if NX_HE_MU_AP sta_mgmt_is_in_partial_bw_calib(bfr->sta_idx) #endif )
+44   lmac/ip/lmac/src/bfr/bfr.c                    2888   TRACE_BFMER(SCHED, "STA %d is under Calib=%d, has traffic=%d," " is in sleep=%d, is outside TWT per=%d, current_time=%ld," " last_calib_time+500ms=%ld", bfr->sta_idx, BFR_IS_STATUS_BIT_SET(bfr->status, BFR_STA_CALIBRATE), td_sta_has_tx_traffic(bfr->sta_idx), sta_mgmt_is_in_ps(bfr->sta_idx), sta_mgmt_is_outside_twt_sp(bfr->sta_idx), TR_32(current_time), TR_32(bfr->last_calib_time + BFR_CALIB_MAX_DELAY))
+44   lmac/ip/lmac/src/bfr/bfr.c                    2924   TRACE_BFMER(SCHED, "STA %d is sleeping => don't calibrate", bfr->sta_idx)
+44   lmac/ip/lmac/src/bfr/bfr.c                    3008   TRACE_BFMER(SCHED, "bfr_env.bfr_enabled=%d", bfr_env.bfr_enabled)
+44   lmac/ip/lmac/src/bfr/bfr.c                    3110   TRACE_BFMER(REPORT, "bfr_add_sta_ind mu_capable=%d type=%d capa=%d host_max_report_len=%d" " report_addr[0]=%lx report_addr[1]=%lx", mu_capable, vif->type, bfr->sta_capa, bfr->host_max_report_len, TR_32(bfr->host_report_addr[0]), TR_32(bfr->host_report_addr[1]))
+44   lmac/ip/lmac/src/bfr/bfr.c                    3158   TRACE_BFMER(SCHED, "bfr_add_sta_ind next=%ld dur=%ld", TR_32(hal_machw_time() + bfr_env.calib_tmr_dur), TR_32(bfr_env.calib_tmr_dur))
+44   lmac/ip/lmac/src/bfr/bfr.c                    3183   TRACE_BFMER(SCHED, "bfr_add_mu_sta sta_idx=%d", sta_idx)
+44   lmac/ip/lmac/src/bfr/bfr.c                    3215   TRACE_BFMER(SCHED, "bfr_reset_mu_list map->cnt_sta=%d sta_idx=%d", map->cnt_sta, sta_idx)
+44   lmac/ip/lmac/src/bfr/bfr.c                    3246   TRACE_BFMER(SCHED, "bfr_build_mu_list bfmer map->cnt_sta=%d", map->cnt_sta)
+44   lmac/ip/lmac/src/bfr/bfr.c                    3284   TRACE_BFMER(SCHED, "bfr_is_report_valid validRep=%d for STA %d", BFR_IS_STATUS_BIT_SET(bfr->status, BFR_STA_HAS_VALID_REPORT), sta_idx)
+44   lmac/ip/lmac/src/bfr/bfr.c                    3296   TRACE_BFMER(SCHED, "bfr_reset_report_valid validRep=%d for STA %d", BFR_IS_STATUS_BIT_SET(bfr->status, BFR_STA_HAS_VALID_REPORT), sta_idx)
+44   lmac/ip/lmac/src/bfr/bfr.c                    3307   TRACE_BFMER(SCHED, "bfr_del_sta_ind STA %d", sta_idx)
+44   lmac/ip/lmac/src/bfr/bfr.c                    3379   TRACE_BFMER(SCHED, "sta_idx=%d mu=%d cal=%d vht=%d he=%d mimo_ctrl_msb=%lx", bfr->sta_idx, (bfr_env.status == BFR_STATUS_MU_CALIB), BFR_IS_STATUS_BIT_SET(bfr->status, BFR_STA_CALIBRATE), bfr_is_vht_bfr(frame), bfr_is_he_bfr(frame), TR_32(co_read8p(CPU2HW(frame) + BFR_MIMO_CTRL_OFFSET + 4)))
+44   lmac/ip/lmac/src/bfr/bfr.c                    3421   TRACE_BFMER(SCHED, "sta_idx=%d calibrating=%d vht=%d he=%d frame=%p *frame=%lx *frame+4=%lx" " *frame+8=%lx *frame+12=%lx", bfr->sta_idx, BFR_IS_STATUS_BIT_SET(bfr->status, BFR_STA_CALIBRATE), bfr_is_vht_bfr(frame), bfr_is_he_bfr(frame), TR_PTR(frame), TR_32(co_read32p(CPU2HW(frame))), TR_32(co_read32p(CPU2HW(frame + 4))), TR_32(co_read32p(CPU2HW(frame + 8))), TR_32(co_read32p(CPU2HW(frame + 12))))
+44   lmac/ip/lmac/src/bfr/bfr.c                    3501   TRACE_BFMER(SCHED, "bfr_tx_frame_ind compliant=%ld node=%p report_updt=%ld for STA %d", TR_32(bfr_is_frame_bf_compliant(txdesc, bfr)), TR_PTR(bfr->node[0]), TR_32(BFR_IS_STATUS_BIT_SET(bfr->status, BFR_STA_REPORT_UPDATED)), bfr->sta_idx)
+44   lmac/ip/lmac/src/bfr/bfr.c                    3511   TRACE_BFMER(SCHED, "Invalid report for STA %d", bfr->sta_idx)
+44   lmac/ip/lmac/src/bfr/bfr.c                    3530   TRACE_BFMER(SCHED, "smm_index %d already present in phy memory for STA %d." " txdesc->lmac.bfr_node=%p No new report received => No download.", bfr->node[0]->smm_index, bfr->sta_idx, TR_PTR(txdesc->lmac.bfr_node))
+44   lmac/ip/lmac/src/bfr/bfr.c                    3541   TRACE_BFMER(SCHED, "Download done. smm_index=%d returned for STA %d by" " bfr_download_report() at node=%p", bfr->node[0]->smm_index, bfr->sta_idx, TR_PTR(bfr->node[0]))
+44   lmac/ip/lmac/src/bfr/bfr.c                    3604   TRACE_BFMER(REPORT, "nb_used_nodes - bfr_tx_cfm : nb_used_nodes=%d nb_frames=%d sta_idx=%d", bfr_env.nb_used_nodes, node->nb_frames, node->sta_idx)
+44   lmac/ip/lmac/src/bfr/bfr.c                    3786   TRACE_BFMER(SCHED, "------- START MU CALIBRATION for STA %d with capa=%d -------", bfr->sta_idx, bfr->sta_capa)
+44   lmac/ip/lmac/src/bfr/bfr.c                    3793   TRACE_BFMER(SCHED, "------- START Single STA CALIBRATION type %d for STA %d with" " capa=%d -------", calib_type, bfr->sta_idx, bfr->sta_capa)
+44   lmac/ip/lmac/src/bfr/bfr.c                    3822   TRACE_BFMER(PROC, "bfr_start_next_calibration nb_devs=%d nb_pkts=%d" " calib_txdesc[%d]=%p", nb_devs, nb_pkts, i, TR_PTR(calib_txdesc[i]))
+44   lmac/ip/lmac/src/bfr/bfr.c                    3837   TRACE_BFMER(SCHED, "bfr_start_next_calibration nb_pkts=%d calib_txdesc=%p", nb_pkts, TR_PTR(calib_txdesc[0]))
+94   lmac/modules/rua/src/rua.c                    3199   TRACE_BFMER(REPORT, "n_sym_t_sym=%ld t_sym=%d n_sym=%d capacity=%ld psdu_len_max=%ld", TR_32(n_sym_t_sym), t_sym, n_sym, TR_32(capacity), TR_32(psdu_len_max))
+94   lmac/modules/rua/src/rua.c                    3631   TRACE_BFMER(SCHED, "rua_mu_pol_puphycntrlinfo_set bfr=%p bfr->node=%p smm_index=%d" " sta->sta_idx=%d bfr_is_report_valid=%d, rua_env.map_idx=%d" " bfr->host_report_idx=%d", TR_PTR(bfr), TR_PTR(bfr->node[bfr->host_report_idx]), bfr->node[bfr->host_report_idx]->smm_index, sta->sta_idx, bfr_is_report_valid(sta->sta_idx, BFR_HE_PARTIAL_BW_CALIB_TYPE), rua_env.map_idx, bfr->host_report_idx)
+30   lmac/ip/lmac/src/chan/chan.c                  299    TRACE_CHAN(ERR, "Several TBTT active at the same time")
+30   lmac/ip/lmac/src/chan/chan.c                  361    TRACE_CHAN(ERR, "TODO: chan_vif_tbtt_intv")
+30   lmac/ip/lmac/src/chan/chan.c                  396    TRACE_CHAN(STATUS, "{CTXT-%d} Update status %d", ctxt->idx, status)
+30   lmac/ip/lmac/src/chan/chan.c                  932    TRACE_CHAN(NOA, "{VIF-%d}{CTXT-%d} Start periodic NOA for TBTT on vifs %x" ": duration=%ldus interval=%ldus start %t", p2pgo_vif->index, p2pgo_vif->chan_ctxt->idx, noa[i].vifs, TR_32(dur), TR_32(noa[i].intv), TR_32(start))
+30   lmac/ip/lmac/src/chan/chan.c                  1204   TRACE_CHAN(TBTT, "{VIF-%d} schedule next TBTT %t (skip=%d)", vif->index, TR_32(tbtt_time), skip_cnt)
+30   lmac/ip/lmac/src/chan/chan.c                  1245   TRACE_CHAN(SWITCH, "{CTXT-%d} schedule switch at %t", ctxt ? ctxt->idx : 255, TR_32(date))
+30   lmac/ip/lmac/src/chan/chan.c                  1378   TRACE_CHAN(ERR, "P2P GO present while processing TBTT on another ctxt ..." "next absent %t", TR_32(p2p_next_absent))
+30   lmac/ip/lmac/src/chan/chan.c                  1390   TRACE_CHAN(ERR, "P2P GO absence %t happens after next TBTT %t", TR_32(p2p_next_absent), TR_32(*return_date))
+30   lmac/ip/lmac/src/chan/chan.c                  1435   TRACE_CHAN(ERR, "P2P GO next absence [%t..%t] happens after next TBTT %t", TR_32(p2p_next_absent), TR_32(p2p_next_present), TR_32(*switch_date))
+30   lmac/ip/lmac/src/chan/chan.c                  1468   TRACE_CHAN(ERR, "P2P GO presence [%t..%t] will overlap with next TBTT %t", TR_32(p2p_next_present), TR_32(p2p_next_absent), TR_32(*switch_date))
+30   lmac/ip/lmac/src/chan/chan.c                  1510   TRACE_CHAN(ERR, "P2P GO present while processing TBTT on another ctxt ..." "next absent %t", TR_32(p2p_next_absent))
+30   lmac/ip/lmac/src/chan/chan.c                  1574   TRACE_CHAN(ERR, "Schedule switch: not on expected channel." " current_ctxt=%d expected_channel=%d status=%d", chan_env.current_ctxt ? chan_env.current_ctxt->idx : -1, ctxt->idx, ctxt->status)
+30   lmac/ip/lmac/src/chan/chan.c                  1699   TRACE_CHAN(SWITCH, "Delay fixed channel while in TBTT window")
+30   lmac/ip/lmac/src/chan/chan.c                  1703   TRACE_CHAN(SWITCH, "Fix {CTXT-%d} until %t", ctxt->idx, TR_32(time))
+30   lmac/ip/lmac/src/chan/chan.c                  1744   TRACE_CHAN(CON_LESS, "{CON-LESS} delay timer expired. status = %x", chan_env.status)
+30   lmac/ip/lmac/src/chan/chan.c                  1785   TRACE_CHAN(CON_LESS, "{CON-LESS} Start delay timer. status = %x", chan_env.status)
+30   lmac/ip/lmac/src/chan/chan.c                  1971   TRACE_CHAN(CON_LESS, "SCAN is pending override switch to {CTXT-%d}", chan_env.switch_ctxt->idx)
+30   lmac/ip/lmac/src/chan/chan.c                  1978   TRACE_CHAN(CON_LESS, "ROC is pending override switch to {CTXT-%d}", chan_env.switch_ctxt->idx)
+30   lmac/ip/lmac/src/chan/chan.c                  1993   TRACE_CHAN(ERR, "No ctxt scheduled in chan_pre_switch_channel")
+30   lmac/ip/lmac/src/chan/chan.c                  2015   TRACE_CHAN(NOA, "absence notification confirmed status=%lx (remains %d)", TR_32(status), chan_env.cfm_cnt - 1)
+30   lmac/ip/lmac/src/chan/chan.c                  2079   TRACE_CHAN(NOA, "{VIF-%d} presence notification sent", vif->index)
+30   lmac/ip/lmac/src/chan/chan.c                  2156   TRACE_CHAN(NOA, "{VIF-%d} absence notification sent", vif->index)
+30   lmac/ip/lmac/src/chan/chan.c                  2186   TRACE_CHAN(SWITCH, "HW entered idle state")
+30   lmac/ip/lmac/src/chan/chan.c                  2233   TRACE_CHAN(INF, "{CTXT-%d} switch to channel freq=%dMHz bw=%dMHz", ctxt->idx, chan->prim20_freq, (1 <<  chan->type) * 20)
+30   lmac/ip/lmac/src/chan/chan.c                  2327   TRACE_CHAN(SWITCH, "{CTXT-%d} Start switch", ctxt->idx)
+30   lmac/ip/lmac/src/chan/chan.c                  2331   TRACE_CHAN(SWITCH, "Switch to {CTXT-%d} replaced by switch to {CTXT-%d}", chan_env.switch_ctxt->idx, ctxt->idx)
+30   lmac/ip/lmac/src/chan/chan.c                  2339   TRACE_CHAN(SWITCH, "skip: already current channel")
+30   lmac/ip/lmac/src/chan/chan.c                  2355   TRACE_CHAN(ERR, "Channel switch while beacon are being transmitted")
+30   lmac/ip/lmac/src/chan/chan.c                  2423   TRACE_CHAN(CREATE, "{CTXT-%d} Update channel config freq=%dMHz bw=%dMHz", ctxt->idx, chan->prim20_freq, (1 <<  chan->type) * 20)
+30   lmac/ip/lmac/src/chan/chan.c                  2670   TRACE_CHAN(CON_LESS, "{VIF-%d} Start scan freq=%dMHz duration=%ldus pwr=%ddBm", vif_index, chan->freq, TR_32(duration_us), chan->tx_power)
+30   lmac/ip/lmac/src/chan/chan.c                  2696   TRACE_CHAN(CON_LESS, "{VIF-%d} Abort scan ctx_status=%d", vif_index, ctxt->status)
+30   lmac/ip/lmac/src/chan/chan.c                  2737   TRACE_CHAN(CON_LESS, "ROC op=%d freq=%d MHz duration=%dms pwr=%ddBm ctx_status=%d", req->op_code, req->chan.prim20_freq, req->duration_ms, req->chan.tx_power, ctxt->status)
+30   lmac/ip/lmac/src/chan/chan.c                  2876   TRACE_CHAN(ERR, "No more channel context freq=%dMHz bw=%dMHz", chan_req->prim20_freq, (1 << chan_req->type) * 20)
+30   lmac/ip/lmac/src/chan/chan.c                  2885   TRACE_CHAN(CREATE, "{CTXT-%d} Create channel context: freq=%dMHz bw=%dMHz pwr=%ddBm", *idx, chan_req->prim20_freq, (1 << chan_req->type) * 20,  chan_req->tx_power)
+30   lmac/ip/lmac/src/chan/chan.c                  2898   TRACE_CHAN(CREATE, "{CTXT-%d} Delete channel context",  chan_idx)
+30   lmac/ip/lmac/src/chan/chan.c                  2922   TRACE_CHAN(CREATE, "{CTXT-%d} link to {VIF-%d}: status=%d nb_vif=%d\n", ctxt_idx, vif_idx, ctxt->status, ctxt->nb_linked_vif)
+30   lmac/ip/lmac/src/chan/chan.c                  3014   TRACE_CHAN(CREATE, "{CTXT-%d} unlink from {VIF-%d}: status=%d nb_vif=%d", ctxt->idx, vif_idx, ctxt->status, ctxt->nb_linked_vif)
+30   lmac/ip/lmac/src/chan/chan.c                  3093   TRACE_CHAN(CREATE, "{CTXT-%d} update config: freq=%dMHz bw=%dMHz pwr=%ddBm", upd_req->chan_index, chan->prim20_freq, (1 << chan->type) * 20, chan->tx_power)
+30   lmac/ip/lmac/src/chan/chan.c                  3157   TRACE_CHAN(ERR, "Drop next scheduled {VIF-%d} %t in the past", tbtt_scheduled->vif_index, TR_32(tbtt_scheduled->time))
+30   lmac/ip/lmac/src/chan/chan.c                  3164   TRACE_CHAN(TBTT, "{VIF-%d}{CTXT-%d} TBTT start skip_it=%d, current_ctxt=%d, tbtt_time=%t", vif->index, vif->chan_ctxt->idx, skip, chan_env.current_ctxt ? chan_env.current_ctxt->idx : -1, TR_32(tbtt_time))
+30   lmac/ip/lmac/src/chan/chan.c                  3263   TRACE_CHAN(TBTT, "{VIF-%d} Beacon received outside of TBTT window", vif->index)
+30   lmac/ip/lmac/src/chan/chan.c                  3307   TRACE_CHAN(TBTT, "{VIF-%d}{CTXT-%d} BCN TimeOut status = %d beacon_lost = %d", tbtt->vif_index, vif->chan_ctxt->idx, tbtt->status, vif->u.sta.beacon_loss_cnt)
+30   lmac/ip/lmac/src/chan/chan.c                  3372   TRACE_CHAN(TBTT, "{CTXT-%d} Start Beacon detection procedure for {VIF-%d}", ctxt->idx, vif->index)
+31   lmac/ip/lmac/src/mm/mm_bcn.c                  1061   TRACE_CHAN(ERR, "{VIF-%d} Don't push beacon as TBTT is already passed", vif->index)
+19   lmac/ip/lmac/src/rx/rxl/rxl_cntrl.c           955    TRACE_STA(BCN, "{VIF-%d} Beacon received sn=%d", vif->index, ((struct mac_hdr *)frame)->seq >> MAC_SEQCTRL_NUM_OFT)
+20   lmac/ip/lmac/src/tx/txl/txl_frame.c           603    TRACE_STA(CONNECT, "send null sn %d", buf->seq)
+20   lmac/ip/lmac/src/tx/txl/txl_frame.c           672    TRACE_STA(CONNECT, "send qos null sn %d", buf->seq)
+28   lmac/ip/lmac/src/mm/mm.c                      584    TRACE_STA(CONNECT, "{VIF-%d} send keep alive null(last seq = %d)", vif->u.sta.ap_sta_idx, vif->null_seq_num)
+32   lmac/ip/lmac/src/ps/ps.c                      91     TRACE_STA(CONNECT, "sta send null(seq = %d) fail tx_status 0x%x", vif->null_seq_num, status)
+32   lmac/ip/lmac/src/ps/ps.c                      186    TRACE_STA(PS, "{VIF-%d} PS mode resumed", ((struct vif_info_tag *)env)->index)
+32   lmac/ip/lmac/src/ps/ps.c                      192    TRACE_STA(PS, "{VIF-%d} PS mode enabled", ((struct vif_info_tag *)env)->index)
+32   lmac/ip/lmac/src/ps/ps.c                      265    TRACE_STA(PS, "{VIF-%d} PS mode paused", ((struct vif_info_tag *)env)->index)
+32   lmac/ip/lmac/src/ps/ps.c                      271    TRACE_STA(PS, "{VIF-%d} PS mode disabled", ((struct vif_info_tag *)env)->index)
+32   lmac/ip/lmac/src/ps/ps.c                      412    TRACE_STA(PS, "{VIF-%d} start periodic UAPSD Service Period", vif->index)
+32   lmac/ip/lmac/src/ps/ps.c                      620    TRACE_STA(PS, "{VIF-%d} AP has BroadCast/Multicast traffic buffered", vif->index)
+32   lmac/ip/lmac/src/ps/ps.c                      630    TRACE_STA(PS, "{VIF-%d} AP has traffic buffered for us", vif->index)
+32   lmac/ip/lmac/src/ps/ps.c                      641    TRACE_STA(PS, "Start UAPSD Service Period")
+32   lmac/ip/lmac/src/ps/ps.c                      655    TRACE_STA(PS, "Send PS-POLL")
+32   lmac/ip/lmac/src/ps/ps.c                      732    TRACE_STA(PS, "{VIF-%d} EOSP received", vif->index)
+32   lmac/ip/lmac/src/ps/ps.c                      748    TRACE_STA(PS, "{VIF-%d} received PS frame. (more data = %d)", vif->index, (framectrl & MAC_FCTRL_MOREDATA))
+52   lmac/ip/umac/src/sm/sm_task.c                 62     TRACE_STA(CONNECT, "{VIF-%d} Connection request: Auth_type=%d BSSID=%pM IE len=%d flags=0x%lx", param->vif_idx, param->auth_type, TR_MAC(&param->bssid), param->ie_len, TR_32(param->flags))
+52   lmac/ip/umac/src/sm/sm_task.c                 176    TRACE_STA(CONNECT, "{VIF-%d} Disconnection request:", param->vif_idx)
+52   lmac/ip/umac/src/sm/sm_task.c                 584    TRACE_STA(CONNECT, "{VIF-%d} Disconnected, start Re-Association", vif->index)
+52   lmac/ip/umac/src/sm/sm_task.c                 590    TRACE_STA(CONNECT, "{VIF-%d} Disconnected", vif->index)
+53   lmac/ip/umac/src/sm/sm.c                      647    TRACE_STA(CONNECT, "{VIF-%d} Connection status=%d", con_par->vif_idx, status)
+52   lmac/ip/umac/src/sm/sm_task.c                 66     TRACE_BUF_STA(CONNECT, "SSID=%pBs", param->ssid.length, param->ssid.array)  // Allocate the confirmation message cfm = KE_MSG_ALLOC(SM_CONNECT_CFM, src_id, dest_id, sm_connect_cfm)
+15   lmac/ip/lmac/src/tx/txl/txl_cntrl.c           1144   TRACE_AP(BCN, "{VIF-%d} SN=%d (tbtt in %dus)", txdesc->host.vif_idx, txdesc->umac.sn, nxmac_next_tbtt_get() << 5)
+19   lmac/ip/lmac/src/rx/rxl/rxl_cntrl.c           271    TRACE_AP(PS, "{VIF-%d} {STA-%d} exit PS mode", vif_idx, sta_idx)
+19   lmac/ip/lmac/src/rx/rxl/rxl_cntrl.c           285    TRACE_AP(PS, "{VIF-%d} disable PS on broadcast/multicast STA", vif_idx)
+19   lmac/ip/lmac/src/rx/rxl/rxl_cntrl.c           308    TRACE_AP(PS, "{VIF-%d} received PS-Poll from STA-%d", vif->index, sta_idx)
+19   lmac/ip/lmac/src/rx/rxl/rxl_cntrl.c           333    TRACE_AP(PS, "{VIF-%d} received UAPSD trigger from STA-%d sn=%d", vif->index, sta_idx, sn)
+19   lmac/ip/lmac/src/rx/rxl/rxl_cntrl.c           362    TRACE_AP(PS, "{VIF-%d} SP completed by fw: send EOSP to STA-%d", vif->index, sta_idx)
+19   lmac/ip/lmac/src/rx/rxl/rxl_cntrl.c           371    TRACE_AP(PS, "{VIF-%d} Ask host to complete SP for STA-%d", vif->index, sta_idx)
+19   lmac/ip/lmac/src/rx/rxl/rxl_cntrl.c           384    TRACE_AP(PS, "{VIF-%d} no data: send EOSP to STA-%d", vif->index, sta_idx)
+19   lmac/ip/lmac/src/rx/rxl/rxl_cntrl.c           403    TRACE_AP(PS, "{VIF-%d} {STA-%d} enter PS mode", vif_idx, sta_idx)
+19   lmac/ip/lmac/src/rx/rxl/rxl_cntrl.c           412    TRACE_AP(PS, "{VIF-%d} enable PS on broadcast/multicast STA", vif_idx)
+19   lmac/ip/lmac/src/rx/rxl/rxl_cntrl.c           471    TRACE_AP(PS, "{VIF-%d} received null from STA-%d sn %d", vif_idx, sta_idx, sn)
+31   lmac/ip/lmac/src/mm/mm_bcn.c                  119    TRACE_AP(PS, "{VIF-%d} Traffic buffered for STA aid=%d", param->inst_nbr, param->aid)
+31   lmac/ip/lmac/src/mm/mm_bcn.c                  173    TRACE_AP(PS, "{VIF-%d} No more traffic buffered for STA aid=%d", param->inst_nbr, param->aid)
+54   lmac/ip/umac/src/apm/apm_task.c               88     TRACE_AP(ERR, "{VIF-%d} Failed to start AP status=%d", param->vif_idx, status)
+54   lmac/ip/umac/src/apm/apm_task.c               94     TRACE_AP(INFO, "{VIF-%d} AP initialization: ChanCtxt=%d %dMHz@%dMHz Bcn_Intv=%dTU", param->vif_idx, chan_idx, param->chan.prim20_freq, 20 * (1 << param->chan.type), param->bcn_int)
+54   lmac/ip/umac/src/apm/apm_task.c               371    TRACE_AP(INFO, "{VIF-%d} Stop AP", param->vif_idx)
+54   lmac/ip/umac/src/apm/apm_task.c               421    TRACE_AP(INFO, "{VIF-%d} Start Channel Availability Check on freq %dMHz", param->vif_idx, param->chan.prim20_freq)
+54   lmac/ip/umac/src/apm/apm_task.c               459    TRACE_AP(INFO, "{VIF-%d} Channel Availability Check completed", param->vif_idx)
+55   lmac/ip/umac/src/apm/apm.c                    145    TRACE_AP(INFO, "{VIF-%d} AP started", param->vif_idx)
+55   lmac/ip/umac/src/apm/apm.c                    149    TRACE_AP(ERR, "{VIF-%d} Error during AP initialization", param->vif_idx)
+55   lmac/ip/umac/src/apm/apm.c                    531    TRACE_AP(INFO, "{VIF-%d} probe client to sta %d", vif->index, sta_idx)
+58   lmac/ip/umac/src/txu/txu_cntrl.c              1099   TRACE_AP(PS, "{VIF-%d} Send Qos NULL frame as EOSP to STA-%d as last" " frame was MGMT (sn=%d)", host->vif_idx, host->sta_idx, txdesc->umac.sn)
+58   lmac/ip/umac/src/txu/txu_cntrl.c              1109   TRACE_AP(PS, "{VIF-%d} EOSP to STA-%d was data frame sn=%d", host->vif_idx, host->sta_idx, txdesc->umac.sn)
+45   lmac/ip/lmac/src/tdls/tdls.c                  273    TRACE_TDLS(ERR, "Link Identifier element missing!")
+45   lmac/ip/lmac/src/tdls/tdls.c                  284    TRACE_TDLS(ERR, "Channel Switch Timing element missing!")
+45   lmac/ip/lmac/src/tdls/tdls.c                  372    TRACE_TDLS(ERR, "Link Identifier IE missing.")
+45   lmac/ip/lmac/src/tdls/tdls.c                  385    TRACE_TDLS(ERR, "wrong Link Identifier IE.")
+45   lmac/ip/lmac/src/tdls/tdls.c                  394    TRACE_TDLS(ERR, "Channel Switch Timing IE missing.")
+45   lmac/ip/lmac/src/tdls/tdls.c                  408    TRACE_TDLS(ERR, "Not enough time to complete TDLS Channel Switch procedure.")
+45   lmac/ip/lmac/src/tdls/tdls.c                  819    TRACE_TDLS(CHSWITCH, "Do not reply (STA is initiator of the TDLS link and" " ChSwReq received while waiting for ChSwResp).")
+46   lmac/ip/lmac/src/tdls/tdls_task.c             108    TRACE_TDLS(ERR, "TDLS channel switch is not allowed.")
+46   lmac/ip/lmac/src/tdls/tdls_task.c             177    TRACE_TDLS(ERR, "TDLS Channel Switch is not active for STA %d.", param->sta_idx)
+69   lmac/ip/umac/src/rm/rm_task.c                 96     TRACE_RM(WARN, "Ignore extra measure request")
+71   lmac/ip/umac/src/rm/rm.c                      649    TRACE_RM(WARN, "Request more elements than supported") request->req_elt_cnt = CO_ARRAY_SIZE(request->req_elt)
+71   lmac/ip/umac/src/rm/rm.c                      669    TRACE_RM(WARN, "Unsupported extension ID")
+71   lmac/ip/umac/src/rm/rm.c                      675    TRACE_RM(WARN, "Request more extended elements than supported")
+71   lmac/ip/umac/src/rm/rm.c                      790    TRACE_RM(REQUEST, "Measure mode=%d, detail=%d, last_report_ind=%d, BSSID=%pM", request->measure_mode, request->detail, request->last_report_ind, TR_MAC(&request->bssid))
+71   lmac/ip/umac/src/rm/rm.c                      1111   TRACE_RM(REPORT, "Send report with no measure")
+71   lmac/ip/umac/src/rm/rm.c                      1223   TRACE_RM(REPORT, "[%d] BSSID=%pM, report len=%d, report part=%d, remaining=%d", CO_GET_INDEX(measure, rm_env.measures), TR_MAC(&measure->bssid), (pos - report), request->report_sent, measure->len - measure->reported_len)
+71   lmac/ip/umac/src/rm/rm.c                      1332   TRACE_RM(REPORT, "Send reject report. type=%d mode=%d", request->type, mode)
+71   lmac/ip/umac/src/rm/rm.c                      1449   TRACE_RM(REPORT, "Send (re-used) Radio Measurement Report action frame (len=%d)", tx_desc_thd(&frame->txdesc)->mpdu.frmlen)
+71   lmac/ip/umac/src/rm/rm.c                      1496   TRACE_RM(REPORT, "Send Radio Measurement Report action frame (len=%d)", tx_desc_thd(&frame->txdesc)->mpdu.frmlen)
+71   lmac/ip/umac/src/rm/rm.c                      1671   TRACE_RM(REQUEST, "{VIF-%d}{STA-%d} %d RM request received (dialog_token=%d)", vif_idx, sta_idx, req_cnt, dialog_token)
+71   lmac/ip/umac/src/rm/rm.c                      1710   TRACE_RM(REQUEST, "Start processing request %d", rm_env.active_request)
+71   lmac/ip/umac/src/rm/rm.c                      1865   TRACE_RM(MEASURE, "[%d] BSSID=%pM rssi=%d op_class=%d chan=%d phy_type=%d tsf=%ld len=%d", CO_GET_INDEX(measure, rm_env.measures), TR_MAC(&measure->bssid), measure->rssi, measure->op_class, measure->chan, measure->phy_type, TR_32(measure->tsflo), measure->len)
+71   lmac/ip/umac/src/rm/rm.c                      795    TRACE_BUF_RM(REQUEST, "Request elt: %pB16bd", request->req_elt_cnt, request->req_elt)
+71   lmac/ip/umac/src/rm/rm.c                      800    TRACE_BUF_RM(REQUEST, "Request extended elt: %pB16bd", request->req_ext_elt_cnt, request->req_ext_elt)
+71   lmac/ip/umac/src/rm/rm.c                      805    TRACE_BUF_RM(REQUEST, "SSID: %pBs", request->ssid.length, request->ssid.array)
+71   lmac/ip/umac/src/rm/rm.c                      809    TRACE_BUF_RM(REQUEST, "Chan: %pB16bd", request->chan_cnt, request->chan_list)
+71   lmac/ip/umac/src/rm/rm.c                      1873   TRACE_BUF_RM(MEASURE, "SSID: %pBs", co_read8p(ssid_elt + MAC_INFOELT_LEN_OFT), HW2CPU(ssid_elt + MAC_SSID_SSID_OFT))
+64   lmac/ip/umac/src/twt/twt_task.c               58     TRACE_TWT(ERR, "invalid frame control")
+64   lmac/ip/umac/src/twt/twt_task.c               87     TRACE_TWT(INF, "Setup Request: vif_idx=%d sta_idx=%d setup_cmd=%d flow_type=%d " "wake_int_exp=%d min_twt_wake_dur=%d wake_int_mantissa=%u", param->vif_idx, vif->u.sta.ap_sta_idx, param->setup_cmd, param->conf.flow_type, param->conf.wake_int_exp, param->conf.min_twt_wake_dur, param->conf.wake_int_mantissa)
+64   lmac/ip/umac/src/twt/twt_task.c               128    TRACE_TWT(ERR, "twt_setup_req_handler, Impossible to send setup frame")
+64   lmac/ip/umac/src/twt/twt_task.c               168    TRACE_TWT(TX, "{TWT-%d STA-%d} (all=%d) Send Teardown frame", param->id, vif->u.sta.ap_sta_idx, param->all_twt)
+64   lmac/ip/umac/src/twt/twt_task.c               208    TRACE_TWT(ERR, "twt_teardown_req_handler, invalid Flow ID")
+64   lmac/ip/umac/src/twt/twt_task.c               216    TRACE_TWT(ERR, "twt_teardown_req_handler, Impossible to send teardown frame")
+65   lmac/ip/umac/src/twt/twt.c                    247    TRACE_TWT(DBG, "{TWT-%d STA-%d} Minimum awake duration reached", twt_flow->id, twt_flow->sta_idx)
+65   lmac/ip/umac/src/twt/twt.c                    303    TRACE_TWT(TB, "Start Scheduling of TB SP")
+65   lmac/ip/umac/src/twt/twt.c                    344    TRACE_TWT(TB, "Start new UL map (%p) with {STA-%d} ru=%d", TR_PTR(ul_map), sta_idx, ul_map->user[0].ru_alloc)
+65   lmac/ip/umac/src/twt/twt.c                    362    TRACE_TWT(TB, "Add {STA-%d} to the map ==> TODO", sta_idx)
+65   lmac/ip/umac/src/twt/twt.c                    510    TRACE_TWT(TB, "EOSP confirmation received")
+65   lmac/ip/umac/src/twt/twt.c                    522    TRACE_TWT(TB, "All EOSP confirmation received, apply new/updated map (%p)", TR_PTR(ul_map))
+65   lmac/ip/umac/src/twt/twt.c                    553    TRACE_TWT(TB, "Trigger frame confirmed (ul_map = %p, #ul_map = %d)", TR_PTR(ul_map), twt_env.nb_active_ul_map)
+65   lmac/ip/umac/src/twt/twt.c                    580    TRACE_TWT(TB, "{STA-%d} Data received %lu bytes, to transmit %lu bytes" " (announced = %d)", sta_idx, TR_32(data_rx), TR_32(data_tx), !sta->twt.need_annoucement)
+65   lmac/ip/umac/src/twt/twt.c                    624    TRACE_TWT(TB, "Switch to other UL map: %p", TR_PTR(ul_map))
+65   lmac/ip/umac/src/twt/twt.c                    656    TRACE_TWT(DBG, "{TWT-%d STA-%d} Start Service Period. Awake until %t", twt_flow->id, twt_flow->sta_idx, TR_32(twt_flow->sp_timer.time))
+65   lmac/ip/umac/src/twt/twt.c                    743    TRACE_TWT(DBG, "{TWT-%d STA-%d} SP next wake up at %t", twt_flow->id, twt_flow->sta_idx, TR_32(sp_time))
+65   lmac/ip/umac/src/twt/twt.c                    748    TRACE_TWT(DBG, "{TWT-%d STA-%d} restart SP immediately", twt_flow->id, twt_flow->sta_idx)
+65   lmac/ip/umac/src/twt/twt.c                    948    TRACE_TWT(TX, "Send setup command %d with request type 0x%04x and flow ID %d", setup_cmd, request_type, twt_flow->id)
+65   lmac/ip/umac/src/twt/twt.c                    1010   TRACE_TWT(RX, "{TWT-ALL STA-%d} Received TWT Teardown frame", param->sta_idx)
+65   lmac/ip/umac/src/twt/twt.c                    1018   TRACE_TWT(RX, "{TWT-%d STA-%d} Received TWT Teardown frame", flow_id, param->sta_idx)
+65   lmac/ip/umac/src/twt/twt.c                    1023   TRACE_TWT(ERR, "Received Teardown Frame for invalid Flow ID")
+65   lmac/ip/umac/src/twt/twt.c                    1085   TRACE_TWT(RX, "{STA-%d} received TWT Setup frame (command=%d): control=0x%02x" " request_type=0x%04x", sta_idx, setup_cmd, control, request_type)
+65   lmac/ip/umac/src/twt/twt.c                    1138   TRACE_TWT(INF, "{STA-%d} Response Alternate configuration", sta_idx)
+65   lmac/ip/umac/src/twt/twt.c                    1224   TRACE_TWT(INF, "Accept TWT setup request from {STA-%d}: intv=%ldus wake_dur=%ldus", sta_idx, TR_32(twt_flow->wake_int), TR_32(twt_flow->wake_dur))
+65   lmac/ip/umac/src/twt/twt.c                    1240   TRACE_TWT(TX, "{VIF-%d} sending TWT Setup frame (command=%d) to {STA-%d}", vif->index, setup_cmd, sta->sta_idx)  // Configure frame as a S1G TWT Setup Action Frame - Can be broadcasted length += twt_action_frame_prepare(&frame, vif, sta, MAC_TWT_SETUP_S1G_ACTION, dialog_token)
+65   lmac/ip/umac/src/twt/twt.c                    1266   TRACE_TWT(TX, "{VIF-%d} sending TWT Teardown action frame to {STA-%d}", vif_idx, sta_idx)
+65   lmac/ip/umac/src/twt/twt.c                    1287   TRACE_TWT(INF, "Delete TWT Flow id=%d", twt_flow->id)
+65   lmac/ip/umac/src/twt/twt.c                    1336   TRACE_TWT(RX, "{STA-%d} Received TWT Setup frame", param->sta_idx)
+65   lmac/ip/umac/src/twt/twt.c                    1373   TRACE_TWT(ERR, "Individual TWT request received")
+65   lmac/ip/umac/src/twt/twt.c                    1410   TRACE_TWT(ERR, "TWT Grouping not supported")
+65   lmac/ip/umac/src/twt/twt.c                    1438   TRACE_TWT(DBG, "{TWT-%d STA-%d} Start SP traffic", twt_flow->id, twt_flow->sta_idx)
+65   lmac/ip/umac/src/twt/twt.c                    1482   TRACE_TWT(ERR, "{TWT-%d STA-%d} Stop SP TWT but: valid=%d sp_active=%d", twt_flow->id, twt_flow->sta_idx, twt_flow->control.valid, twt_flow->control.sp_active)
+65   lmac/ip/umac/src/twt/twt.c                    1488   TRACE_TWT(DBG, "{TWT-%d STA-%d} Stop SP traffic", twt_flow->id, twt_flow->sta_idx)
+65   lmac/ip/umac/src/twt/twt.c                    1570   TRACE_TWT(RX, "Received TWT Action frame")
+65   lmac/ip/umac/src/twt/twt.c                    1596   TRACE_TWT(ERR, "id %d not supported", eid)
+65   lmac/ip/umac/src/twt/twt.c                    1638   TRACE_TWT(DBG, "{STA-%d} received SP terminating event", sta->sta_idx)
+70   lmac/ip/umac/src/ftm/ftm.c                    98     TRACE_FTM(INF, "Remain on channel request on frequency %d ", ftm_env.ftm_list_sta[ftm_idx].chan.freq)
+70   lmac/ip/umac/src/ftm/ftm.c                    128    TRACE_FTM(INF, "Store measurement %d %pM %d, on %d received", res->nb_ftm_rsp, TR_MAC(&res->meas[idx].addr.array), res->meas[idx].rtt, ftm_env.ftm_meas_count)
+70   lmac/ip/umac/src/ftm/ftm.c                    187    TRACE_FTM(INF, "Send Initial Action Frame to bssid = %pM ", TR_MAC(&buf->addr1))
+70   lmac/ip/umac/src/ftm/ftm.c                    195    TRACE_FTM(INF, "Send Measurement Request Action Frame to bssid = %pM ", TR_MAC(&buf->addr1))
+70   lmac/ip/umac/src/ftm/ftm.c                    209    TRACE_FTM(INF, "Send Measurement Reply Action Frame to bssid = %pM ", TR_MAC(&buf->addr1))
+70   lmac/ip/umac/src/ftm/ftm.c                    235    TRACE_FTM(INF, "Send Action Frame to stop FTM to bssid = %pM ", TR_MAC(&buf->addr1))
+70   lmac/ip/umac/src/ftm/ftm.c                    272    TRACE_FTM(INF, "Ordering AP: BSSID=%pM RSSI = %d FREQ = %d", TR_MAC(&list_result[current_bssid]->bssid.array), list_result[current_bssid]->rssi, ftm_env.ftm_list_sta[i].chan.freq) list_result[current_bssid]->rssi = -128
+70   lmac/ip/umac/src/ftm/ftm.c                    289    TRACE_FTM(INF, "-------------- End of FTM request --------------") return
+70   lmac/ip/umac/src/ftm/ftm.c                    293    TRACE_FTM(INF, "New FTM session started on %pM", TR_MAC(&ftm_env.ftm_list_sta[ftm_env.ftm_current_idx].bssid))
+72   lmac/ip/umac/src/ftm/ftm_task.c               125    TRACE_FTM(INF, "New AP found on %pM index_bssid = %d freq= %d rssi = %d", TR_MAC(&result_ptr->bssid.array), index_bssid - 1, result_ptr->chan->freq, result_ptr->rssi) } }  // Check we have the number of responders we expected, and correct it if necessary if (index_bssid < ftm_env.nb_ftm_rsp) ftm_env.nb_ftm_rsp = index_bssid
+72   lmac/ip/umac/src/ftm/ftm_task.c               206    TRACE_FTM(ERR, "Action Frame has not been sent")
+72   lmac/ip/umac/src/ftm/ftm_task.c               250    TRACE_FTM(INF, "FTM AP -->  INITIAL FTM_MEAS_REQ")
+72   lmac/ip/umac/src/ftm/ftm_task.c               261    TRACE_FTM(INF, "Action Frame has not been sent")
+72   lmac/ip/umac/src/ftm/ftm_task.c               266    TRACE_FTM(INF, "FTM AP --> FTM_MEAS_REQ")
+72   lmac/ip/umac/src/ftm/ftm_task.c               270    TRACE_FTM(INF, "Action Frame has not been sent")
+72   lmac/ip/umac/src/ftm/ftm_task.c               286    TRACE_FTM(ERR, "Action Frame received from incorrect AP %pM", TR_MAC(&ftm_env.ftm_list_sta[ftm_env.ftm_current_idx].bssid))
+72   lmac/ip/umac/src/ftm/ftm_task.c               297    TRACE_FTM(ERR, "FTM Measurement request is not supported")
+72   lmac/ip/umac/src/ftm/ftm_task.c               307    TRACE_FTM(INF, "Initial Request Reply received")
+72   lmac/ip/umac/src/ftm/ftm_task.c               321    TRACE_FTM(ERR, "Status Indication = %d", status_indication)
+72   lmac/ip/umac/src/ftm/ftm_task.c               330    TRACE_FTM(ERR, "No FTM parameter present in the frame")
+72   lmac/ip/umac/src/ftm/ftm_task.c               344    TRACE_FTM(INF, "Initial Measurement received")
+72   lmac/ip/umac/src/ftm/ftm_task.c               364    TRACE_FTM(INF, "Measurement received")
+72   lmac/ip/umac/src/ftm/ftm_task.c               385    TRACE_FTM(INF, "Last expected measurement received")
+72   lmac/ip/umac/src/ftm/ftm_task.c               394    TRACE_FTM(ERR, "This point should never be reached") break
+72   lmac/ip/umac/src/ftm/ftm_task.c               402    TRACE_FTM(ERR, "This point should never be reached") break
+72   lmac/ip/umac/src/ftm/ftm_task.c               460    TRACE_FTM(INF, "Request a new measurement")  // Start action frame timeout timer ke_timer_set(FTM_PEER_RSP_TIMEOUT_IND, TASK_FTM, DEFAULT_ACTION_FRAME_TIMEOUT)
+72   lmac/ip/umac/src/ftm/ftm_task.c               472    TRACE_FTM(INF, "Action Frame has not been sent")
+72   lmac/ip/umac/src/ftm/ftm_task.c               498    TRACE_FTM(INF, "Send measurement to the STA")  // Check if we are in a state where such timeout could occur if (ke_state_get(TASK_FTM) != FTM_MEAS_INITIAL_EXCHANGE) return KE_MSG_CONSUMED
+72   lmac/ip/umac/src/ftm/ftm_task.c               507    TRACE_FTM(INF, "Action Frame has not been sent")
+90   lmac/modules/dbg/src/dbg_assert.c             48     TRACE_NO_COMPO(NO_LVL, "ASSERT recovery: %F:%d", (line >> 20), line)
+90   lmac/modules/dbg/src/dbg_assert.c             87     TRACE_NO_COMPO(NO_LVL, "ASSERT error: %F:%d", (line >> 20), line)
+90   lmac/modules/dbg/src/dbg_assert.c             117    TRACE_NO_COMPO(NO_LVL, "ASSERT warning: %F:%d", (line >> 20), line)
+90   lmac/modules/dbg/src/dbg_assert.c             124    TRACE_NO_COMPO(NO_LVL, "ASSERT warning: %F:%d", (line >> 20), line)
+91   lmac/modules/dbg/src/dbg.c                    549    TRACE_NO_COMPO(NO_LVL, "Key RAM content:")
+91   lmac/modules/dbg/src/dbg.c                    555    TRACE_NO_COMPO(NO_LVL, "IDX: %d, CNTRL: %08lx, MAC=%pM", i, TR_32(nxmac_encr_cntrl_get()), TR_MAC(NXMAC_ENCR_MAC_ADDR_LOW_ADDR))
+enum_task_start
+0x0 TASK_MM 
+0x1 TASK_DBG 
+0x2 TASK_SCAN 
+0x3 TASK_TDLS 
+0x4 TASK_SCANU 
+0x5 TASK_ME 
+0x6 TASK_SM 
+0x7 TASK_APM 
+0x8 TASK_BAM 
+0x9 TASK_MESH 
+0xa TASK_RXU 
+0xb TASK_RM 
+0xc TASK_TWT 
+0xd TASK_FTM 
+0xd TASK_LAST_EMB 
+0xe TASK_API 
+0xf TASK_MAX 
+0xff TASK_NONE 
+enum_msg_start
+0x0 MM_RESET_REQ 
+0x1 MM_RESET_CFM 
+0x2 MM_START_REQ 
+0x3 MM_START_CFM 
+0x4 MM_VERSION_REQ 
+0x5 MM_VERSION_CFM 
+0x6 MM_ADD_IF_REQ 
+0x7 MM_ADD_IF_CFM 
+0x8 MM_REMOVE_IF_REQ 
+0x9 MM_REMOVE_IF_CFM 
+0xa MM_STA_ADD_REQ 
+0xb MM_STA_ADD_CFM 
+0xc MM_STA_DEL_REQ 
+0xd MM_STA_DEL_CFM 
+0xe MM_SET_FILTER_REQ 
+0xf MM_SET_FILTER_CFM 
+0x10 MM_SET_CHANNEL_REQ 
+0x11 MM_SET_CHANNEL_CFM 
+0x12 MM_SET_DTIM_REQ 
+0x13 MM_SET_DTIM_CFM 
+0x14 MM_SET_BEACON_INT_REQ 
+0x15 MM_SET_BEACON_INT_CFM 
+0x16 MM_SET_BASIC_RATES_REQ 
+0x17 MM_SET_BASIC_RATES_CFM 
+0x18 MM_SET_BSSID_REQ 
+0x19 MM_SET_BSSID_CFM 
+0x1a MM_SET_EDCA_REQ 
+0x1b MM_SET_EDCA_CFM 
+0x1c MM_SET_MODE_REQ 
+0x1d MM_SET_MODE_CFM 
+0x1e MM_SET_VIF_STATE_REQ 
+0x1f MM_SET_VIF_STATE_CFM 
+0x20 MM_SET_SLOTTIME_REQ 
+0x21 MM_SET_SLOTTIME_CFM 
+0x22 MM_SET_IDLE_REQ 
+0x23 MM_SET_IDLE_CFM 
+0x24 MM_KEY_ADD_REQ 
+0x25 MM_KEY_ADD_CFM 
+0x26 MM_KEY_DEL_REQ 
+0x27 MM_KEY_DEL_CFM 
+0x28 MM_BA_ADD_REQ 
+0x29 MM_BA_ADD_CFM 
+0x2a MM_BA_DEL_REQ 
+0x2b MM_BA_DEL_CFM 
+0x2c MM_PRIMARY_TBTT_IND 
+0x2d MM_SECONDARY_TBTT_IND 
+0x2e MM_SET_POWER_REQ 
+0x2f MM_SET_POWER_CFM 
+0x30 MM_DBG_TRIGGER_REQ 
+0x31 MM_SET_PS_MODE_REQ 
+0x32 MM_SET_PS_MODE_CFM 
+0x33 MM_CHAN_CTXT_ADD_REQ 
+0x34 MM_CHAN_CTXT_ADD_CFM 
+0x35 MM_CHAN_CTXT_DEL_REQ 
+0x36 MM_CHAN_CTXT_DEL_CFM 
+0x37 MM_CHAN_CTXT_LINK_REQ 
+0x38 MM_CHAN_CTXT_LINK_CFM 
+0x39 MM_CHAN_CTXT_UNLINK_REQ 
+0x3a MM_CHAN_CTXT_UNLINK_CFM 
+0x3b MM_CHAN_CTXT_UPDATE_REQ 
+0x3c MM_CHAN_CTXT_UPDATE_CFM 
+0x3d MM_CHAN_CTXT_SCHED_REQ 
+0x3e MM_CHAN_CTXT_SCHED_CFM 
+0x3f MM_BCN_CHANGE_REQ 
+0x40 MM_BCN_CHANGE_CFM 
+0x41 MM_TIM_UPDATE_REQ 
+0x42 MM_TIM_UPDATE_CFM 
+0x43 MM_CONNECTION_LOSS_IND 
+0x44 MM_CHANNEL_SWITCH_IND 
+0x45 MM_CHANNEL_PRE_SWITCH_IND 
+0x46 MM_REMAIN_ON_CHANNEL_REQ 
+0x47 MM_REMAIN_ON_CHANNEL_CFM 
+0x48 MM_REMAIN_ON_CHANNEL_EXP_IND 
+0x49 MM_PS_CHANGE_IND 
+0x4a MM_TRAFFIC_REQ_IND 
+0x4b MM_SET_PS_OPTIONS_REQ 
+0x4c MM_SET_PS_OPTIONS_CFM 
+0x4d MM_P2P_VIF_PS_CHANGE_IND 
+0x4e MM_CSA_COUNTER_IND 
+0x4f MM_CHANNEL_SURVEY_IND 
+0x50 MM_BFMER_ENABLE_REQ 
+0x51 MM_SET_P2P_NOA_REQ 
+0x52 MM_SET_P2P_OPPPS_REQ 
+0x53 MM_SET_P2P_NOA_CFM 
+0x54 MM_SET_P2P_OPPPS_CFM 
+0x55 MM_P2P_NOA_UPD_IND 
+0x56 MM_CFG_RSSI_REQ 
+0x57 MM_RSSI_STATUS_IND 
+0x58 MM_CSA_FINISH_IND 
+0x59 MM_CSA_TRAFFIC_IND 
+0x5a MM_ANT_DIV_INIT_REQ 
+0x5b MM_ANT_DIV_STOP_REQ 
+0x5c MM_ANT_DIV_UPDATE_REQ 
+0x5d MM_SWITCH_ANTENNA_REQ 
+0x5e MM_PKTLOSS_IND 
+0x5f MM_SET_MU_EDCA_REQ 
+0x60 MM_SET_MU_EDCA_CFM 
+0x61 MM_SET_UORA_REQ 
+0x62 MM_SET_UORA_CFM 
+0x63 MM_SET_TXOP_RTS_THRES_REQ 
+0x64 MM_SET_TXOP_RTS_THRES_CFM 
+0x65 MM_SET_BSS_COLOR_REQ 
+0x66 MM_SET_BSS_COLOR_CFM 
+0x67 MM_STA_RC_UPDATE_REQ 
+0x68 MM_STA_RC_UPDATE_CFM 
+0x69 MM_POL_TBL_UPDATE_REQ 
+0x6a MM_POL_TBL_UPDATE_CFM 
+0x6b MM_RC_STATS_REQ 
+0x6c MM_RC_STATS_CFM 
+0x6d MM_RC_SET_RATE_REQ 
+0x6e MM_UL_PARAMETERS_REQ 
+0x6f MM_UL_PARAMETERS_CFM 
+0x70 MM_DL_PARAMETERS_REQ 
+0x71 MM_DL_PARAMETERS_CFM 
+0x72 MM_SEND_DEBUG_FRAME_REQ 
+0x73 MM_SEND_DEBUG_FRAME_IND 
+0x74 MM_LMAC_READ_REQ 
+0x75 MM_LMAC_READ_CFM 
+0x76 MM_LMAC_WRITE_REQ 
+0x77 MM_CSI_STAPARAMS_SET_REQ 
+0x78 MM_CSI_STARTPARAMS_SET_REQ 
+0x79 MM_IQ_ENGINE_REQ 
+0x7a MM_DYING_GASP_IND 
+0x7b MM_UPDATE_IDLE_TIME_IND 
+0x7c MM_HEART_REQ 
+0x7d MM_HEART_CFM 
+0x7e MM_SET_TX_TIMEOUT_REQ 
+0x7f MM_SET_TX_TIMEOUT_CFM 
+0x80 MM_GET_TX_TIMEOUT_REQ 
+0x81 MM_GET_TX_TIMEOUT_CFM 
+0x82 MM_BACKOFF_SEL_SET_REQ 
+0x83 MM_DEFAULT_KEY_ADD_REQ 
+0x84 MM_DEFAULT_KEY_ADD_CFM 
+0x85 MM_SET_CCATIME_REQ 
+0x86 MM_GET_CCATIME_REQ 
+0x87 MM_GET_CCATIME_CFM 
+0x88 MM_SET_RXDIGGAIN_REQ 
+0x89 MM_SET_TRX_HW_DEBUG_INFORMATION_REQ 
+0x8a MM_GET_TRX_HW_DEBUG_INFORMATION_REQ 
+0x8b MM_GET_TRX_HW_DEBUG_INFORMATION_CFM 
+0x8c MM_LA_ENABLE_REQ 
+0x8d MM_LA_ENABLE_CFM 
+0x8e MM_SET_CCA_REQ 
+0x8f MM_SET_SOFT_BASIC_NAV_REQ 
+0x90 MM_SET_ACS_CHANNEL_REQ 
+0x91 MM_CSA_CHANNEL_SWITCH_REQ 
+0x92 MM_SET_BAR_TYPE_REQ 
+0x93 MM_GET_CHANNEL_INFO_REQ 
+0x94 MM_GET_CHANNEL_INFO_CFM 
+0x95 MM_SET_MULTI_RATE_REQ 
+0x96 MM_SET_TX_BACKOFF_MECH_REQ 
+0x97 MM_GET_MIB_NUM_REQ 
+0x98 MM_GET_MIB_NUM_CFM 
+0x99 MM_SET_STA_FORBID_REQ 
+0x9a MM_ADD_STA_FORBID_REQ 
+0x9b MM_DEL_STA_FORBID_REQ 
+0x9c MM_ENABLE_RFGAIN_REQ 
+0x9d MM_GET_RFGAIN_REQ 
+0x9e MM_GET_RFGAIN_CFM 
+0x9f MM_ENABLE_RX_VIOLATION_REQ 
+0xa0 MM_GET_RX_VIOLATION_REQ 
+0xa1 MM_GET_RX_VIOLATION_CFM 
+0xa2 MM_CHANGE_TXPOWER_REQ 
+0xa3 MM_SET_USER_TXPOWER_REQ 
+0xa4 MM_ENABLE_TEMP_COMP_REQ 
+0xa5 MM_SETGAIN_OFFSET_REQ 
+0xa6 MM_DEFAULT_MGMT_KEY_ADD_REQ 
+0xa7 MM_DEFAULT_MGMT_KEY_ADD_CFM 
+0xa8 MM_MON_STA_REQ 
+0xa9 MM_FORCE_IDLE_REQ 
+0xaa MM_SCAN_CHANNEL_START_IND 
+0xab MM_SCAN_CHANNEL_END_IND 
+0xac MM_TBTT_MOVE_REQ 
+0xad MM_MAX 
+0x400 DBG_MEM_READ_REQ 
+0x401 DBG_MEM_READ_CFM 
+0x402 DBG_MEM_WRITE_REQ 
+0x403 DBG_MEM_WRITE_CFM 
+0x404 DBG_SET_MOD_FILTER_REQ 
+0x405 DBG_SET_MOD_FILTER_CFM 
+0x406 DBG_SET_SEV_FILTER_REQ 
+0x407 DBG_SET_SEV_FILTER_CFM 
+0x408 DBG_ERROR_IND 
+0x409 DBG_DUALBAND_ERROR_IND 
+0x40a DBG_GET_SYS_STAT_REQ 
+0x40b DBG_GET_SYS_STAT_CFM 
+0x40c DBG_GET_DEBUG_STAT_REQ 
+0x40d DBG_GET_DEBUG_STAT_CFM 
+0x40e DBG_GET_CSI_RECORDER_REQ 
+0x40f DBG_GET_CSI_RECORDER_CFM 
+0x410 DBG_IFACE_SUPP_REQ 
+0x411 DBG_VDR_GET_MP_INFO_REQ 
+0x412 DBG_VDR_GET_MP_INFO_CFM 
+0x413 DBG_CONSOLE_CMD_REQ 
+0x414 DBG_CONSOLE_CMD_CFM 
+0x415 DBG_SYS_STAT_TIMER 
+0x800 SCAN_START_REQ 
+0x801 SCAN_START_CFM 
+0x802 SCAN_DONE_IND 
+0x803 SCAN_CANCEL_REQ 
+0x804 SCAN_CANCEL_CFM 
+0x805 SCAN_TIMER 
+0x806 SCAN_MAX 
+0xc00 TDLS_CHAN_SWITCH_REQ 
+0xc01 TDLS_CHAN_SWITCH_CFM 
+0xc02 TDLS_CHAN_SWITCH_IND 
+0xc03 TDLS_CHAN_SWITCH_BASE_IND 
+0xc04 TDLS_CANCEL_CHAN_SWITCH_REQ 
+0xc05 TDLS_CANCEL_CHAN_SWITCH_CFM 
+0xc06 TDLS_PEER_PS_IND 
+0xc07 TDLS_PEER_TRAFFIC_IND_REQ 
+0xc08 TDLS_PEER_TRAFFIC_IND_CFM 
+0xc09 TDLS_MAX 
+0x1000 SCANU_START_REQ 
+0x1001 SCANU_START_CFM 
+0x1002 SCANU_JOIN_REQ 
+0x1003 SCANU_JOIN_CFM 
+0x1004 SCANU_RESULT_IND 
+0x1005 SCANU_GET_SCAN_RESULT_REQ 
+0x1006 SCANU_GET_SCAN_RESULT_CFM 
+0x1007 SCANU_ABORT_REQ 
+0x1008 SCANU_ABORT_CFM 
+0x1400 ME_CONFIG_REQ 
+0x1401 ME_CONFIG_CFM 
+0x1402 ME_CHAN_CONFIG_REQ 
+0x1403 ME_CHAN_CONFIG_CFM 
+0x1404 ME_SET_CONTROL_PORT_REQ 
+0x1405 ME_SET_CONTROL_PORT_CFM 
+0x1406 ME_TKIP_MIC_FAILURE_IND 
+0x1407 ME_STA_ADD_REQ 
+0x1408 ME_STA_ADD_CFM 
+0x1409 ME_STA_DEL_REQ 
+0x140a ME_STA_DEL_CFM 
+0x140b ME_TX_CREDITS_UPDATE_IND 
+0x140c ME_TRAFFIC_IND_REQ 
+0x140d ME_TRAFFIC_IND_CFM 
+0x140e ME_CONFIG_MONITOR_REQ 
+0x140f ME_CONFIG_MONITOR_CFM 
+0x1410 ME_SET_PS_MODE_REQ 
+0x1411 ME_SET_PS_MODE_CFM 
+0x1412 ME_ASSOC_INSERT_INFO_REQ 
+0x1413 ME_AUTH_INSERT_INFO_REQ 
+0x1414 ME_SET_DBG_STA_DEL_REQ 
+0x1415 ME_SET_ACTIVE_REQ 
+0x1416 ME_SET_ACTIVE_CFM 
+0x1417 ME_SET_PS_DISABLE_REQ 
+0x1418 ME_SET_PS_DISABLE_CFM 
+0x1419 ME_DATA_PATH_FLUSHED_IND 
+0x1800 SM_CONNECT_REQ 
+0x1801 SM_CONNECT_CFM 
+0x1802 SM_CONNECT_IND 
+0x1803 SM_DISCONNECT_REQ 
+0x1804 SM_DISCONNECT_CFM 
+0x1805 SM_DISCONNECT_IND 
+0x1806 SM_EXTERNAL_AUTH_REQUIRED_IND 
+0x1807 SM_EXTERNAL_AUTH_REQUIRED_RSP 
+0x1808 SM_FT_AUTH_IND 
+0x1809 SM_FT_AUTH_RSP 
+0x180a SM_REPEATER_STATUS_IND 
+0x180b SM_RSP_TIMEOUT_IND 
+0x1c00 APM_START_REQ 
+0x1c01 APM_START_CFM 
+0x1c02 APM_STOP_REQ 
+0x1c03 APM_STOP_CFM 
+0x1c04 APM_START_CAC_REQ 
+0x1c05 APM_START_CAC_CFM 
+0x1c06 APM_STOP_CAC_REQ 
+0x1c07 APM_STOP_CAC_CFM 
+0x1c08 APM_PROBE_CLIENT_REQ 
+0x1c09 APM_PROBE_CLIENT_CFM 
+0x1c0a APM_PROBE_CLIENT_IND 
+0x1c0b APM_SET_POWER_REQ 
+0x2000 BAM_ADD_BA_RSP_TIMEOUT_IND 
+0x2001 BAM_DEL_BA_IDX_REQ 
+0x2002 BAM_ACTIVITY_TIMEOUT_IND 
+0x2800 RXU_MGT_IND 
+0x2801 RXU_NULL_DATA 
+0x2c00 RM_PROCESS_NEXT_REQUEST_IND 
+0x3000 TWT_SETUP_REQ 
+0x3001 TWT_SETUP_CFM 
+0x3002 TWT_SETUP_IND 
+0x3003 TWT_TEARDOWN_REQ 
+0x3004 TWT_TEARDOWN_CFM 
+0x3005 TWT_SP_IND 
+0x3006 TWT_MAX 
+0x3400 FTM_START_REQ 
+0x3401 FTM_START_CFM 
+0x3402 FTM_DONE_IND 
+0x3403 FTM_MEASUREMENT_REQ 
+0x3404 FTM_PEER_RSP_TIMEOUT_IND 
+0x3405 FTM_CLOSE_SESSION_REQ 
+0x3406 FTM_AP_MEASUREMENT 

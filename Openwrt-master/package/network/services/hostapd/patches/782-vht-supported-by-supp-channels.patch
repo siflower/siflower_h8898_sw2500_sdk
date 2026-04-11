@@ -95,7 +95,7 @@
 +u16 copy_sta_supp_channels(struct hostapd_data *hapd, struct sta_info *sta,
 +		       const u8 *supported_channels, u8 supported_channels_len)
 +{
-+	if (!supported_channels) {
++	if (!supported_channels || supported_channels_len == 0) {
 +		os_free(sta->supported_channels);
 +		sta->supported_channels = NULL;
 +		sta->supported_channels_len = 0;

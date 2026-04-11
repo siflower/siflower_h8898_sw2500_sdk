@@ -28,9 +28,17 @@ fullmask_siflower-one-nand)
 	tag_filter="sf21h8898_gateway" # Default tag filter
 	target_board=target/linux/siflower/sf21h8898_siflower_one_nand_def.config
 	;;
+fullmask_siflower-one-nand-wifi)
+	tag_filter="sf21h8898_gateway" # Default tag filter
+	target_board=target/linux/siflower/sf21h8898_siflower_one_nand_wifi_def.config
+	;;
 fullmask_siflower-one-nor)
 	tag_filter="sf21h8898_gateway" # Default tag filter
 	target_board=target/linux/siflower/sf21h8898_siflower_one_nor_def.config
+	;;
+fullmask_siflower-one-nor-wifi)
+	tag_filter="sf21h8898_gateway" # Default tag filter
+	target_board=target/linux/siflower/sf21h8898_siflower_one_nor_wifi_def.config
 	;;
 fullmask_gw-bc-nand)
 	tag_filter="sf21h8898_gateway" # Default tag filter

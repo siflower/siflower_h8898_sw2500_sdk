@@ -1,0 +1,47 @@
+cmake_minimum_required(VERSION 2.6)
+
+SET(LINUX_KERNEL_DIR "${CMAKE_SOURCE_DIR}/../../../sf_kernel/linux-5.10")
+MESSAGE(STATUS "LINUX_KERNEL_DIR = ${LINUX_KERNEL_DIR}")
+
+SET(OPENWRT_CONFIG "${CMAKE_SOURCE_DIR}/../../../.config")
+MESSAGE(STATUS "OPENWRT_CONFIG = ${OPENWRT_CONFIG}")
+
+PROJECT(atetools C)
+
+OPTION(NAND_SUPPORT "nand ubi support" OFF)
+
+IF(EXISTS "${LINUX_KERNEL_DIR}/.config")
+    FILE(STRINGS "${LINUX_KERNEL_DIR}/.config" CONFIG_MTD_UBI REGEX "^CONFIG_MTD_UBI=y")
+    IF(CONFIG_MTD_UBI)
+        SET(NAND_SUPPORT ON)
+        MESSAGE(STATUS "Detected UBI support in kernel config")
+    ENDIF()
+ENDIF()
+
+IF(EXISTS "${OPENWRT_CONFIG}")
+    FILE(STRINGS "${OPENWRT_CONFIG}" CONFIG_VERSION_PRODUCT REGEX "^CONFIG_VERSION_PRODUCT=\"[^\"]*nand[^\"]*\"")
+    IF(CONFIG_VERSION_PRODUCT)
+        SET(NAND_SUPPORT ON)
+        MESSAGE(STATUS "Detected 'nand' in CONFIG_VERSION_PRODUCT")
+    ENDIF()
+ENDIF()
+
+ADD_DEFINITIONS(-Os -ggdb -Wextra -Wall -Wmissing-declarations -Wno-unused-parameter)
+
+IF(NAND_SUPPORT)
+	ADD_DEFINITIONS(-DNAND_SUPPORT)
+ENDIF()
+
+find_library(ubi NAMES ubi REQUIRED)
+
+ADD_EXECUTABLE(ate_cmd main.c)
+
+TARGET_LINK_LIBRARIES(ate_cmd ${ubi})
+
+ADD_EXECUTABLE(ate_server ate_server.c)
+
+TARGET_LINK_LIBRARIES(ate_server ${ubi})
+
+INSTALL(TARGETS ate_cmd ate_server
+	RUNTIME DESTINATION bin
+)

@@ -1111,8 +1111,9 @@ mac80211_interface_cleanup() {
                 fi
         done
 
-
-	mac80211_vap_cleanup hostapd "${primary_ap}"
+	if [ "$mode" = "hostap" ]; then
+		mac80211_vap_cleanup hostapd "${primary_ap}"
+	fi
 	mac80211_vap_cleanup wpa_supplicant "$(uci -q -P /var/state get wireless._${phy}.splist)"
 	mac80211_vap_cleanup none "$(uci -q -P /var/state get wireless._${phy}.umlist)"
 }
