@@ -32,7 +32,6 @@ define Package/rm500u-cnv_demo/install
 	$(INSTALL_DIR) $(1)/bin
 	$(INSTALL_BIN) ./files/active_ep_mode.sh $(1)/bin/active_ep_mode.sh
 	$(INSTALL_BIN) ./files/auto_dial_up_networking.sh $(1)/bin/auto_dial_up_networking.sh
-	$(INSTALL_BIN) ./files/manual_dial_up_networking.sh $(1)/bin/manual_dial_up_networking.sh
 
 endef
 

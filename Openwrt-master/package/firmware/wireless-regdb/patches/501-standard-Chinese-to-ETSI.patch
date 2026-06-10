@@ -1,0 +1,13 @@
+Index: wireless-regdb-2025.02.20/db.txt
+===================================================================
+--- wireless-regdb-2025.02.20.orig/db.txt
++++ wireless-regdb-2025.02.20/db.txt
+@@ -424,7 +424,7 @@ country CL: DFS-JP
+ # https://wap.miit.gov.cn/cms_files/filemanager/1226211233/attach/20219/d125301b13454551b698ff5afa49ca28.pdf
+ # https://www.miit.gov.cn/cms_files/filemanager/1226211233/attach/20236/d1dc19424d5a4cfe90d631adeee8dd58.pdf
+ # Note: The transmit power for 5250-5350MHz bands can be raised by 3dBm when TPC is implemented
+-country CN: DFS-FCC
++country CN: DFS-ETSI
+ 	(2400 - 2483.5 @ 40), (20)
+ 	(5150 - 5250 @ 80), (23), NO-OUTDOOR, AUTO-BW
+ 	(5250 - 5350 @ 80), (20), NO-OUTDOOR, DFS, AUTO-BW

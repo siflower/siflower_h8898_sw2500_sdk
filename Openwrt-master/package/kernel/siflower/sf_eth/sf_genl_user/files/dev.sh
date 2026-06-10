@@ -16,12 +16,12 @@ if [ $1 -eq 1 ]; then
 		wan_device=`uci get network.wan.device | awk -F '.' '{print$2}'`
 		if [ "$wan_device" == "$6" ]; then
 			logger -t device_listen: is wan mac:$2 updown:$1
-			return;
+			exit 0;
 		else
 			wan_device=`uci get network.wan.device`
 			if [ "$wan_device" == "$4" ]; then
 				logger -t device_listen: is wan mac:$2 updown:$1
-				return;
+				exit 0;
 			fi
 		fi
 	fi
@@ -75,3 +75,4 @@ elif [ $1 -eq 0 ]; then
 	uci set devlist.$mac.online=0
 	uci commit devlist
 fi
+

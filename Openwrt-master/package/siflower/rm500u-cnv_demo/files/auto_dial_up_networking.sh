@@ -1,8 +1,85 @@
 #!/bin/sh
-# Configure modem with AT commands
-add_config() {
-    echo "Appending network config..."
 
+PCIE_DEV="/dev/stty_nr31"
+
+send_at() {
+    local CMD="$1"
+    timeout 0.1 cat <&3 > /dev/null 2>/dev/null
+    printf '%s\r' "$CMD" >&3
+    timeout 0.5 cat <&3 2>/dev/null
+}
+
+common_resp() {
+    local CMD="$1"
+    local RESP
+    RESP=$(send_at "$CMD")
+    if echo "$RESP" | grep -q "OK"; then
+        return 0
+    else
+        return 1
+    fi
+}
+
+wait_for_modem_ready() {
+    local dev="$1"
+    local timeout_sec="${2:-30}"
+    local i=0
+    local resp
+
+    echo "等待 $dev 就绪..."
+
+    while [ "$i" -lt "$timeout_sec" ]; do
+        if [ -e "$dev" ]; then
+            if [ "$dev" == "$USB_DEV" ]; then
+                stty -F "$dev" raw -echo
+            fi
+            exec 3<>"$dev" 2>/dev/null
+            if [ $? -eq 0 ]; then
+                common_resp 'AT' && return 0
+                exec 3>&-
+                exec 3<&-
+            fi
+        fi
+
+        sleep 2
+        i=$((i + 1))
+    done
+
+    return 1
+}
+
+get_pcie_mode() {
+    local RESP
+    RESP=$(send_at 'AT+QCFG="pcie/mode"')
+    echo "$RESP" | awk -F',' '/\+QCFG: "pcie\/mode"/ {gsub(/\r/,"",$2); print $2}'
+}
+
+get_sim_state() {
+    local RESP1 RESP2 simstat cpin
+    RESP1=$(send_at 'AT+QSIMSTAT?')
+    RESP2=$(send_at 'AT+CPIN?')
+    simstat=$(echo "$RESP1" | sed -n 's/.*+QSIMSTAT: [0-9]\+,\([0-9]\+\).*/\1/p' | tr -d '[:space:]')
+    cpin=$(echo "$RESP2" | sed -n 's/.*+CPIN: \([A-Z]\+\).*/\1/p' | tr -d '[:space:]')
+    [ "$simstat" = "1" ] && [ "$cpin" = "READY" ]
+}
+
+get_init_stat() {
+    local RESP initstat
+    RESP=$(send_at 'AT+QINISTAT')
+    initstat=$(echo "$RESP" | sed -n 's/.*+QINISTAT: \([0-9]\+\).*/\1/p' | tr -d '[:space:]')
+    [ "$initstat" = "7" ]
+}
+
+wait_cgact_success() {
+    local i RESP
+    for i in $(seq 1 5); do
+        common_resp 'AT+CGACT=1,1' && return 0
+        sleep 3
+    done
+    return 1
+}
+
+add_config() {
     cat >> /etc/config/network <<EOF
 config interface 'wwan'
     option proto 'dhcp'
@@ -14,96 +91,23 @@ config interface 'dummy0'
 EOF
 }
 
-echo -e "AT+QCFG=\"autoapn\",1\r" > /dev/stty_nr31
-echo -e "AT+QNETDEVCTL=1,1,1\r" > /dev/stty_nr31
+# 打开读写 fd
+wait_for_modem_ready "$PCIE_DEV" || { echo "等待设备通信准备失败"; exit 1; }
 
+get_sim_state || { echo "SIM卡检测失败"; exec 3>&-; exec 3<&-; exit 1; }
+get_init_stat || { echo "模块初始化检测失败"; exec 3>&-; exec 3<&-; exit 1; }
+common_resp 'AT+QCFG="autoapn",1' || { echo "启用自动 APN 选择失败"; exec 3>&-; exec 3<&-; exit 1; }
+wait_cgact_success || { echo "激活 PDP 上下文失败,请检查天线是否连接"; exec 3>&-; exec 3<&-; exit 1; }
+common_resp 'AT+QNETDEVCTL=1,1,1' || { echo "连接指定 PDP 建立失败"; exec 3>&-; exec 3<&-; exit 1; }
 
-# Check if 'wwan' and 'dummy0' already exist in config
-WWAN_EXIST=$(grep -c "config interface 'wwan'" /etc/config/network)
-
-if [ "$WWAN_EXIST" -eq 0 ]; then
+EXIST=$(grep -c "option device 'pcie0'" /etc/config/network)
+if [ "$EXIST" -eq 0 ]; then
     add_config
+    /etc/init.d/network restart
 else
-    echo " 5G module's interface already configured."
+    ip link set pcie0 up
 fi
 
-
-# Restart network service
-/etc/init.d/network restart
-
-# Wait for interface to be available
-while [ ! -d /sys/class/net/pcie0 ]; do
-    sleep 1
-done
-
-# Wait for interface to come up
-while ! ip link show pcie0 | grep -q "state UP"; do
-    sleep 1
-done
-
-# Get IP address via DHCP
-udhcpc -i pcie0
-
-# Debug version of dia_up_networking.sh to configure Quectel RM500U-CN 5G module
-# Automates AT commands, network configuration, and connectivity test on OpenWrt
-# Includes debug steps from Quectel AT Commands Manual for detailed troubleshooting
-# Date: July 28, 2025
-
-# Debug Steps (based on provided debug content, excluding irrelevant outputs like +CSQ: 30,99):
-# Step 1: Access the AT Command Port
-#   - Use /dev/stty_nr31 for AT command communication (replaced with 'chat' for automation)
-# Step 2: Verify Module and SIM Status
-#   2.1 Check Module Status (pages 16-18):
-#       - AT: Test basic communication with the module
-#       - AT+GMI: Query manufacturer information
-#       - AT+GMR: Query firmware revision
-#   2.2 Check SIM Card Status (pages 60–76):
-#       - AT+QSIMSTAT?: Query SIM insertion status
-#       - AT+CPIN?: Verify SIM is ready and unlocked
-#   2.3 Query Initialization Status (page 72):
-#       - AT+QINISTAT: Check module initialization (7 indicates ready)
-# Step 3: Configure Network Settings
-#   3.1 Set Network Mode (page 100):
-#       - AT+QNWPREFCFG="mode_pref": Query current network mode
-#       - AT+QNWPREFCFG="mode_pref","NR5G:LTE": Set to 5G (NSA/SA) and LTE
-#       - Supported modes:
-#         | Command                              | Meaning                                   |
-#         | ------------------------------------ | ----------------------------------------- |
-#         | AT+QNWPREFCFG="mode_pref",AUTO      | Automatically select 5G + LTE + WCDMA     |
-#         | AT+QNWPREFCFG="mode_pref",LTE       | Lock module to LTE only                   |
-#         | AT+QNWPREFCFG="mode_pref",NR5G-SA   | Use 5G Standalone only                    |
-#         | AT+QNWPREFCFG="mode_pref",NR5G-NSA  | Use 5G Non-Standalone only                |
-#         | AT+QNWPREFCFG="mode_pref",NR5G:LTE  | Use both 5G (NSA/SA) and LTE              |
-#         | AT+QNWPREFCFG="mode_pref",WCDMA     | Use only 3G (UMTS/WCDMA)                  |
-#   3.2 Set APN (page 206):(if done, don't need do 3.3 Enable Automatic APN Selection)
-#       - AT+QICSGP=1,1,"CTNET": Configure APN for PDP context ID 1 (China Telecom)
-#   3.3 Enable Automatic APN Selection (page 52):
-#       - AT+QCFG="autoapn",1: Enable automatic APN configuration(if done, don't need do 3.2 Set APN)
-#   3.4 Check Network Registration (page 82):
-#       - AT+CREG?: Check circuit-switched registration status
-#   3.5 Query Network Information (page 90):
-#       - AT+QNWINFO: Query current network type and parameters
-# Step 4: Configure PCIe/USB Mode
-#   4.1 Check the current USB mode:
-#       - AT+QCFG="usbmode": Query USB mode (e.g., MBIM, ECM)
-#   4.2 If not in MBIM mode, set it:
-#       - AT+QCFG="usbmode","mbim": Set to MBIM mode for PCIe data
-#   4.3 Save settings:
-#       - AT&W: Save configuration to non-volatile memory
-# Step 5: Activate Data Connection
-#   5.1 Define PDP Context (page 176):(if do 3.3 Enable Automatic APN Selection, don't do 5.1 Define PDP Context)
-#       - AT+CGDCONT=1,"IP","CTNET": Define PDP context for IP
-#   5.2 Activate PDP Context (page 191):
-#       - AT+CGACT=1,1: Activate PDP context for CID 1
-#   5.3 Make a call through specified PDP:
-#       - AT+QNETDEVCTL=1,1,1: Activate network interface for CID 1
-#   5.4 Check Network Status (page 204):
-#       - AT+QNETDEVSTATUS?: Query network interface status
-# Step 6: Set Up Networking on the Host
-#   - echo normal > /sys/class/net/pcie0/mode: Set interface to normal mode
-#   - udhcpc -i pcie0: Obtain IP address via DHCP
-# Step 7: Configure OpenWrt Network
-#   - Append 'wwan' and 'dummy0' interfaces to /etc/config/network
-#   - Restart network service to apply changes
-# Step 8: Verify Connectivity
-#   - ping www.baidu.com: Test network connectivity
+# 关闭 fd
+exec 3>&-
+exec 3<&-

@@ -1085,7 +1085,7 @@ static int sf1240_load_patch_enable(struct phy_device *phydev)
 
 int sf1240_config_init(struct phy_device *phydev)
 {
-	int ret, val;
+	int ret, val, chip_version;
 	unsigned int patchenable_val, patchenableack_val;
 
 #if (KERNEL_VERSION(5, 4, 0) > LINUX_VERSION_CODE)
@@ -1098,7 +1098,8 @@ int sf1240_config_init(struct phy_device *phydev)
 
 	patchenable_val = siflower_phy_ext_read(phydev, glblPatchEnable);
 	patchenableack_val = siflower_phy_ext_read(phydev, glblPatchEnableAck);	//avoid patch load more than once
-	if (phydev->phy_id == SF1240_PHY_ID && ((patchenable_val != 0x85) || (patchenableack_val != 0x85))) {
+	chip_version = siflower_phy_ext_read(phydev, 0xc419);
+	if (phydev->phy_id == SF1240_PHY_ID && ((patchenable_val != 0x85) || (patchenableack_val != 0x85)) && (chip_version == 2)) {
 		ret = sf1240_load_patch_enable(phydev);
 		if (ret < 0)
 			return ret;
